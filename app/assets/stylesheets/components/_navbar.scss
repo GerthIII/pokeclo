@@ -7,10 +7,16 @@
   background: white;
 }
 
+.navbar-lewagon .nav.active{
+  border-top: 3px solid #3f3f3f;
+  width: 25px;
+  justify-content: center;
+}
+
 .navbar-lewagon .navbar-collapse {
   flex-grow: 0;
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 60px;
 }
