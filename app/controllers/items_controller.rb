@@ -3,8 +3,21 @@ class ItemsController < ApplicationController
   @items = Item.all
   end
   def new
-    @items = Item.new
+    @item = Item.new
   end
   def create
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to item_path(@item)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :description, :photo, :category, :slot)
   end
 end
