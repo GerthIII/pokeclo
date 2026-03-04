@@ -1,0 +1,21 @@
+<div class="outfit-show">
+
+  <p class="path">/outfits/<%= @outfit.id %></p>
+
+  <div class="show-card">
+    <h2 class="show-title"><%= @outfit.name %></h2>
+
+    <div class="spacer"></div>
+
+    <div class="show-buttons">
+      <%= link_to "Edit", edit_outfit_path(@outfit), class: "show-btn" %>
+      <%= link_to "Delete",
+            outfit_path(@outfit),
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+            class: "show-btn" %>
+    </div>
+  </div>
+
+
+
+</div>
