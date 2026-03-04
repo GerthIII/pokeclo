@@ -1,21 +1,27 @@
 <div class="outfit-show">
+  <div class="outfit-card show-card">
 
-  <p class="path">/outfits/<%= @outfit.id %></p>
-
-  <div class="show-card">
-    <h2 class="show-title"><%= @outfit.name %></h2>
-
-    <div class="spacer"></div>
-
-    <div class="show-buttons">
-      <%= link_to "Edit", edit_outfit_path(@outfit), class: "show-btn" %>
-      <%= link_to "Delete",
-            outfit_path(@outfit),
-            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-            class: "show-btn" %>
+    <div class="image-box">
+      <% if @outfit.jacket.attached? %>
+        <%= image_tag @outfit.jacket, class: "card-image" %>
+      <% else %>
+        <p>No Image</p>
+      <% end %>
     </div>
+
+    <div class="card-info">
+      <h2><%= @outfit.name %></h2>
+      <p><%= @outfit.description %></p>
+
+      <div class="show-buttons">
+        <%= link_to "Edit", edit_outfit_path(@outfit), class: "btn" %>
+
+        <%= link_to "Delete",
+              outfit_path(@outfit),
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+              class: "btn" %>
+      </div>
+    </div>
+
   </div>
-
-
-
 </div>

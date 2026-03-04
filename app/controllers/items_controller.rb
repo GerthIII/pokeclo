@@ -10,9 +10,10 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user = current_user
+
     if @item.save
       redirect_to item_path(@item)
-    els
+    else
       render :new, status: :unprocessable_entity
     end
   end
@@ -27,11 +28,24 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
+
     if @item.update(item_params)
       redirect_to item_path(@item), notice: "Item updated!"
     else
-      render :edit, status: :unprocessable_content
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
+  # ✅ ここに独立して書く
+  def add_to_outfit
+    item = Item.find(params[:id])
+    outfit = current_user.outfits.order(created_at: :desc).first
+
+    if outfit.present?
+      outfit.jackets.attach(item.photo.blob)
+      redirect_to edit_outfit_path(outfit), notice: "Added to outfit!"
+    else
+      redirect_to new_outfit_path, alert: "Create an outfit first!"
     end
   end
 

@@ -1,22 +1,44 @@
 <div class="outfits-index">
-
-  <h1>Outfits</h1>
+  <h1>Outfits Gallery</h1>
 
   <div class="outfits-grid">
-    <% items = Item.includes(photo_attachment: :blob).limit(8) %>
-
-    <% @outfits.each do |i| %>
+    <% @outfits.each do |outfit| %>
       <div class="outfit-card">
-        <div class="image-box">
-          <% if i.jacket.attached? %>
-            <%= image_tag i.jacket, class: "card-image" %>
-          <% else %>
-            <p>"No Image"</p>
-          <% end %>
+
+        <%= link_to outfit_path(outfit) do %>
+          <div class="image-box">
+            <% if outfit.jacket.attached? %>
+              <%= image_tag outfit.jacket, class: "card-image" %>
+            <% else %>
+              <p>No Image</p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="card-info">
+          <p><%= outfit.name %></p>
         </div>
+
       </div>
     <% end %>
   </div>
-  <%= link_to "Create an Outfit", new_outfit_path, class: "btn btn-primary" %>
 
+  <%= link_to "Create an Outfit", new_outfit_path, class: "btn btn-primary" %>
 </div>
+
+<% if current_user.outfits.exists? %>
+  <% latest_outfit = current_user.outfits.order(created_at: :desc).first %>
+
+  <%= link_to "EDIT OUTFIT",
+        edit_outfit_path(latest_outfit),
+        class: "btn btn-primary" %>
+
+<% else %>
+
+  <%= link_to "CREATE OUTFIT",
+        new_outfit_path,
+        class: "btn btn-primary" %>
+
+<% end %>
+
+<%= link_to "Back to items", items_path %>

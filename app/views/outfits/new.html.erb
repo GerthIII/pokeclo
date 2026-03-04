@@ -5,15 +5,20 @@
 
     <div class="edit-container">
 
+      <!-- 左カラム -->
       <div class="left-column">
         <%= f.input :name %>
-        <%= f.input :description %>
-        <%= f.input :status %>
-        <%= f.input :jacket, as: :file %>
 
-        <%= f.submit "Create Item", class:"btn btn-primary" %>
+        <%= f.input :description %>
+
+        <%= f.input :jackets,
+                    as: :file,
+                    input_html: { multiple: true, accept: "image/*" } %>
+
+        <%= f.submit "Create Outfit", class: "btn btn-primary" %>
       </div>
 
+      <!-- 右カラム -->
       <div class="action-column">
         <%= f.submit "CREATE", class: "btn" %>
         <%= link_to "ADVICE", "#", class: "btn" %>
