@@ -65,7 +65,7 @@ file2 = URI.open("https://c.imgz.jp/014/104681014/104681014_8_d_500.jpg")
 item2.photo.attach(io: file2, filename: "#{item2.name}.png", content_type: "image/png")
 item2.save
 
-file3 = URI.open("https://c.imgz.jp/764/104136764/104136764b_1_d_215.jpg")
+file3 = URI.open("https://c.imgz.jp/763/104136763/104136763b_1_d_500.jpg")
 item3.photo.attach(io: file3, filename: "#{item3.name}.png", content_type: "image/png")
 item3.save
 

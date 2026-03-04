@@ -1,88 +1,39 @@
-<div class="container p-5">
-<button class="main-button">
-  <span class="cta">BUY NOW</span>
-</button>
-
-
-<div class="product-card">
-  <div class="product-image">
-    <%= image_tag "https://architectureandsneakers.com/cdn/shop/files/IB5674-010-1_900x.jpg?v=1769590414", alt: "Nike Tank Top" %>
+<div class="container p-3">
+  <div class="container text-center">
+    <div class="home-title">
+      <h1>Pokeclo</h1>
+    </div>
+    <hr>
+    <p>Get advices from Pokeclo on your next outfit</p>
   </div>
-  <span class="btn-cart">CATEGORY</span>
-  <h3 class="product-title">Nike Tape Back Vest Top</h3>
-  <p class="product-subtitle">Muscle Tank Vest With Large Sizing</p>
-  <div class="product-colors">
-    <span class="color color-gray"></span>
-    <span class="color color-green"></span>
+  <div class="home-hero" style="width: 100%; height: 100%S;">
+    <%= image_tag "home.jpg", class:"home-hero-image" %>
+    <div class="home-hero-buttons">
+      <%= link_to 'Sign In', new_user_registration_path, class: "btn btn-primary rounded-pill"%>
+      <%= link_to 'Log In', new_user_session_path, class: "btn btn-primary rounded-pill"%>
+    </div>
   </div>
-  <button class="btn-cart">SEE OUTFITS</button>
-</div>
-
-###################################
-
-<div class="product-strip overflow-x-auto">
-  <div class="d-flex flex-nowrap gap-4 py-3 px-2">
-    <%# @products.each do |product| %>
-      <div class="product-tile flex-shrink-0 text-center">
-        <div class="position-relative product-tile__img-wrap">
-          <%#= image_tag product.image_url, class: "w-100 h-100 object-fit-contain", alt: product.name %>
-
-          <%# if product.on_sale? %>
-            <span class="badge-sale position-absolute">SALE</span>
-          <%# end %>
-        </div>
-
-        <p class="product-tile__name mb-1"><%#= product.name %></p>
-
-        <p class="product-tile__price mb-0">
-          <%# if product.on_sale? %>
-            <span class="price-sale">$ <%#= product.sale_price %></span>
-            <span class="price-old ms-2">$ <%#= product.price %></span>
-          <%# else %>
-            <span class="price-normal">$ <%#= product.price %></span>
-          <%# end %>
-        </p>
-      </div>
-    <%# end %>
+  <hr>
+  <div class="container text-center">
+    <h2 class="mb-4">About Pokeclo</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta vitae turpis et mollis. Sed commodo sagittis nisi. Sed eu volutpat lacus, vitae varius diam. Etiam a lorem massa. Donec.</p>
   </div>
-</div>
+  <hr>
+  <div class="container text-center">
+    <h3>Features</h3>
+    <ul>
+      <li>Lorem ipsum dolor sit amet</li>
+      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
 
+      <li>Lorem ipsum dolor sit amet</li>
+      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
 
-<div class="item-form">
-  <h1 class="item-form__title">Novo item</h1>
-
-  <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
-    <div class="item-form__field">
-      <%= f.input :name,
-        label: "Nome do item",
-        placeholder: "Ex: Jaqueta jeans",
-        input_html: { class: "item-input" } %>
-    </div>
-
-    <div class="item-form__field">
-      <%= f.input :category,
-        label: "Categoria",
-        collection: ["Camiseta", "Calça", "Jaqueta", "Tênis", "Acessório"],
-        prompt: "Selecione",
-        input_html: { class: "item-input" } %>
-    </div>
-
-    <div class="item-form__field">
-      <%= f.input :description,
-        as: :text,
-        label: "Descrição",
-        placeholder: "Cor, tamanho, marca…",
-        input_html: { rows: 4, class: "item-input" } %>
-    </div>
-
-    <div class="item-form__field">
-      <%= f.input :photo,
-        as: :file,
-        label: "Adicionar foto",
-        input_html: { class: "item-file" } %>
-    </div>
-
-    <%= f.button :submit, "Criar", class: "item-btn" %>
-  <% end %>
-</div>
+      <li>Lorem ipsum dolor sit amet</li>
+      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
+    </ul>
+      <%= link_to 'Sign In', new_user_registration_path, class: "btn btn-primary rounded-pill"%>
+  </div>
+  <div class="container">
+    <p>FOOTER INFORMATION.</p>
+  </div>
 </div>
