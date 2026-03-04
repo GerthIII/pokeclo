@@ -1,6 +1,7 @@
 <%= form_with(model: @item, local: true) do |f| %>
   <div class="form-inputs">
     <div class="mb-3">
+      
       <label class="btn btn-outline-secondary w-100 rounded-pill">
         📷 Change Photo
         <%= f.file_field :photo, accept: 'image/*', capture: 'camera', class: "d-none" %>
