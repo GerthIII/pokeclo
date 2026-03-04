@@ -1,25 +1,21 @@
 <div class="outfit-edit">
-  <h1>Edit Outfit</h1>
+  <h1>New Outfit</h1>
 
-  <%= form_with model: @outfit do |f| %>
+  <%= simple_form_for @outfit, html: { multipart: true } do |f| %>
     <div class="edit-container">
 
-      <!-- 左の画像カラム -->
-      <div class="items-column">
-        <% 4.times do %>
-          <div class="item-box"></div>
-        <% end %>
+      <!-- 左カラム -->
+      <div class="left-column">
+        <%= f.input :name %>
+        <%= f.input :description %>
+        <%= f.input :jacket, as: :file %>
 
-        <!-- ここにテキストボックスを追加 -->
-        <div class="text-area-below">
-          <%= f.text_field :description, placeholder: "Type something here..." %>
-          <button type="button">▶</button>
-        </div>
+        <%= f.submit "Create Item", class: "btn btn-primary" %>
       </div>
 
-      <!-- 右のボタン群 -->
+      <!-- 右カラム -->
       <div class="action-column">
-        <%= f.submit "EDIT", class: "btn" %>
+        <%= f.submit "CREATE", class: "btn" %>
         <%= link_to "ADVICE", "#", class: "btn" %>
         <%= link_to "OMAKASE", "#", class: "btn bottom-btn" %>
       </div>
