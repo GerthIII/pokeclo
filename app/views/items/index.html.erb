@@ -1,21 +1,25 @@
-<div class="container d-flex flex-column align-items-center text-center">
+<div class="container d-flex flex-column align-items-center text-center pb-5  ">
   <div class="container d-flex flex-column align-items-center mt-5">
     <h1> Pokeclo</h1>
     <h2>My Items</h2>
-    <div class="product-card">
+    <div class="cards-wrapper">
       <% @items.each do |item| %>
-        <div class="product-unique-card mb-3">
-          <p class="product-title"><%= item.name %></p>
-          <div class="product-image">
-            <%= cl_image_tag item.photo.key if item.photo.attached? %>
-          </div>
-          <p class="product-subtitle"><%= item.description %></p>
-          <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
-              <span class="badge rounded-pill bg-primary"><%= item.slot %></span>
-              <span class="badge rounded-pill bg-primary"><%= item.season %></span>
+        <div class="product-card">
+            <div class="product-unique-card">
+              <p class="product-title"><%= item.name %></p>
+              <div class="product-image product-image-wrapper">
+                <%= cl_image_tag item.photo.key if item.photo.attached? %>
+                <span class="product-badge rounded-pill bg-primary"><%= item.slot %></span>
+              </div>
+              <div class="p-text-box">
+                <p class="product-subtitle"><%= item.description %></p>
+              </div>
+              <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+              </div>
             </div>
         </div>
       <% end %>
-    </div>
+      </div>
+      <%= link_to 'Create an Item', new_item_path, class: "main-button mb-4"%>
   </div>
 </div>
