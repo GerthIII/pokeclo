@@ -1,6 +1,7 @@
 <%= form_with(model: @item, local: true) do |f| %>
   <div class="form-inputs">
     <div class="mb-3">
+      
       <label class="btn btn-outline-secondary w-100 rounded-pill">
         📷 Change Photo
         <%= f.file_field :photo, accept: 'image/*', capture: 'camera', class: "d-none" %>
@@ -20,11 +21,11 @@
     <div class="row">
       <div class="col-6">
         <%= f.label :category, class: "form-label" %>
-        <%= f.select :category, ["Tops", "Bottoms", "Shoes"], {}, { class: "form-select rounded-pill" } %>
+        <%= f.select :category, ["Jacket","Tops", "Bottoms", "Shoes"], {}, { class: "form-select rounded-pill" } %>
       </div>
       <div class="col-6">
         <%= f.label :slot, class: "form-label" %>
-        <%= f.select :slot, ["Casual", "Business"], {}, { class: "form-select rounded-pill" } %>
+        <%= f.select :slot, ["Casual", "Business","Sports", "Party"], {}, { class: "form-select rounded-pill" } %>
       </div>
     </div>
   </div>

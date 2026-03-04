@@ -1,6 +1,11 @@
 <div class="container"></div>
+  <%= cl_image_tag @item.photo.key, width: 300 %>
 <p><%= @item.name %></p>
 <p><%= @item.description %></p>
 <p><%= @item.category %></p>
 <p><%= @item.slot %></p>
 <p><%= @item.photo.key %></p>
+<div class="d-flex justify-content-start gap-2 mt-2">
+  <%= link_to "Edit", edit_item_path(@item), class: "btn btn-secondary btn-sm" %>
+  <%= link_to "Back", items_path, class: "btn btn-outline-secondary btn-sm" %>
+</div>
