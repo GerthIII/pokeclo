@@ -26,11 +26,11 @@
         <div class="row g-2">
           <div class="col-6">
             <%= f.label :category, class: "form-label fw-bold" %>
-            <%= f.select :category, ["Jacket","Tops", "Bottoms", "Shoes"], {}, { class: "form-select rounded-pill" } %>
+            <%= f.select :category, ["sports", "casual", "formal", "outdoor"], {}, { class: "form-select rounded-pill" } %>
           </div>
           <div class="col-6">
             <%= f.label :slot, class: "form-label fw-bold" %>
-            <%= f.select :slot, ["Casual", "Business","Sports", "Outdoor"], {}, { class: "form-select rounded-pill" } %>
+            <%= f.select :slot, ["outerwear", "top", "bottom", "footwear"], {}, { class: "form-select rounded-pill" } %>
           </div>
         </div>
       </div>
