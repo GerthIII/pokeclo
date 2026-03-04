@@ -33,6 +33,12 @@ class OutfitsController < ApplicationController
     end
   end
 
+  def chat
+    @outfit = Outfit.find(params[:id])
+    @messages = @outfit.messages
+    @message = Message.new
+  end
+
   private
 
   def outfit_params
