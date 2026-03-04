@@ -1,9 +1,14 @@
-<p>Pokeclo</p>
-<h1>Dashboard</h1>
-<h3>Features</h3>
-<ul>
-  <li>Here we will have a side scroll carousel with items</li>
-  <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
-  <li>Here we will have a side scroll carousel with outfits</li>
-  <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
-</ul>
+<div class="container p-3">
+  <h1>Pokeclo</h1>
+  <p>Dashboard</p>
+
+  <div class="horizontal-scroll">
+    <% @items.each do |item| %>
+      <div class="scroll-card product-card product-image ">
+        <%= link_to item_path(item) do %>
+          <%= cl_image_tag item.photo.key if item.photo.attached? %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
