@@ -1,0 +1,7 @@
+<h1>All the items</h1>
+<% @items.each do |item|  %>
+<div>
+<p><%= item.name %></p>
+<%= cl_image_tag item.photo.key %>
+</div>
+<% end %>
