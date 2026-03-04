@@ -1,2 +1,39 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container p-3">
+  <div class="container text-center">
+    <div class="home-title">
+      <h1>Pokeclo</h1>
+    </div>
+    <hr>
+    <p>Get advices from Pokeclo on your next outfit</p>
+  </div>
+  <div class="home-hero" style="width: 100%; height: 100%S;">
+    <%= image_tag "home.jpg", class:"home-hero-image" %>
+    <div class="home-hero-buttons">
+      <%= link_to 'Sign In', new_user_registration_path, class: "btn btn-primary rounded-pill"%>
+      <%= link_to 'Log In', new_user_session_path, class: "btn btn-primary rounded-pill"%>
+    </div>
+  </div>
+  <hr>
+  <div class="container text-center">
+    <h2 class="mb-4">About Pokeclo</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta vitae turpis et mollis. Sed commodo sagittis nisi. Sed eu volutpat lacus, vitae varius diam. Etiam a lorem massa. Donec.</p>
+  </div>
+  <hr>
+  <div class="container text-center">
+    <h3>Features</h3>
+    <ul>
+      <li>Lorem ipsum dolor sit amet</li>
+      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
+
+      <li>Lorem ipsum dolor sit amet</li>
+      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
+
+      <li>Lorem ipsum dolor sit amet</li>
+      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
+    </ul>
+      <%= link_to 'Sign In', new_user_registration_path, class: "btn btn-primary rounded-pill"%>
+  </div>
+  <div class="container">
+    <p>FOOTER INFORMATION.</p>
+  </div>
+</div>
