@@ -1,0 +1,34 @@
+.main-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ff3b3b;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  .divider {
+    width: 1px;
+    height: 18px;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-right: 12px;
+  }
+
+  .cta {
+    letter-spacing: 0.5px;
+  }
+
+  &:hover {
+    background-color: #e63232;
+    transform: translateY(-1px);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1.1);
+  }
+}
