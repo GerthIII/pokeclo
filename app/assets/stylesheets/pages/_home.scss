@@ -1,1 +1,48 @@
-// Specific CSS for your home-page
+.home-title{
+  margin-top: 16px;
+  font-size: large;
+  text-align: center;
+}
+
+.home-hero {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+}
+
+.home-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(244, 244, 244, 1) 0%,
+    rgba(244, 244, 244, 1) 20%,
+    rgba(244, 244, 244, 0.7) 40%,
+    rgba(244, 244, 244, 0.3) 60%,
+    rgba(244, 244, 244, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.home-hero-buttons {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  z-index: 2;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
