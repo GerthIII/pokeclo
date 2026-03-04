@@ -1,0 +1,102 @@
+.outfits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto); /* ← autoにする */
+  justify-content: center;               /* ← 中央寄せ */
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-box {
+  width: 120px;          /* ← 好きなサイズに */
+  aspect-ratio: 1 / 1;   /* 正方形 */
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.image-box:hover {
+  transform: translateY(-5px);
+}
+
+/* INDEX専用にする */
+.outfits-grid .image-box {
+  width: 120px;
+  aspect-ratio: 1 / 1;
+}
+
+/* 横並びレイアウト */
+.edit-container {
+  display: flex;
+  gap: 20px;
+}
+
+.items-column {
+  display: grid;
+  grid-template-columns: 1fr; /* 1列にする */
+  justify-content: center;     /* 中央寄せ */
+  gap: 15px;
+}
+
+.item-box {
+  width: 120px;          /* ← indexと同じ */
+  aspect-ratio: 1 / 1;   /* 正方形 */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+
+/* 右：ボタン群 */
+.action-column {
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ボタン共通 */
+.btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border-radius: 14px;
+  background: black;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* テキストボックス */
+.text-area {
+  display: flex;
+  gap: 5px;
+}
+
+.text-area input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.text-area button {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background: black;
+  color: white;
+}
+
+.bottom-btn {
+  margin-top: auto;
+}
+
+.outfit-edit,
+.outfits-index {
+  max-width: 400px;
+  margin: 0 auto;
+}
