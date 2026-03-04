@@ -205,6 +205,10 @@ GEM
       sshkit (>= 1.23.0, < 2.0)
       thor (~> 1.3)
       zeitwerk (>= 2.6.18, < 3.0)
+    kramdown (2.5.2)
+      rexml (>= 3.4.4)
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -349,6 +353,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.4.4)
+    rouge (4.7.0)
     rubocop (1.85.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -505,9 +510,12 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  kramdown
+  kramdown-parser-gfm
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 8.1.2)
+  rouge
   rubocop-rails-omakase
   ruby_llm (~> 1.11.0)
   sassc-rails
@@ -596,6 +604,8 @@ CHECKSUMS
   json (2.18.1) sha256=fe112755501b8d0466b5ada6cf50c8c3f41e897fa128ac5d263ec09eedc9f986
   json-schema (6.1.0) sha256=6bf70a2cfb6dfd5a06da28093fa8190f324c88eabd36a7f47097f227321dc702
   kamal (2.10.1) sha256=53b7ecb4c33dd83b1aedfc7aacd1c059f835993258a552d70d584c6ce32b6340
+  kramdown (2.5.2) sha256=1ba542204c66b6f9111ff00dcc26075b95b220b07f2905d8261740c82f7f02fa
+  kramdown-parser-gfm (1.1.0) sha256=fb39745516427d2988543bf01fc4cf0ab1149476382393e0e9c48592f6581729
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
@@ -665,6 +675,7 @@ CHECKSUMS
   responders (3.2.0) sha256=89c2d6ac0ae16f6458a11524cae4a8efdceba1a3baea164d28ee9046bd3df55a
   rest-client (2.1.0) sha256=35a6400bdb14fae28596618e312776c158f7ebbb0ccad752ff4fa142bf2747e3
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
+  rouge (4.7.0) sha256=dba5896715c0325c362e895460a6d350803dbf6427454f49a47500f3193ea739
   rubocop (1.85.0) sha256=317407feb681a07d54f64d2f9e1d6b6af1ce7678e51cd658e3ad8bd66da48c01
   rubocop-ast (1.49.0) sha256=49c3676d3123a0923d333e20c6c2dbaaae2d2287b475273fddee0c61da9f71fd
   rubocop-performance (1.26.1) sha256=cd19b936ff196df85829d264b522fd4f98b6c89ad271fa52744a8c11b8f71834
