@@ -1,5 +1,6 @@
 <h1>All the items</h1>
 <% @items.each do |item|  %>
+<%= link_to "Edit", edit_item_path(item) %>
 <div>
 <p><%= item.name %></p>
 <%= cl_image_tag item.photo.key %>
