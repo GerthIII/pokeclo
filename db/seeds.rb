@@ -229,11 +229,11 @@ OutfitItem.create!(
   slot: item1.slot
 )
 
-Message.create!(
-  outfit_id: outfit.id,
-  role: "user",
-  content: "Please create me an outfit that I can wear to the fire festival"
-)
+# Message.create!(
+#   outfit_id: outfit.id,
+#   role: "user",
+#   content: "Please create me an outfit that I can wear to the fire festival"
+# )
 
 # this comment is just to make an edit
 
