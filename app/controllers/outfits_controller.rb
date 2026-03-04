@@ -39,11 +39,7 @@ class OutfitsController < ApplicationController
   private
 
   def outfit_params
-    params.require(:outfit).permit(
-      :name,
-      :description,
-      :status,
-      jackets: []
-    )
-  end
+  params.require(:outfit).permit(:name, :description, :status, :jacket)
+end
+
 end

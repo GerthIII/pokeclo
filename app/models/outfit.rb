@@ -9,15 +9,5 @@ class Outfit < ApplicationRecord
 
   validates :name, presence: true
   validates :description, presence: true
-  validates :status, presence: true
-
-  validate :jackets_limit
-
-  private
-
-  def jackets_limit
-    return unless jackets.size > 4
-
-    errors.add(:jackets, "は最大4枚までです")
-  end
+  # validates :status, presence: true
 end

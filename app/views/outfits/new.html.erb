@@ -11,9 +11,8 @@
 
         <%= f.input :description %>
 
-        <%= f.input :jackets,
-                    as: :file,
-                    input_html: { multiple: true, accept: "image/*" } %>
+        <%= f.input :jacket, as: :file, input_html: { accept: "image/*" } %>
+
 
         <%= f.submit "Create Outfit", class: "btn btn-primary" %>
       </div>
