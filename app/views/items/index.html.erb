@@ -1,10 +1,26 @@
-<h1>All the items</h1>
-<% @items.each do |item|  %>
-<p><%= item.name %></p>
-<%= link_to item_path(item) do %>
-      <%= cl_image_tag item.photo.key, width: 300, crop: :fill, class: "rounded shadow" %>
+<div class="container py-4">
+  <h1>All the items</h1>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @items.each do |item| %>
+      <div class="col">
+        <div class="card h-100 border-0 shadow-sm">
+
+          <%= link_to item_path(item) do %>
+            <% if item.photo.attached? %>
+              <%= cl_image_tag item.photo.key, crop: :fill, class: "card-img-top rounded-top" %>
+            <% end %>
+          <% end %>
+
+          <div class="card-body">
+            <div class="d-flex gap-2 mb-2">
+            </div>
+
+            <h5 class="card-title fw-bold"><%= item.name %></h5>
+            <p class="card-text text-muted small"><%= item.description %></p>
+          </div>
+        </div>
+      </div>
     <% end %>
-    <div>
-      <%= link_to "Edit", edit_item_path(item), class: "btn btn-sm btn-outline-secondary mt-2" %>
-    </div>
-<% end %>
+  </div>
+</div>
