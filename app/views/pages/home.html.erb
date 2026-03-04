@@ -1,2 +1,88 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container p-5">
+<button class="main-button">
+  <span class="cta">BUY NOW</span>
+</button>
+
+
+<div class="product-card">
+  <div class="product-image">
+    <%= image_tag "https://architectureandsneakers.com/cdn/shop/files/IB5674-010-1_900x.jpg?v=1769590414", alt: "Nike Tank Top" %>
+  </div>
+  <span class="btn-cart">CATEGORY</span>
+  <h3 class="product-title">Nike Tape Back Vest Top</h3>
+  <p class="product-subtitle">Muscle Tank Vest With Large Sizing</p>
+  <div class="product-colors">
+    <span class="color color-gray"></span>
+    <span class="color color-green"></span>
+  </div>
+  <button class="btn-cart">SEE OUTFITS</button>
+</div>
+
+###################################
+
+<div class="product-strip overflow-x-auto">
+  <div class="d-flex flex-nowrap gap-4 py-3 px-2">
+    <%# @products.each do |product| %>
+      <div class="product-tile flex-shrink-0 text-center">
+        <div class="position-relative product-tile__img-wrap">
+          <%#= image_tag product.image_url, class: "w-100 h-100 object-fit-contain", alt: product.name %>
+
+          <%# if product.on_sale? %>
+            <span class="badge-sale position-absolute">SALE</span>
+          <%# end %>
+        </div>
+
+        <p class="product-tile__name mb-1"><%#= product.name %></p>
+
+        <p class="product-tile__price mb-0">
+          <%# if product.on_sale? %>
+            <span class="price-sale">$ <%#= product.sale_price %></span>
+            <span class="price-old ms-2">$ <%#= product.price %></span>
+          <%# else %>
+            <span class="price-normal">$ <%#= product.price %></span>
+          <%# end %>
+        </p>
+      </div>
+    <%# end %>
+  </div>
+</div>
+
+
+<div class="item-form">
+  <h1 class="item-form__title">Novo item</h1>
+
+  <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
+    <div class="item-form__field">
+      <%= f.input :name,
+        label: "Nome do item",
+        placeholder: "Ex: Jaqueta jeans",
+        input_html: { class: "item-input" } %>
+    </div>
+
+    <div class="item-form__field">
+      <%= f.input :category,
+        label: "Categoria",
+        collection: ["Camiseta", "Calça", "Jaqueta", "Tênis", "Acessório"],
+        prompt: "Selecione",
+        input_html: { class: "item-input" } %>
+    </div>
+
+    <div class="item-form__field">
+      <%= f.input :description,
+        as: :text,
+        label: "Descrição",
+        placeholder: "Cor, tamanho, marca…",
+        input_html: { rows: 4, class: "item-input" } %>
+    </div>
+
+    <div class="item-form__field">
+      <%= f.input :photo,
+        as: :file,
+        label: "Adicionar foto",
+        input_html: { class: "item-file" } %>
+    </div>
+
+    <%= f.button :submit, "Criar", class: "item-btn" %>
+  <% end %>
+</div>
+</div>
