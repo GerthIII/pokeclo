@@ -3,14 +3,20 @@
   <h1>Outfits</h1>
 
   <div class="outfits-grid">
-    <% 8.times do |i| %>
+    <% items = Item.includes(photo_attachment: :blob).limit(8) %>
+
+    <% @outfits.each do |i| %>
       <div class="outfit-card">
         <div class="image-box">
-          Outfit <%= i + 1 %>
+          <% if i.jacket.attached? %>
+            <%= image_tag i.jacket, class: "card-image" %>
+          <% else %>
+            <p>"No Image"</p>
+          <% end %>
         </div>
       </div>
     <% end %>
   </div>
-
+  <%= link_to "Create an Outfit", new_outfit_path, class: "btn btn-primary" %>
 
 </div>

@@ -1,19 +1,26 @@
-<h1>Create New Outfit</h1>
+<div class="outfit-edit">
+  <h1>New Outfit</h1>
 
-<%= form_with model: @outfit do |f| %>
+  <%= simple_form_for @outfit, html: { multipart: true } do |f| %>
 
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+    <div class="edit-container">
 
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+      <div class="left-column">
+        <%= f.input :name %>
+        <%= f.input :description %>
+        <%= f.input :status %>
+        <%= f.input :jacket, as: :file %>
 
-  <%= f.submit "Create Outfit" %>
+        <%= f.submit "Create Item", class:"btn btn-primary" %>
+      </div>
 
-<% end %>
+      <div class="action-column">
+        <%= f.submit "CREATE", class: "btn" %>
+        <%= link_to "ADVICE", "#", class: "btn" %>
+        <%= link_to "OMAKASE", "#", class: "btn bottom-btn" %>
+      </div>
 
-<%= link_to "Back", outfits_path %>
+    </div>
+
+  <% end %>
+</div>
