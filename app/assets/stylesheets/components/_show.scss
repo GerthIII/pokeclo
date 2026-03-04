@@ -1,0 +1,57 @@
+.show-card {
+  background: #f4f4f4;
+  padding: 24px;
+  text-align: center;
+}
+
+.show-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.show-image img {
+  max-width: 80%;
+  height: auto;
+}
+
+.show-category {
+  display: inline-block;
+  background: #ff3b3b;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.show-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.show-text {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.show-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-pill {
+  display: inline-block;
+  background-color: #b1b1b1;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+}

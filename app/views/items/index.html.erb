@@ -1,26 +1,27 @@
-<div class="container py-4">
-  <h1>All the items</h1>
-
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <% @items.each do |item| %>
-      <div class="col">
-        <div class="card h-100 border-0 shadow-sm">
-
-          <%= link_to item_path(item) do %>
-            <% if item.photo.attached? %>
-              <%= cl_image_tag item.photo.key, crop: :fill, class: "card-img-top rounded-top" %>
-            <% end %>
-          <% end %>
-
-          <div class="card-body">
-            <div class="d-flex gap-2 mb-2">
+<div class="container d-flex flex-column align-items-center text-center pb-5  ">
+  <div class="container d-flex flex-column align-items-center mt-3">
+    <h1> Pokeclo</h1>
+    <h2>My Items</h2>
+    <div class="cards-wrapper">
+      <% @items.each do |item| %>
+        <div class="product-card">
+            <div class="product-unique-card">
+              <p class="product-title"><%= item.name %></p>
+              <div class="product-image product-image-wrapper" style="object-fit: cover;" >
+                <%= link_to item_path(item) do %>
+                <%= cl_image_tag item.photo.key if item.photo.attached? %>
+                <span class="product-badge rounded-pill bg-primary"><%= item.slot %></span>
+                <% end %>
+              </div>
+              <div class="p-text-box">
+                <p class="product-subtitle"><%= item.description %></p>
+              </div>
+              <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+              </div>
             </div>
-
-            <h5 class="card-title fw-bold"><%= item.name %></h5>
-            <p class="card-text text-muted small"><%= item.description %></p>
-          </div>
         </div>
+      <% end %>
       </div>
-    <% end %>
+      <%= link_to 'Create an Item', new_item_path, class: "main-button mt-3"%>
   </div>
 </div>
