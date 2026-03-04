@@ -1,11 +1,23 @@
-<div class="container"></div>
-  <%= cl_image_tag @item.photo.key, width: 300 %>
-<p><%= @item.name %></p>
-<p><%= @item.description %></p>
-<p><%= @item.category %></p>
-<p><%= @item.slot %></p>
-<p><%= @item.photo.key %></p>
-<div class="d-flex justify-content-start gap-2 mt-2">
-  <%= link_to "Edit", edit_item_path(@item), class: "btn btn-secondary btn-sm" %>
-  <%= link_to "Back", items_path, class: "btn btn-outline-secondary btn-sm" %>
+<div class="container py-4 text-center">
+  <div class="mb-3">
+    <%= cl_image_tag @item.photo.key, width: 300, class: "img-fluid rounded shadow-sm" %>
+  </div>
+
+
+  <h2 class="fw-bold mb-2"><%= @item.name %></h2>
+
+  <p class="fs-5 text-muted mb-3"><%= @item.description %></p>
+
+  <div class="mb-3">
+    <span class="badge bg-light text-dark border fs-6 p-2"><%= @item.category %></span>
+    <span class="badge bg-light text-dark border fs-6 p-2"><%= @item.slot %></span>
+  </div>
+
+  <div class="d-flex justify-content-center gap-3 mt-4">
+    <%= link_to "Edit", edit_item_path(@item), class: "btn btn-secondary px-4 shadow-sm" %>
+    <%= link_to "Back", items_path, class: "btn btn-outline-secondary px-4 shadow-sm" %>
+  </div>
 </div>
+
+
+
