@@ -3,23 +3,15 @@
   background: #f5f5f5;
   padding: 20px;
   text-align: center;
-  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.product-unique-card{
+  border: 1px solid #b4b2b2;
 }
 
 .product-image img {
   width: 100%;
   object-fit: contain;
-}
-
-.badge-exclusive {
-  display: inline-block;
-  margin-top: 10px;
-  background: #c4a24b;
-  color: white;
-  font-size: 10px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 1px;
 }
 
 .product-title {
@@ -55,33 +47,4 @@
 
 .color-green {
   background: #8f9a8a;
-}
-
-.product-price {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.btn-cart {
-  background: #ff3b3b;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 18px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn-cart:hover {
-  background: #e63232;
-}
-
-.wishlist {
-  margin-top: 8px;
-  font-size: 11px;
-  color: #ff3b3b;
-  cursor: pointer;
 }

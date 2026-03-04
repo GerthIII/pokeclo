@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
-<<<<<<< HEAD
-=======
    def after_sign_in_path_for(resource)
     dashboard_path
   end
@@ -10,6 +8,5 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(resource)
     dashboard_path
   end
->>>>>>> master
 
 end
