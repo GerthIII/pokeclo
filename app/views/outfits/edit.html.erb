@@ -12,14 +12,14 @@
 
         <!-- ここにテキストボックスを追加 -->
         <div class="text-area-below">
-          <%= f.text_field :description, placeholder: "TEXT BOX" %>
+          <%= f.text_field :description, placeholder: "Type something here..." %>
           <button type="button">▶</button>
         </div>
       </div>
 
       <!-- 右のボタン群 -->
       <div class="action-column">
-        <%= f.submit "UPDATE", class: "btn" %>
+        <%= f.submit "EDIT", class: "btn" %>
         <%= link_to "ADVICE", "#", class: "btn" %>
         <%= link_to "OMAKASE", "#", class: "btn bottom-btn" %>
       </div>
