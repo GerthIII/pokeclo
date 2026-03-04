@@ -100,3 +100,48 @@
   max-width: 400px;
   margin: 0 auto;
 }
+
+/* =========================
+   SHOW PAGE ONLY
+========================= */
+
+.outfit-show {
+
+  max-width: 400px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.outfit-show .path {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.outfit-show .show-card {
+  background: #d9d9d9;
+  padding: 30px;
+  border-radius: 12px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.outfit-show .show-title {
+  margin-top: 10px;
+}
+
+.outfit-show .show-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.outfit-show .show-btn {
+  width: 45%;
+  padding: 12px;
+  border-radius: 14px;
+  background: black;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
