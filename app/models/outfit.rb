@@ -1,5 +1,5 @@
 class Outfit < ApplicationRecord
-  SLOTS = ['shirt', 'pants', 'shoes', 'jacket']
+  SLOTS = ['outer', 'top', 'bottom', 'footwear']
   has_many :outfit_items
   has_many :items, through: :outfit_items
   has_many :messages
