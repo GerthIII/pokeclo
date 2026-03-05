@@ -6,7 +6,7 @@
         <%= outfit_item.item.name.capitalize %><br>
         <span style="font-size: 8px;">
           <% outfit_item = @outfit.outfit_items[0] %>
-          <%= outfit_item.item.description %>
+          <%= truncate(outfit_item.item.description, length: 30) %>
         </span>
       </span>
 
@@ -22,7 +22,7 @@
         <%= outfit_item.item.name.capitalize %><br>
         <span style="font-size: 8px;">
           <% outfit_item = @outfit.outfit_items[1] %>
-          <%= outfit_item.item.description %>
+          <%= truncate(outfit_item.item.description, length: 30) %>
         </span>
       </span>
 
@@ -38,7 +38,7 @@
         <%= outfit_item.item.name.capitalize %><br>
         <span style="font-size: 8px;">
           <% outfit_item = @outfit.outfit_items[2] %>
-          <%= outfit_item.item.description %>
+          <%= truncate(outfit_item.item.description, length: 30) %>
         </span>
       </span>
 
@@ -54,7 +54,7 @@
         <%= outfit_item.item.name.capitalize %><br>
         <span style="font-size: 8px;">
           <% outfit_item = @outfit.outfit_items[3] %>
-          <%= outfit_item.item.description %>
+          <%= truncate(outfit_item.item.description, length: 30) %>
         </span>
       </span>
 
