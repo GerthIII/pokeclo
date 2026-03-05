@@ -1,8 +1,7 @@
 <div class="show-card">
   <h3 class="show-title"><%= @item.name %></h3>
   <hr>
-  <div class="show-text mt-3">
-    <p><%= @item.description %></p>
+  <div class="show-text mt-1">
     <div class="container d-flex justify-content-around">
       <p class="category-pill"><%= @item.category %></p>
       <p class="category-pill"><%= @item.slot %></p>
@@ -16,4 +15,7 @@
     <%= link_to 'Create Outfit', new_outfit_path(item_id: @item.id), class: "btn btn-primary rounded-pill"%>
     <%= link_to 'Edit Item', edit_item_path(@item), class: "btn btn-primary rounded-pill"%>
   </div>
+   <div class="show-text mt-3">
+    <p><%= @item.description %></p>
+    </div>
 </div>

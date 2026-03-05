@@ -6,7 +6,7 @@
     <div class="outfit-items-grid">
       <% @outfits.each do |outfit| %>
         <div class="outfit-item-card">
-          <%= link_to edit_outfit_path(outfit), class: "outfit-item-link" do %>
+          <%= link_to outfit_path(outfit), class: "outfit-item-link" do %>
             <div class="outfit-item-shell">
               <p class="outfit-item-title"><%= outfit.name %></p>
 
