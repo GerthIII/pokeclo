@@ -1,27 +1,84 @@
-<div class="outfit-show">
-  <div class="outfit-card show-card">
+<div class="outfit-show p-4">
+  <div class="container outfit-card">
+    <div class="callout">
+      <span class="callout-text-slot-one">
+        <% outfit_item = @outfit.outfit_items[0] %>
+        <%= outfit_item.item.name.capitalize %><br>
+        <span style="font-size: 8px;">
+          <% outfit_item = @outfit.outfit_items[0] %>
+          <%= outfit_item.item.description %>
+        </span>
+      </span>
 
-    <div class="image-box">
-      <% if @outfit.jacket.attached? %>
-        <%= image_tag @outfit.jacket, class: "card-image" %>
-      <% else %>
-        <p>No Image</p>
-      <% end %>
-    </div>
-
-    <div class="card-info">
-      <h2><%= @outfit.name %></h2>
-      <p><%= @outfit.description %></p>
-
-      <div class="show-buttons">
-        <%= link_to "Edit", edit_outfit_path(@outfit), class: "btn" %>
-
-        <%= link_to "Delete",
-              outfit_path(@outfit),
-              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-              class: "btn" %>
+      <div class="outfit-show-img-one">
+        <% outfit_item = @outfit.outfit_items[0] %>
+        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
       </div>
+
+      <div class="callout-line-slot-one"></div>
+
+      <span class="callout-text-slot-two">
+         <% outfit_item = @outfit.outfit_items[1] %>
+        <%= outfit_item.item.name.capitalize %><br>
+        <span style="font-size: 8px;">
+          <% outfit_item = @outfit.outfit_items[1] %>
+          <%= outfit_item.item.description %>
+        </span>
+      </span>
+
+      <div class="outfit-show-img-two">
+        <% outfit_item = @outfit.outfit_items[1] %>
+        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
+      </div>
+
+      <div class="callout-line-slot-two"></div>
+
+      <span class="callout-text-slot-three">
+         <% outfit_item = @outfit.outfit_items[2] %>
+        <%= outfit_item.item.name.capitalize %><br>
+        <span style="font-size: 8px;">
+          <% outfit_item = @outfit.outfit_items[2] %>
+          <%= outfit_item.item.description %>
+        </span>
+      </span>
+
+      <div class="outfit-show-img-three">
+        <% outfit_item = @outfit.outfit_items[2] %>
+        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
+      </div>
+
+      <div class="callout-line-slot-three"></div>
+
+      <span class="callout-text-slot-four">
+        <% outfit_item = @outfit.outfit_items[3] %>
+        <%= outfit_item.item.name.capitalize %><br>
+        <span style="font-size: 8px;">
+          <% outfit_item = @outfit.outfit_items[3] %>
+          <%= outfit_item.item.description %>
+        </span>
+      </span>
+
+      <div class="outfit-show-img-four">
+        <% outfit_item = @outfit.outfit_items[3] %>
+        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
+      </div>
+
+      <div class="callout-line-slot-four"></div>
     </div>
 
+    <div class="container d-flex justify-content-center mt-3">
+      <%= link_to "Edit", edit_outfit_path(@outfit), class: "main-button" %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <h2><%= @outfit.name %></h2>
+    <p><%= @outfit.description %></p>
+
+    <div class="d-flex justify-content-center">
+      <%= link_to "Back", outfits_path, class: "main-button" %>
+    </div>
   </div>
 </div>

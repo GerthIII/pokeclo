@@ -16,6 +16,7 @@ class OutfitsController < ApplicationController
     @outfit.user = current_user
 
     if @outfit.save
+
       redirect_to outfit_path(@outfit), notice: "Outfit created!"
     else
       render :new, status: :unprocessable_entity
@@ -45,11 +46,7 @@ class OutfitsController < ApplicationController
   private
 
   def outfit_params
-    params.require(:outfit).permit(
-      :name,
-      :description,
-      :status,
-      jackets: []
-    )
-  end
+  params.require(:outfit).permit(:name, :description, :status, :jacket)
+end
+
 end
