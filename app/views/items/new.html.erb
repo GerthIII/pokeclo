@@ -25,11 +25,11 @@
       </div>
 
       <div class="item-form__field mb-3">
-        <%= f.input :category, collection: ["Tops", "Bottoms", "Shoes", "Accessories", "Jacket"], prompt: "Select category", input_html: { class: "item-input" }%>
+        <%= f.input :category, collection: ["outer", "top", "bottom", "footwear"], prompt: "Select category", input_html: { class: "item-input" }%>
       </div>
 
       <div class="item-form__field mb-3">
-        <%= f.input :slot, collection: ["Casual", "Business", "Sports", "Party"], prompt: "Select slot", input_html: { class: "item-input" }%>
+        <%= f.input :slot, collection: ["sport", "casual", "formal", "outdoor"], prompt: "Select slot", input_html: { class: "item-input" }%>
       </div>
     </div>
   <div class="form-actions mt-4">

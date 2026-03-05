@@ -1,8 +1,8 @@
 .navbar-lewagon {
   justify-content: space-between;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  // position: fixed;
+  // bottom: 0;
+  // left: 0;
   width: 100%;
   background: white;
   z-index: 1000;
@@ -24,4 +24,20 @@
 
 .navbar-lewagon .navbar-brand{
   margin: 0%;
+}
+.footer{
+  html, body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1 0 auto;
+  }
+
+  .footer {
+    flex-shrink: 0;
+  }
 }

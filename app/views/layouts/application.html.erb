@@ -26,9 +26,9 @@
 
   <body>
   <% unless current_page?(root_path) || devise_controller? %>
-    <%= render "shared/navbar" %>
   <% end %>
   <%= render "shared/flashes" %>
     <%= yield %>
+    <%= render "shared/navbar", class: "footer" %>
   </body>
 </html>
