@@ -51,6 +51,13 @@ class MessagesController < ApplicationController
     @message.role = "user"
     if @message.save
       response = ai_response
+      suggestions = JSON.parse(response.content)
+      suggestions.each do |suggestion|
+        next if @outfit.filled_slots.include?(suggestion["slot"])
+        item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
+        next unless item
+        OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
+      end
       @outfit.messages.build(role: 'assistant', content: response.content)
       @outfit.save
       redirect_to new_outfit_message_path(@outfit)
