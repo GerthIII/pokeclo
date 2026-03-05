@@ -8,5 +8,6 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :name, presence: true
   validates :slot, presence: true
+  SLOT = ['outer', 'top', 'bottom', 'footwear']
   # validates :status, presence: true
 end

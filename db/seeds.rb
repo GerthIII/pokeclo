@@ -24,135 +24,135 @@ ryota = User.create!(
 item1 = Item.new(
   user: ryota,
   name: "sports shirt",
-  slot: "shirt",
+  slot: "top",
   category: "sports",
-  description: "A lightweight sports shirt",
+  description: "An Adidas x Oasis collaboration t-shirt, characterized by a vintage-inspired ringer style and a clean, off-white or cream color base. The shirt is a classic crewneck with short sleeves, featuring contrasting black ribbed material on the collar and the sleeve cuffs. Running down each shoulder and sleeve are the iconic Adidas three-stripe motifs in bold black. The front of the garment displays two distinct logos: on the right chest (viewer's left) is the traditional black Adidas Trefoil logo, while on the left chest (viewer's right) is a rectangular black patch containing the word oasis in its signature lowercase font. The design blends 1990s Britpop aesthetics with classic athletic heritage, offering a minimalist yet recognizable terrace-wear look.",
   status: 1
 )
 
 item2 = Item.new(
   user: ryota,
   name: "sports pants",
-  slot: "pants",
+  slot: "bottom",
   category: "sports",
-  description: "Comfortable sports pants",
+  description: "The second image displays a pair of black sporty joggers or track pants by the brand Hummel, featuring a relaxed, slightly tapered fit with elasticated ankle cuffs. The design is characterized by a prominent white chevron-style color-block panel that wraps around the lower legs, creating a bold geometric contrast. A small white Hummel bumblebee logo is embroidered on the upper left thigh, and the waistband appears to be elasticated for comfort, suggesting a functional yet stylish piece of activewear.",
   status: 1
 )
 
 item3 = Item.new(
   user: ryota,
   name: "sports shoes",
-  slot: "shoes",
+  slot: "footwear",
   category: "sports",
-  description: "Durable sports shoes",
+  description: "a technical Adidas athletic cleat, specifically designed for high-performance sports like baseball. It features a sleek white mesh upper for breathability, textured with a diamond-pattern overlay, and the three-stripe motif in a faded black pixelated print. The sole unit utilizes Lightstrike Pro cushioning for responsiveness and is equipped with metal spikes for maximum traction on turf or dirt.",
   status: 1
 )
 
 item4 = Item.new(
   user: ryota,
   name: "sports jacket",
-  slot: "jacket",
+  slot: "outer",
   category: "sports",
-  description: "A warm sports jacket",
+  description: "features a streamlined, functional design with a full-length front zipper. The garment is characterized by its ribbed stand-up collar in a contrasting cream or off-white interior, which adds a subtle pop of color to the deep teal-blue body. For branding, it includes a tonal diamond-shaped patch on the left chest and the SOPH logo printed on the right. The construction utilizes raglan sleeves for increased mobility, while two discreet, vertical zippered pockets are integrated into the side seams for secure storage. With its clean lines and technical aesthetic, this piece bridges the gap between high-performance sportswear and modern urban streetwear.",
   status: 1
 )
 
 item5 = Item.new(
   user: ryota,
   name: "casual t-shirt",
-  slot: "shirt",
+  slot: "top",
   category: "casual",
-  description: "A plain brown shirt",
+  description: "a clean, studio-style product shot of a short-sleeved, crewneck T-shirt from the Uniqlo U collection. The shirt is a deep, earthy olive-brown or dark taupe color and is displayed flat against a neutral light-gray background. It features a classic, slightly relaxed fit with a thick, ribbed neckline and structured sleeves. In the upper-left corner, the Uniqlo logo is paired with the U branding, indicating it is part of the line designed by Christophe Lemaire.",
   status: 1
 )
 
 item6 = Item.new(
   user: ryota,
   name: "polo t-shirt",
-  slot: "shirt",
+  slot: "top",
   category: "casual",
-  description: "A navy blue polo shirt",
+  description: "a classic navy blue short-sleeved polo shirt by Polo Ralph Lauren, set against a solid white background. The garment is made from a textured pique cotton fabric and features a two-button placket with white buttons, a ribbed collar, and matching ribbed armbands. A small, vibrant red embroidered pony logo is positioned on the left chest, providing a sharp contrast to the dark blue material. Inside the neckline, the brand's signature blue and gold label is visible, identifying the piece as part of their Custom Slim Fit line.",
   status: 1
 )
 
 item7 = Item.new(
   user: ryota,
   name: "formal shirt",
-  slot: "shirt",
+  slot: "top",
   category: "formal",
-  description: "A dark grey Zegna shirt",
+  description: "a long-sleeved dress shirt by Zegna, displayed flat against a neutral, light-gray gradient background. The shirt is a deep, muted charcoal or dark navy hue and features a clean, minimalist design with a hidden button placket that creates a seamless vertical line down the center. It is constructed with a structured spread collar and standard button cuffs. A small, dark brand label is visible on the inside of the collar, emphasizing the garment's high-end, tailored aesthetic.",
   status: 1
 )
 
 item8 = Item.new(
   user: ryota,
   name: "formal shirt",
-  slot: "shirt",
+  slot: "top",
   category: "formal",
-  description: "An offwhite Zegna linen shirt",
+  description: "a high-quality, long-sleeved button-down shirt from the luxury Italian fashion house ZEGNA, presented against a clean, neutral gray background. The shirt is a light off-white or cream color, crafted from a textured fabric—likely linen or a linen-silk blend—which gives it a sophisticated yet relaxed quiet luxury aesthetic. It features a sharp spread collar, a classic front placket with subtly shimmering buttons, and a straight hemline designed to be worn either tucked or untucked. The overall composition is minimalist and elegant, highlighting the fine craftsmanship and natural drape of the garment.",
   status: 1
 )
 
 item9 = Item.new(
   user: ryota,
   name: "Jeans",
-  slot: "pants",
+  slot: "bottom",
   category: "casual",
-  description: "casual denim pants",
+  description: "a pair of classic Levi Strauss & Co. blue jeans, presented in a folded flat-lay position against a clean white background. The denim has a medium-to-dark blue wash with subtle fading and vertical grain texture, suggesting a comfortable, broken-in feel. Key brand identifiers are visible, including the iconic tan Two Horse leather patch on the rear waistband and the signature Arcuate stitching on the back pocket. The construction details include contrasting orange topstitching, copper-tone rivets on the front coin and hip pockets, and a sturdy belt loop system, all characteristic of traditional American workwear-inspired style.",
   status: 1
 )
 
 item10 = Item.new(
   user: ryota,
   name: "Linen Pants",
-  slot: "pants",
+  slot: "bottom",
   category: "casual",
-  description: "casual cream color linen pants",
+  description: "a pair of light-colored, relaxed-fit trousers worn by a model, conveying a breezy and casual aesthetic. These pants appear to be made from a textured, lightweight fabric like linen, characterized by a soft grey or oatmeal heathered tone. A notable design element is the comfortable, elasticized waistband featuring a single-button closure and a hidden drawstring or zip fly. The trousers have a straight-leg cut that tapers slightly toward the hem, which is finished with a subtle cuff, making them an ideal choice for warm-weather styling.",
   status: 1
 )
 
 item11 = Item.new(
   user: ryota,
   name: "Social Pants",
-  slot: "pants",
+  slot: "bottom",
   category: "social",
-  description: "formal dark grey pants",
+  description: "a refined example of classic menswear, featuring a charcoal grey or deep anthracite hue with a subtle, high-quality wool texture. They are designed with a tailored, slim-straight fit that includes a sharp permanent crease running down the center of each leg for a crisp, professional silhouette. Notably, the waistband is a belt-loop-free design, utilizing sophisticated side adjusters with metal buckles to provide a clean, streamlined look around the hips. The styling is further elevated by an extended button-tab closure at the waist and discreet slanted side pockets, making them an ideal choice for a modern business or smart casual wardrobe.",
   status: 1
 )
 
 item12 = Item.new(
   user: ryota,
   name: "Social Pants",
-  slot: "pants",
+  slot: "bottom",
   category: "social",
-  description: "formal light grey dress pants",
+  description: "These trousers feature a classic Glen check pattern in shades of light grey with subtle yellow or tan over-checking, offering a sophisticated, vintage-inspired aesthetic. The design is defined by a high-rise waistband that lacks belt loops, opting instead for buckled side adjusters and a long, clean extended button-tab closure for a bespoke look. Adding to the traditional silhouette are prominent double pleats at the front, which create a more voluminous, comfortable drape through the thigh before tapering down to a sharp, permanent center crease.",
   status: 1
 )
 
 item13 = Item.new(
   user: ryota,
   name: "Casual Shoes",
-  slot: "shoes",
+  slot: "footwear",
   category: "casual",
-  description: "white and black causal Onitsuka Tiger shoes",
+  description: "low-top, athletic sneakers featuring a classic white leather upper contrasted by bold black decorative stripes on the sides. The design includes a traditional lace-up closure with white laces and a distinctive gum-colored rubber outsole that provides a vintage, indoor-sport aesthetic. For branding, a black and white Onitsuka Tiger logo is visible on the tongue, while the heel counter is finished with a black leather overlay. The overall silhouette is slim and streamlined, characteristic of heritage racing or training footwear.",
   status: 1
 )
 
 item14 = Item.new(
   user: ryota,
   name: "Formal Shoes",
-  slot: "shoes",
+  slot: "footwear",
   category: "formal",
-  description: "Black leather shoes",
+  description: "a classic, polished black leather derby shoe, blending traditional formal elements with subtle modern detailing. The shoe features an open-lacing system, which gives it a slightly more versatile profile than a standard Oxford, and is crafted from a smooth, matte-finish leather. A distinctive touch is the brogue-style perforation—specifically a decorative medallion on the rounded toe and a delicate wing pattern along the side—adding a layer of sophistication without being overly ornate. With its slim black sole, low heel, and thin waxed laces, this shoe is a refined choice for business-professional attire or semi-formal occasions.",
   status: 1
 )
 
 item15 = Item.new(
   user: ryota,
   name: "Casual Loafer",
-  slot: "shoes",
+  slot: "footwear",
   category: "casual",
-  description: "Brown suede Zegna loafers",
+  description: "these Zegna penny loafers are crafted in a rich, warm tan suede that offers a soft, matte texture. The design features a classic moc-toe construction with visible tonal stitching that defines the apron, while a traditional leather saddle strap with a signature slit rests across the vamp. The interior is lined with a smooth, lighter-colored leather and showcases the ZEGNA logo embossed on the footbed. With their streamlined silhouette and lack of structured hardware, these shoes represent a sophisticated quiet luxury aesthetic, making them ideal for elevated casual or summer-business ensembles.",
   status: 1
 )
 

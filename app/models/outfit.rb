@@ -1,4 +1,5 @@
 class Outfit < ApplicationRecord
+  SLOTS = ['outer', 'top', 'bottom', 'footwear']
   has_many :outfit_items
   has_many :items, through: :outfit_items
   has_many :messages
@@ -11,13 +12,15 @@ class Outfit < ApplicationRecord
   validates :description, presence: true
   validates :status, presence: true
 
-  validate :jackets_limit
+  def filled_slots
+    items.pluck(:slot).compact.uniq
+  end
 
-  private
+  def missing_slots
+    SLOTS - filled_slots
+  end
 
-  def jackets_limit
-    return unless jackets.size > 4
-
-    errors.add(:jackets, "は最大4枚までです")
+  def candidate_items_for_missing_slots
+    Item.where(user_id: user_id, slot: missing_slots)
   end
 end
