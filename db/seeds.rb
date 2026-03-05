@@ -224,11 +224,28 @@ outfit = Outfit.create!(
 )
 
 OutfitItem.create!(
-  item_id: item1.id,
+  item_id: item5.id,
   outfit_id: outfit.id,
-  slot: item1.slot
+  slot: item2.slot
 )
 
+OutfitItem.create!(
+  item_id: item10.id,
+  outfit_id: outfit.id,
+  slot: item10.slot
+)
+
+OutfitItem.create!(
+  item_id: item15.id,
+  outfit_id: outfit.id,
+  slot: item15.slot
+)
+
+OutfitItem.create!(
+  item_id: item4.id,
+  outfit_id: outfit.id,
+  slot: item4.slot
+)
 # Message.create!(
 #   outfit_id: outfit.id,
 #   role: "user",

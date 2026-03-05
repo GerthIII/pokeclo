@@ -1,44 +1,32 @@
-<div class="outfits-index">
-  <h1>Outfits Gallery</h1>
+<div class="container d-flex flex-column align-items-center text-center pb-5">
+  <div class="container d-flex flex-column align-items-center mt-3">
+    <h1>Pokeclo</h1>
+    <h2>My Outfits</h2>
 
-  <div class="outfits-grid">
-    <% @outfits.each do |outfit| %>
-      <div class="outfit-card">
+    <div class="outfit-items-grid">
+      <% @outfits.each do |outfit| %>
+        <div class="outfit-item-card">
+          <%= link_to edit_outfit_path(outfit), class: "outfit-item-link" do %>
+            <div class="outfit-item-shell">
+              <p class="outfit-item-title"><%= outfit.name %></p>
 
-        <%= link_to outfit_path(outfit) do %>
-          <div class="image-box">
-            <% if outfit.jacket.attached? %>
-              <%= image_tag outfit.jacket, class: "card-image" %>
-            <% else %>
-              <p>No Image</p>
-            <% end %>
-          </div>
-        <% end %>
+              <div class="outfit-item-image">
+                <% outfit_item = outfit.outfit_items[0] %>
+                <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+              </div>
 
-        <div class="card-info">
-          <p><%= outfit.name %></p>
+              <div class="outfit-item-text">
+                <p class="outfit-item-subtitle"><%= outfit.description %></p>
+              </div>
+            </div>
+          <% end %>
         </div>
+      <% end %>
+    </div>
 
-      </div>
-    <% end %>
+    <%= link_to "Create an Outfit", new_outfit_path, class: "main-button" %>
   </div>
-
-  <%= link_to "Create an Outfit", new_outfit_path, class: "btn btn-primary" %>
+  <div class="container mt-3">
+    <%= link_to "Back to items", items_path, class: "main-button" %>
+  </div>
 </div>
-
-<% if current_user.outfits.exists? %>
-  <% latest_outfit = current_user.outfits.order(created_at: :desc).first %>
-
-  <%= link_to "EDIT OUTFIT",
-        edit_outfit_path(latest_outfit),
-        class: "btn btn-primary" %>
-
-<% else %>
-
-  <%= link_to "CREATE OUTFIT",
-        new_outfit_path,
-        class: "btn btn-primary" %>
-
-<% end %>
-
-<%= link_to "Back to items", items_path %>

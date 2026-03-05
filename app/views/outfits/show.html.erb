@@ -18,36 +18,48 @@
       <div class="callout-line-slot-one"></div>
 
       <span class="callout-text-slot-two">
-        Teste 3<br>
-        Teste 4
+         <% outfit_item = @outfit.outfit_items[1] %>
+        <%= outfit_item.item.name.capitalize %><br>
+        <span style="font-size: 8px;">
+          <% outfit_item = @outfit.outfit_items[1] %>
+          <%= outfit_item.item.description %>
+        </span>
       </span>
 
       <div class="outfit-show-img-two">
-        <% outfit_item = @outfit.outfit_items[0] %>
+        <% outfit_item = @outfit.outfit_items[1] %>
         <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
       </div>
 
       <div class="callout-line-slot-two"></div>
 
       <span class="callout-text-slot-three">
-        Teste 5<br>
-        Teste 6
+         <% outfit_item = @outfit.outfit_items[2] %>
+        <%= outfit_item.item.name.capitalize %><br>
+        <span style="font-size: 8px;">
+          <% outfit_item = @outfit.outfit_items[2] %>
+          <%= outfit_item.item.description %>
+        </span>
       </span>
 
       <div class="outfit-show-img-three">
-        <% outfit_item = @outfit.outfit_items[0] %>
+        <% outfit_item = @outfit.outfit_items[2] %>
         <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
       </div>
 
       <div class="callout-line-slot-three"></div>
 
       <span class="callout-text-slot-four">
-        Teste 7<br>
-        Teste 8
+        <% outfit_item = @outfit.outfit_items[3] %>
+        <%= outfit_item.item.name.capitalize %><br>
+        <span style="font-size: 8px;">
+          <% outfit_item = @outfit.outfit_items[3] %>
+          <%= outfit_item.item.description %>
+        </span>
       </span>
 
       <div class="outfit-show-img-four">
-        <% outfit_item = @outfit.outfit_items[0] %>
+        <% outfit_item = @outfit.outfit_items[3] %>
         <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
       </div>
 

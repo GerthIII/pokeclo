@@ -5,6 +5,7 @@
   background: #f5f5f5;
   padding: 12px;
   text-align: center;
+  border-radius: 14px;
 }
 
 .cards-wrapper {
@@ -16,12 +17,14 @@
 
 .outfit-card{
   max-width: 360px;
-  height: 400px;
+  height: 360px;
   background: #D8E1E6;
+  border-radius: 14px;
 }
 
 .product-unique-card{
   border: 1px solid #b4b2b2;
+  border-radius: 14px;
 }
 
 .product-image {

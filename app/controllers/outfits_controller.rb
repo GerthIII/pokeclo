@@ -16,6 +16,7 @@ class OutfitsController < ApplicationController
     @outfit.user = current_user
 
     if @outfit.save
+
       redirect_to outfit_path(@outfit), notice: "Outfit created!"
     else
       render :new, status: :unprocessable_entity
