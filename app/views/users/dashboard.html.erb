@@ -11,4 +11,15 @@
       </div>
     <% end %>
   </div>
+
+   <div class="horizontal-scroll my-3">
+    <% @outfits.each do |outfit| %>
+      <div class="scroll-card product-card product-image ">
+        <%= link_to outfit_path(outfit) do %>
+          <% outfit_item = outfit.outfit_items[0] %>
+          <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
