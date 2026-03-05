@@ -1,66 +1,78 @@
 <div class="outfit-show p-4">
   <div class="container outfit-card">
     <div class="callout">
+      <% outfit_item = @outfit.outfit_items[0] %>
+      <% item = outfit_item&.item %>
       <span class="callout-text-slot-one">
-        <% outfit_item = @outfit.outfit_items[0] %>
-        <%= outfit_item.item.name.capitalize %><br>
-        <span style="font-size: 8px;">
-          <% outfit_item = @outfit.outfit_items[0] %>
-          <%= truncate(outfit_item.item.description, length: 30) %>
-        </span>
+        <% if item %>
+          <%= item.name.capitalize %><br>
+          <span style="font-size: 8px;">
+            <%= truncate(item.description, length: 30) %>
+          </span>
+        <% else %>
+          No item selected
+        <% end %>
       </span>
 
       <div class="outfit-show-img-one">
-        <% outfit_item = @outfit.outfit_items[0] %>
-        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
+        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
       </div>
 
       <div class="callout-line-slot-one"></div>
 
+      <% outfit_item = @outfit.outfit_items[1] %>
+      <% item = outfit_item&.item %>
       <span class="callout-text-slot-two">
-         <% outfit_item = @outfit.outfit_items[1] %>
-        <%= outfit_item.item.name.capitalize %><br>
-        <span style="font-size: 8px;">
-          <% outfit_item = @outfit.outfit_items[1] %>
-          <%= truncate(outfit_item.item.description, length: 30) %>
-        </span>
+        <% if item %>
+          <%= item.name.capitalize %><br>
+          <span style="font-size: 8px;">
+            <%= truncate(item.description, length: 30) %>
+          </span>
+        <% else %>
+          No item selected
+        <% end %>
       </span>
 
       <div class="outfit-show-img-two">
-        <% outfit_item = @outfit.outfit_items[1] %>
-        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
+        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
       </div>
 
       <div class="callout-line-slot-two"></div>
 
+      <% outfit_item = @outfit.outfit_items[2] %>
+      <% item = outfit_item&.item %>
       <span class="callout-text-slot-three">
-         <% outfit_item = @outfit.outfit_items[2] %>
-        <%= outfit_item.item.name.capitalize %><br>
-        <span style="font-size: 8px;">
-          <% outfit_item = @outfit.outfit_items[2] %>
-          <%= truncate(outfit_item.item.description, length: 30) %>
-        </span>
+        <% if item %>
+          <%= item.name.capitalize %><br>
+          <span style="font-size: 8px;">
+            <%= truncate(item.description, length: 30) %>
+          </span>
+        <% else %>
+          No item selected
+        <% end %>
       </span>
 
       <div class="outfit-show-img-three">
-        <% outfit_item = @outfit.outfit_items[2] %>
-        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
+        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
       </div>
 
       <div class="callout-line-slot-three"></div>
 
+      <% outfit_item = @outfit.outfit_items[3] %>
+      <% item = outfit_item&.item %>
       <span class="callout-text-slot-four">
-        <% outfit_item = @outfit.outfit_items[3] %>
-        <%= outfit_item.item.name.capitalize %><br>
-        <span style="font-size: 8px;">
-          <% outfit_item = @outfit.outfit_items[3] %>
-          <%= truncate(outfit_item.item.description, length: 30) %>
-        </span>
+        <% if item %>
+          <%= item.name.capitalize %><br>
+          <span style="font-size: 8px;">
+            <%= truncate(item.description, length: 30) %>
+          </span>
+        <% else %>
+          No item selected
+        <% end %>
       </span>
 
       <div class="outfit-show-img-four">
-        <% outfit_item = @outfit.outfit_items[3] %>
-        <%= cl_image_tag(outfit_item.item.photo.key) if outfit_item&.item&.photo&.attached? %>
+        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
       </div>
 
       <div class="callout-line-slot-four"></div>

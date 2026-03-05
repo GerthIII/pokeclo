@@ -48,9 +48,7 @@
       </div>
     </div>
   <% end %>
-  <% if @outfit.persisted? %>
-    <%= link_to "Ask for Advice", chat_outfit_path(@outfit), class: "main-button" %>
-  <% end %>
+
   <div class="container my-3">
     <% if @outfit.persisted? %>
       <%= link_to "Ask for Advice", chat_outfit_path(@outfit), class: "main-button" %>

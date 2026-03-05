@@ -12,9 +12,9 @@ class OutfitsController < ApplicationController
       current_user.outfits.find(params[:outfit_id])
     else
       Outfit.new
-      load_slot_items
-      prefill_from_item_param
     end
+    load_slot_items
+    prefill_from_item_param
   end
 
   def create
@@ -28,7 +28,6 @@ class OutfitsController < ApplicationController
 
     if @outfit.save
       create_outfit_items(@outfit)
-      redirect_to outfit_path(@outfit), notice: "Outfit created!"
       if params[:open_in_new].present?
         redirect_to new_outfit_path(outfit_id: @outfit.id), notice: "Outfit draft created!"
       else
@@ -97,7 +96,7 @@ class OutfitsController < ApplicationController
     when "top"   then @outfit.top_item_id = item.id
     when "bottom"then @outfit.bottom_item_id = item.id
     when "outer" then @outfit.outer_item_id = item.id
-    when "shoes" then @outfit.shoes_item_id = item.id
+    when "footwear" then @outfit.footwear_item_id = item.id
     end
   end
 
