@@ -1,0 +1,6 @@
+<%= simple_form_for [outfit, message] do |f| %>
+  <div class="d-flex mb-5">
+    <%= f.input :content, placeholder: "Ask a question", required: true, label: false %>
+    <%= f.button :submit, "Ask LLM", class: "btn btn-primary" %>
+  </div>
+<% end %>

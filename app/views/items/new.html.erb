@@ -1,30 +1,37 @@
-<h1>Take a photo to upload your item</h1>
+<div class="item-form">
+  <h1 class="item-form__title">New item</h1>
 
-<%= simple_form_for(@item) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
+    <div class="form-inputs">
 
-  <div class="form-inputs">
-    <%# カメラ起動ボタン %>
-    <div class="mb-4 text-center">
-      <label class="btn btn-secondary btn-lg w-100">
-        📷 Take a Photo
-        <%= f.input_field :photo,
-                          as: :file,
-                          accept: 'image/*',
-                          capture: 'camera',
-                          class: "d-none" %>
-      </label>
-      <small class="text-muted">Tap to open your camera</small>
+      <div class="item-form__field mb-3">
+        <label class="btn btn-secondary btn-lg w-100 py-3">
+          <span class="main-button">📷 Take a Photo</span>
+          <%= f.input_field :photo,
+                            as: :file,
+                            accept: 'image/*',
+                            capture: 'camera',
+                            class: "d-none" %>
+        </label>
+        <small class="text-muted d-block text-center mt-1">Tap to open your camera</small>
+      </div>
+
+      <div class="item-form__field mb-3">
+        <%= f.input :name, label: "Name", placeholder: "e.g., Vintage Levi's Jacket", input_html: { class: "item-input" } %>
+      </div>
+
+      <div class="item-form__field mb-3">
+        <%= f.input :description, label: "Description", placeholder: "Details about fit, material...", input_html: { class: "item-input" } %>
+      </div>
+
+      <div class="item-form__field mb-3">
+        <%= f.input :category, collection: ["Tops", "Bottoms", "Shoes", "Accessories", "Jacket"], prompt: "Select category", input_html: { class: "item-input" }%>
+      </div>
+
+      <div class="item-form__field mb-3">
+        <%= f.input :slot, collection: ["Casual", "Business", "Sports", "Party"], prompt: "Select slot", input_html: { class: "item-input" }%>
+      </div>
     </div>
-
-    <%= f.input :name, label: "Name", placeholder: "e.g., Vintage Levi's Jacket" %>
-    <%= f.input :description, label: "Description", placeholder: "Details about fit, material..." %>
-
-    <%# 選択式にするとスマホで入力しやすくなります %>
-    <%= f.input :category, collection: ["Tops", "Bottoms", "Shoes", "Accessories"], prompt: "Select category" %>
-    <%= f.input :slot, collection: ["Casual", "Business", "Sports", "Party"], prompt: "Select slot" %>
-  </div>
-
   <div class="form-actions mt-4">
     <%= f.button :submit, "Add to Closet", class: "btn-primary btn-lg w-100" %>
   </div>
