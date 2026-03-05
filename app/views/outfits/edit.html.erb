@@ -15,17 +15,43 @@
           <%= f.input :description, input_html: { class: "item-input" } %>
         </div>
 
-        <div class="item-form__field mb-3">
-          <%= f.input :jacket, as: :file, input_html: { accept: "image/*", class: "item-input" } %>
-        </div>
+        <%= f.input :top_item_id,
+            collection: @tops,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top"  %>
+
+        <%= f.input :bottom_item_id,
+            collection: @bottoms,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top" %>
+
+        <%= f.input :footwear_item_id,
+            collection: @footwear,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top" %>
+
+        <%= f.input :outer_item_id,
+            collection: @outers,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top" %>
+
+
+
 
         <div class="form-actions mt-4">
-          <%= f.submit "Edit Outfit", class: "main-button" %>
+          <%= f.submit "Create Outfit", class: "main-button" %>
         </div>
       </div>
     </div>
   <% end %>
-</div>
-  <div class="container mt-3 ms-3">
-    <%= link_to "Ask for Advice", chat_outfit_path(@outfit), class: "main-button" %>
+
+  <div class="container my-3">
+    <% if @outfit.persisted? %>
+      <%= link_to "Ask for Advice", chat_outfit_path(@outfit), class: "main-button" %>
+    <% end %>
   </div>
+</div>

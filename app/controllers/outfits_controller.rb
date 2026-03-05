@@ -9,10 +9,10 @@ class OutfitsController < ApplicationController
 
   def new
     @outfit = if params[:outfit_id].present?
-      current_user.outfits.find(params[:outfit_id])
-    else
-      Outfit.new
-    end
+                current_user.outfits.find(params[:outfit_id])
+              else
+                Outfit.new
+              end
     load_slot_items
     prefill_from_item_param
   end
@@ -40,10 +40,18 @@ class OutfitsController < ApplicationController
 
   def edit
     @outfit = current_user.outfits.find(params[:id])
+    load_slot_items
   end
 
   def update
-    @outfit = current_user.outfits.find(params[:id])
+    @outfit = current_user.outfits.find(params[:id].except(:top_item_id, :bottom_item_id, :outer_item_id,
+                                                           :footwear_item_id))
+    @outfit.user = current_user
+    # assign virtual attrs so validation can read them
+    @outfit.top_item_id    = outfit_params[:top_item_id]
+    @outfit.bottom_item_id = outfit_params[:bottom_item_id]
+    @outfit.outer_item_id  = outfit_params[:outer_item_id]
+    @outfit.footwear_item_id = outfit_params[:footwear_item_id]
 
     if @outfit.update(outfit_params)
       redirect_to outfit_path(@outfit), notice: "Outfit updated!"
@@ -99,5 +107,4 @@ class OutfitsController < ApplicationController
     when "footwear" then @outfit.footwear_item_id = item.id
     end
   end
-
 end
