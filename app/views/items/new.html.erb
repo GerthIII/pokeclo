@@ -4,7 +4,6 @@
   <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
     <div class="form-inputs">
 
-      <%# --- カメラ起動ボタン --- %>
       <div class="item-form__field mb-3">
         <label class="btn btn-secondary btn-lg w-100 py-3">
           <span class="main-button">📷 Take a Photo</span>
@@ -17,7 +16,6 @@
         <small class="text-muted d-block text-center mt-1">Tap to open your camera</small>
       </div>
 
-      <%# --- 入力項目 (ここから下がダブっていました) --- %>
       <div class="item-form__field mb-3">
         <%= f.input :name, label: "Name", placeholder: "e.g., Vintage Levi's Jacket", input_html: { class: "item-input" } %>
       </div>
