@@ -1,0 +1,11 @@
+.horizontal-scroll {
+  height: 220px;      /* fixed */
+  overflow-x: auto;
+  overflow-y: hidden; /* prevent vertical growth */
+  white-space: nowrap; /* if you use inline/inline-block cards */
+}
+
+.horizontal-scroll .product-card {
+  height: 200px;
+  flex: 0 0 auto; /* if parent is display:flex */
+}

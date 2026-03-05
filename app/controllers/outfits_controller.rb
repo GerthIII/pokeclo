@@ -49,4 +49,4 @@ class OutfitsController < ApplicationController
   params.require(:outfit).permit(:name, :description, :status, :jacket)
 end
 
-end
+  end
