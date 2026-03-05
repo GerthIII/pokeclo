@@ -11,9 +11,32 @@
 
         <%= f.input :description %>
 
-        <%= f.input :jackets,
-                    as: :file,
-                    input_html: { multiple: true, accept: "image/*" } %>
+        <%= f.input :top_item_id,
+            collection: @tops,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top"  %>
+
+        <%= f.input :bottom_item_id,
+            collection: @bottoms,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top" %>
+
+        <%= f.input :footwear_item_id,
+            collection: @footwear,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top" %>
+
+        <%= f.input :outer_item_id,
+            collection: @outers,
+            label_method: :name,
+            value_method: :id,
+            include_blank: "Select a Top" %>
+
+
+
 
         <%= f.submit "Create Outfit", class: "btn btn-primary" %>
       </div>

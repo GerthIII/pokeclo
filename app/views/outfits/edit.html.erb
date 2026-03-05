@@ -1,5 +1,5 @@
 <div class="outfit-edit">
-  <h1>New Outfit</h1>
+  <h1>Edit</h1>
 
   <%= simple_form_for @outfit, html: { multipart: true } do |f| %>
     <div class="edit-container">
@@ -8,7 +8,19 @@
       <div class="left-column">
         <%= f.input :name %>
         <%= f.input :description %>
-        <%= f.input :jacket, as: :file %>
+        <%= f.input :jackets,
+                    as: :file,
+                    input_html: { multiple: true, accept: "image/*" } %>
+        <%= f.input :jackets,
+                    as: :file,
+                    input_html: { multiple: true, accept: "image/*" } %>
+        <%= f.input :jackets,
+                    as: :file,
+                    input_html: { multiple: true, accept: "image/*" } %>
+        <%= f.input :jackets,
+                    as: :file,
+                    input_html: { multiple: true, accept: "image/*" } %>
+
 
         <%= f.submit "Create Item", class: "btn btn-primary" %>
       </div>

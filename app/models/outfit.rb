@@ -1,4 +1,6 @@
 class Outfit < ApplicationRecord
+  attr_accessor :top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id
+
   has_many :outfit_items
   has_many :items, through: :outfit_items
   has_many :messages
@@ -9,15 +11,4 @@ class Outfit < ApplicationRecord
 
   validates :name, presence: true
   validates :description, presence: true
-  validates :status, presence: true
-
-  validate :jackets_limit
-
-  private
-
-  def jackets_limit
-    return unless jackets.size > 4
-
-    errors.add(:jackets, "は最大4枚までです")
-  end
 end

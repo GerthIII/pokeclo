@@ -24,7 +24,7 @@ ryota = User.create!(
 item1 = Item.new(
   user: ryota,
   name: "sports shirt",
-  slot: "shirt",
+  slot: "top",
   category: "sports",
   description: "A lightweight sports shirt",
   status: 1
@@ -33,7 +33,7 @@ item1 = Item.new(
 item2 = Item.new(
   user: ryota,
   name: "sports pants",
-  slot: "pants",
+  slot: "bottom",
   category: "sports",
   description: "Comfortable sports pants",
   status: 1
@@ -42,7 +42,7 @@ item2 = Item.new(
 item3 = Item.new(
   user: ryota,
   name: "sports shoes",
-  slot: "shoes",
+  slot: "footwear",
   category: "sports",
   description: "Durable sports shoes",
   status: 1
@@ -51,7 +51,7 @@ item3 = Item.new(
 item4 = Item.new(
   user: ryota,
   name: "sports jacket",
-  slot: "jacket",
+  slot: "outer",
   category: "sports",
   description: "A warm sports jacket",
   status: 1
@@ -60,7 +60,7 @@ item4 = Item.new(
 item5 = Item.new(
   user: ryota,
   name: "casual t-shirt",
-  slot: "shirt",
+  slot: "top",
   category: "casual",
   description: "A plain brown shirt",
   status: 1
@@ -69,7 +69,7 @@ item5 = Item.new(
 item6 = Item.new(
   user: ryota,
   name: "polo t-shirt",
-  slot: "shirt",
+  slot: "top",
   category: "casual",
   description: "A navy blue polo shirt",
   status: 1
@@ -78,7 +78,7 @@ item6 = Item.new(
 item7 = Item.new(
   user: ryota,
   name: "formal shirt",
-  slot: "shirt",
+  slot: "top",
   category: "formal",
   description: "A dark grey Zegna shirt",
   status: 1
@@ -87,7 +87,7 @@ item7 = Item.new(
 item8 = Item.new(
   user: ryota,
   name: "formal shirt",
-  slot: "shirt",
+  slot: "top",
   category: "formal",
   description: "An offwhite Zegna linen shirt",
   status: 1
@@ -96,7 +96,7 @@ item8 = Item.new(
 item9 = Item.new(
   user: ryota,
   name: "Jeans",
-  slot: "pants",
+  slot: "bottom",
   category: "casual",
   description: "casual denim pants",
   status: 1
@@ -105,7 +105,7 @@ item9 = Item.new(
 item10 = Item.new(
   user: ryota,
   name: "Linen Pants",
-  slot: "pants",
+  slot: "bottom",
   category: "casual",
   description: "casual cream color linen pants",
   status: 1
@@ -114,7 +114,7 @@ item10 = Item.new(
 item11 = Item.new(
   user: ryota,
   name: "Social Pants",
-  slot: "pants",
+  slot: "bottom",
   category: "social",
   description: "formal dark grey pants",
   status: 1
@@ -123,7 +123,7 @@ item11 = Item.new(
 item12 = Item.new(
   user: ryota,
   name: "Social Pants",
-  slot: "pants",
+  slot: "bottom",
   category: "social",
   description: "formal light grey dress pants",
   status: 1
@@ -132,7 +132,7 @@ item12 = Item.new(
 item13 = Item.new(
   user: ryota,
   name: "Casual Shoes",
-  slot: "shoes",
+  slot: "footwear",
   category: "casual",
   description: "white and black causal Onitsuka Tiger shoes",
   status: 1
@@ -141,7 +141,7 @@ item13 = Item.new(
 item14 = Item.new(
   user: ryota,
   name: "Formal Shoes",
-  slot: "shoes",
+  slot: "footwear",
   category: "formal",
   description: "Black leather shoes",
   status: 1
@@ -150,7 +150,7 @@ item14 = Item.new(
 item15 = Item.new(
   user: ryota,
   name: "Casual Loafer",
-  slot: "shoes",
+  slot: "footwear",
   category: "casual",
   description: "Brown suede Zegna loafers",
   status: 1
