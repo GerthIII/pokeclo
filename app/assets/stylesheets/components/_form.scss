@@ -1,0 +1,82 @@
+.item-form {
+  padding: 16px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.item-form__title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 6px 0 14px;
+}
+
+.item-form__card {
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.item-form__field {
+  margin-bottom: 12px;
+}
+
+/* Labels do simple_form */
+.item-form .form-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* Inputs / select / textarea */
+.item-input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #e6e6e6;
+  padding: 12px 12px;
+  font-size: 14px;
+  outline: none;
+  background: #fafafa;
+}
+
+.item-input:focus {
+  border-color: #ff3b3b;
+  box-shadow: 0 0 0 3px rgba(255, 59, 59, 0.18);
+  background: #fff;
+}
+
+/* File input simples */
+.item-file {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px dashed #d9d9d9;
+  padding: 10px;
+  background: #fafafa;
+  font-size: 14px;
+}
+
+/* Botão principal */
+.item-btn {
+  width: 100%;
+  margin-top: 6px;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  background: #ff3b3b;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.item-btn:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+.item-btn:active {
+  transform: scale(0.98);
+}

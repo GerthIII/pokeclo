@@ -1,6 +1,21 @@
-<div class="container"></div>
-<p><%= @item.name %></p>
-<p><%= @item.description %></p>
-<p><%= @item.category %></p>
-<p><%= @item.slot %></p>
-<p><%= @item.photo.key %></p>
+<div class="show-card">
+  <h3 class="show-title"><%= @item.name %></h3>
+  <hr>
+  <div class="show-text mt-3">
+    <p><%= @item.description %></p>
+    <div class="container d-flex justify-content-around">
+      <p class="category-pill"><%= @item.category %></p>
+      <p class="category-pill"><%= @item.slot %></p>
+    </div>
+  </div>
+  <div class="show-image">
+    <%= cl_image_tag @item.photo.key if @item.photo.attached? %>
+  </div>
+ <div class="container d-flex gap-4 show-button align-itens-center">
+    <%= link_to 'Back', items_path, class: "btn btn-primary rounded-pill"%>
+    <%= link_to 'Create Outfit', new_outfit_path, class: "btn btn-primary rounded-pill"%>
+  </div>
+</div>
+
+
+

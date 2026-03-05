@@ -1,15 +1,15 @@
-<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon mt-3">
   <div class="container-fluid">
     <%= link_to dashboard_path, class: "navbar-brand nav #{"active" if current_page?(dashboard_path)} ms-3" do %>
       <i class="fa-solid fa-house"></i>
     <% end %>
-    <%= link_to "#", class: "navbar-brand ms-3"  do %>
+    <%= link_to items_path, class: "navbar-brand ms-3"  do %>
       <i class="fa-solid fa-shirt"></i>
     <% end %>
-    <%= link_to "#", class: "navbar-brand ms-3"  do %>
+    <%= link_to new_item_path, class: "navbar-brand ms-3"  do %>
       <i class="fa-solid fa-camera"></i>
     <% end %>
-    <%= link_to "#", class: "navbar-brand ms-3"  do %>
+    <%= link_to outfits_path, class: "navbar-brand ms-3"  do %>
       <i class="fa-solid fa-star"></i>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

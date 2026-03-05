@@ -1,0 +1,37 @@
+.section-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none; // スクロールバー隠す（Spotify風）
+  }
+}
+
+.scroll-card {
+  min-width: 180px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-title {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}

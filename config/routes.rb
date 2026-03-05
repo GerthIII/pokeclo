@@ -9,7 +9,10 @@ Rails.application.routes.draw do
 
   get :dashboard, to: "users#dashboard", as: :dashboard # Creates /users/:id/dashboard
 
-  resources :items
+  resources :items do
+  post :add_to_outfit, on: :member
+end
+
   resources :outfits do
     member do
       patch :generate
