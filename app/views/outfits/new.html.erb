@@ -20,10 +20,15 @@
         </div>
 
         <div class="form-actions mt-4">
-          <%= f.submit "Create Outfit", class: "btn-primary btn-lg w-100" %>
+          <%= f.submit "Create Outfit", class: "main-button" %>
         </div>
       </div>
     </div>
 
   <% end %>
+  <div class="container my-3">
+    <% if @outfit.persisted? %>
+      <%= link_to "Ask for Advice", chat_outfit_path(@outfit), class: "main-button" %>
+    <% end %>
+  </div>
 </div>

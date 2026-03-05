@@ -6,7 +6,7 @@
     <div class="outfit-items-grid">
       <% @outfits.each do |outfit| %>
         <div class="outfit-item-card">
-          <%= link_to edit_outfit_path(outfit), class: "outfit-item-link" do %>
+          <%= link_to outfit_path(outfit), class: "outfit-item-link" do %>
             <div class="outfit-item-shell">
               <p class="outfit-item-title"><%= outfit.name %></p>
 
@@ -24,7 +24,18 @@
       <% end %>
     </div>
 
-    <%= link_to "Create an Outfit", new_outfit_path, class: "main-button" %>
+    <%= button_to "Create an Outfit",
+      outfits_path,
+      method: :post,
+      params: {
+      outfit: {
+      name: "Untitled Outfit",
+      description: "Add your outfit description.",
+      status: "draft" # or 0, depending on your enum/setup
+      },
+      open_in_new: true
+      },
+      class: "main-button border-0" %>
   </div>
   <div class="container mt-3">
     <%= link_to "Back to items", items_path, class: "main-button" %>

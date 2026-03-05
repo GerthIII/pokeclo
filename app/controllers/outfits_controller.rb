@@ -8,7 +8,11 @@ class OutfitsController < ApplicationController
   end
 
   def new
-    @outfit = Outfit.new
+    @outfit = if params[:outfit_id].present?
+    current_user.outfits.find(params[:outfit_id])
+    else
+      Outfit.new
+    end
   end
 
   def create
@@ -16,8 +20,11 @@ class OutfitsController < ApplicationController
     @outfit.user = current_user
 
     if @outfit.save
-
-      redirect_to outfit_path(@outfit), notice: "Outfit created!"
+      if params[:open_in_new].present?
+        redirect_to new_outfit_path(outfit_id: @outfit.id), notice: "Outfit draft created!"
+      else
+        redirect_to outfit_path(@outfit), notice: "Outfit created!"
+      end
     else
       render :new, status: :unprocessable_entity
     end
