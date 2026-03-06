@@ -1,22 +1,32 @@
+<%# app/views/pwa/manifest.json.erb %>
 {
-  "name": "Pokeclo",
-  "icons": [
-    {
-      "src": "/icon.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    },
-    {
-      "src": "/icon.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
-    }
-  ],
+  "name": "PocketClo",
+  "short_name": "Pokeclo",
   "start_url": "/",
   "display": "standalone",
-  "scope": "/",
-  "description": "Pokeclo.",
-  "theme_color": "red",
-  "background_color": "red"
+  "background_color": "#ff3b3b",
+  "theme_color": "#ff3b3b",
+  "icons": [
+    {
+      "src": "<%= asset_path "logo.png" %>",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "<%= asset_path "screenshot-mobile.png" %>",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Pokeclo on Mobile"
+    },
+    {
+      "src": "<%= asset_path "screenshot-desktop.png" %>",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Pokeclo on Desktop"
+    }
+  ]
 }
