@@ -94,6 +94,7 @@ production:
   # queue:
   #   <<: *default
   #   url: <%= ENV["DATABASE_URL"] %>
-  # cable:
-  #   <<: *default
-  #   url: <%= ENV["DATABASE_URL"] %>
+   cable:
+    <<: *primary_production
+    url: <%= ENV["DATABASE_URL"] %>
+    migrations_paths: db/cable_migrate
