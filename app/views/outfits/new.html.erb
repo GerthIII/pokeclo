@@ -15,32 +15,144 @@
           <%= f.input :description, input_html: { class: "item-input" } %>
         </div>
 
-        <%= f.input :top_item_id,
-            collection: @tops,
-            label_method: :name,
-            value_method: :id,
-            include_blank: "Select a Top"  %>
+            <div class="slot-grid">
 
-        <%= f.input :bottom_item_id,
-            collection: @bottoms,
-            label_method: :name,
-            value_method: :id,
-            include_blank: "Select a Top" %>
+  <button
+    class="slot-square"
+    data-slot="top"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#top-items">
+    Top
+  </button>
 
-        <%= f.input :footwear_item_id,
-            collection: @footwear,
-            label_method: :name,
-            value_method: :id,
-            include_blank: "Select a Top" %>
+  <button
+    class="slot-square"
+    data-slot="bottom"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#bottom-items">
+    Bottom
+  </button>
 
-        <%= f.input :outer_item_id,
-            collection: @outers,
-            label_method: :name,
-            value_method: :id,
-            include_blank: "Select a Top" %>
+  <button
+    class="slot-square"
+    data-slot="footwear"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#footwear-items">
+    Shoes
+  </button>
 
+  <button
+    class="slot-square"
+    data-slot="outer"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#outer-items">
+    Outer
+  </button>
 
+</div>
+        <div class="collapse mt-3" id="top-items">
+          <div class="slot-items-panel">
+            <h5 class="slot-items-title">Select a Top</h5>
+            <div class="items-scroll-row">
+              <% @tops.each do |item| %>
+                <div class="item-choice-wrapper">
+                  <%= radio_button_tag "outfit[top_item_id]",
+                  item.id,
+                  @outfit.top_item_id.to_i == item.id,
+                  id: "top_item_#{item.id}",
+                  class: "item-radio",
+                  data: { slot: "top", image: cl_image_path(item.photo.key) } %>
 
+                  <label for="top_item_<%= item.id %>" class="item-card-choice">
+                    <% if item.photo.attached? %>
+                      <%= cl_image_tag item.photo.key, class: "item-card-image" %>
+                    <% end %>
+                    <p class="item-card-name"><%= item.name %></p>
+                  </label>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapse mt-3" id="bottom-items">
+          <div class="slot-items-panel">
+            <h5 class="slot-items-title">Select a Bottom</h5>
+            <div class="items-scroll-row">
+              <% @bottoms.each do |item| %>
+                <div class="item-choice-wrapper">
+                  <%= radio_button_tag "outfit[bottom_item_id]",
+                    item.id,
+                    @outfit.bottom_item_id.to_i == item.id,
+                    id: "bottom_item_#{item.id}",
+                    class: "item-radio",
+                    data: { slot: "bottom", image: cl_image_path(item.photo.key) } %>
+
+                  <label for="bottom_item_<%= item.id %>" class="item-card-choice">
+                    <% if item.photo.attached? %>
+                      <%= cl_image_tag item.photo.key, class: "item-card-image" %>
+                    <% end %>
+                    <p class="item-card-name"><%= item.name %></p>
+                  </label>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapse mt-3" id="footwear-items">
+          <div class="slot-items-panel">
+            <h5 class="slot-items-title">Select Shoes</h5>
+            <div class="items-scroll-row">
+              <% @footwear.each do |item| %>
+                <div class="item-choice-wrapper">
+                  <%= radio_button_tag "outfit[footwear_item_id]",
+                    item.id,
+                    @outfit.footwear_item_id.to_i == item.id,
+                    id: "footwear_item_#{item.id}",
+                    class: "item-radio",
+                    data: { slot: "footwear", image: cl_image_path(item.photo.key) } %>
+
+                  <label for="footwear_item_<%= item.id %>" class="item-card-choice">
+                    <% if item.photo.attached? %>
+                      <%= cl_image_tag item.photo.key, class: "item-card-image" %>
+                    <% end %>
+                    <p class="item-card-name"><%= item.name %></p>
+                  </label>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapse mt-3" id="outer-items">
+          <div class="slot-items-panel">
+            <h5 class="slot-items-title">Select an Outer</h5>
+            <div class="items-scroll-row">
+              <% @outers.each do |item| %>
+                <div class="item-choice-wrapper">
+                  <%= radio_button_tag "outfit[outer_item_id]",
+                    item.id,
+                    @outfit.outer_item_id.to_i == item.id,
+                    id: "outer_item_#{item.id}",
+                    class: "item-radio",
+                    data: { slot: "outer", image: cl_image_path(item.photo.key) } %>
+
+                  <label for="outer_item_<%= item.id %>" class="item-card-choice">
+                    <% if item.photo.attached? %>
+                      <%= cl_image_tag item.photo.key, class: "item-card-image" %>
+                    <% end %>
+                    <p class="item-card-name"><%= item.name %></p>
+                  </label>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
 
         <div class="form-actions mt-4">
           <%= f.submit "Create Outfit", class: "main-button" %>

@@ -9,11 +9,7 @@ class OutfitsController < ApplicationController
 
   def new
     load_slot_items
-    @outfit = if params[:outfit_id].present?
-                current_user.outfits.find(params[:outfit_id])
-              else
-                Outfit.new
-              end
+    @outfit = Outfit.new
     prefill_from_item_param
   end
 
@@ -26,7 +22,6 @@ class OutfitsController < ApplicationController
     @outfit.bottom_item_id = outfit_params[:bottom_item_id]
     @outfit.outer_item_id  = outfit_params[:outer_item_id]
     @outfit.footwear_item_id = outfit_params[:footwear_item_id]
-
     if @outfit.save
       create_outfit_items(@outfit)
       if params[:open_in_new].present?
