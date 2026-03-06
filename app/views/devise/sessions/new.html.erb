@@ -1,3 +1,4 @@
+<div class="container p-3">
 <div class="item-form">
   <h1 class="item-form__title">Log in</h1>
 
@@ -18,9 +19,10 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+    <%= f.button :submit, "Log in", class: "main-button" %>
   </div>
 <% end %>
 <div class="mt-4">
   <%= render "devise/shared/links" %>
+</div>
 </div>

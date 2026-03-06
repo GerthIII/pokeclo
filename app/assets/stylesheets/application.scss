@@ -12,6 +12,6 @@
 @import "pages/index";
 @import "outfits";
 
-body{
-  padding-bottom: 90px;
+main.has-bottom-navbar {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
 }

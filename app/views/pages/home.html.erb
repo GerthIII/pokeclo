@@ -1,39 +1,74 @@
 <div class="container p-3">
-  <div class="container text-center">
-    <div class="home-title">
-      <h1 style="font-size: 48px;">Pokeclo</h1>
+  <div class="container">
+    <div class="home-title d-flex">
+      <div class="container">
+        <h1 style="font-size: 48px;">Pokeclo</h1>
+      </div>
+      <div class="container d-flex align-items-center gap-2 ms-2">
+        <%= link_to 'Sign In', new_user_registration_path, style: "height: 24px;", class: "main-button" %>
+        <%= link_to 'Log In', new_user_session_path, style: "height: 24px;", class: "main-button"%>
+      </div>
     </div>
     <hr>
-    <p>Get advices from Pokeclo on your next outfit</p>
   </div>
-  <div class="home-hero" style="width: 100%; height: 100%S;">
-    <%= image_tag "home.jpg", class:"home-hero-image" %>
-    <div class="home-hero-buttons">
-      <%= link_to 'Sign In', new_user_registration_path, class: "btn btn-primary rounded-pill"%>
-      <%= link_to 'Log In', new_user_session_path, class: "btn btn-primary rounded-pill"%>
+  <div class="home-hero">
+    <%= image_tag "home.png", class: "home-hero-image" %>
+
+    <div class="home-hero-text p-4">
+      <p><strong>
+        Less second-guessing in the mirror.<br>
+        More confidence when you step out.<br>
+        Your style starts here.<br>
+        気になる服のことを<br>
+        ポケクロ
+      </strong></p>
     </div>
   </div>
   <hr>
   <div class="container text-center">
     <h2 class="mb-4">About Pokeclo</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta vitae turpis et mollis. Sed commodo sagittis nisi. Sed eu volutpat lacus, vitae varius diam. Etiam a lorem massa. Donec.</p>
+    <p>Pokeclo was created for people who want to explore their style without feeling overwhelmed by fashion. We believe great style doesn’t come from having more clothes — it comes from understanding how to use the ones you already own.
+
+Our mission is to help you organize your wardrobe, discover new combinations, and build confidence in what you wear every day.
+
+Because style isn’t about following trends.
+It’s about discovering what feels like you.</p>
   </div>
   <hr>
   <div class="container text-center">
     <h3>Features</h3>
     <ul>
-      <li>Lorem ipsum dolor sit amet</li>
-      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
-
-      <li>Lorem ipsum dolor sit amet</li>
-      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
-
-      <li>Lorem ipsum dolor sit amet</li>
-      <%= image_tag "phlogo.png", style: "width: 100%; height: 100%; object-fit: cover;" %>
+      <div class="home-card-image my-3">
+        <li>See how new pieces fit with the clothes you already own — all in the palm of your hand.</li>
+        <%= image_tag "featuresone.jpg", class: "home-card-image" %>
+      </div>
+      <div class="home-card-image my-5">
+        <li>Powered by AI to guide you in every style decision.</li>
+        <%= image_tag "featurestwo.jpg", class: "home-card-image" %>
+      </div>
     </ul>
-      <%= link_to 'Sign In', new_user_registration_path, class: "btn btn-primary rounded-pill"%>
+     <div class="container text-center">
+    <h3>Create Your Account Now</h3>
+    </div>
+    <div class="container d-flex justify-content-center my-4">
+      <%= link_to 'Sign In', new_user_registration_path, class: "main-button"%>
+    </div>
   </div>
-  <div class="container">
-    <p>FOOTER INFORMATION.</p>
-  </div>
+  <div class="container text-center social-bar">
+  <a href="#" class="social-icon">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="#" class="social-icon">
+    <i class="fa-brands fa-twitter"></i>
+  </a>
+
+  <a href="#" class="social-icon">
+    <i class="fa-brands fa-tiktok"></i>
+  </a>
+
+  <a href="#" class="social-icon">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
 </div>

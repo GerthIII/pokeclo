@@ -1,7 +1,9 @@
-<div class="container p-3">
+<div class="container d-flex flex-column align-items-center mt-3">
   <h1>Pokeclo</h1>
   <p>Dashboard</p>
-
+</div>
+<div class="container">
+  <h2>My Items</h2>
   <div class="horizontal-scroll">
     <% @items.each do |item| %>
       <div class="scroll-card product-card product-image ">
@@ -11,7 +13,10 @@
       </div>
     <% end %>
   </div>
-
+</div>
+<hr>
+<div class="container">
+<h2>My Outfit</h2>
    <div class="horizontal-scroll my-3">
     <% @outfits.each do |outfit| %>
       <div class="scroll-card product-card product-image ">
@@ -22,4 +27,6 @@
       </div>
     <% end %>
   </div>
+</div>
+<hr>
 </div>
