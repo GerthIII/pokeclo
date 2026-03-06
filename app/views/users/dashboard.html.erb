@@ -16,17 +16,26 @@
 </div>
 <hr>
 <div class="container">
-<h2>My Outfit</h2>
-   <div class="horizontal-scroll my-3">
+  <h2>My Outfit</h2>
+  <div class="horizontal-scroll my-3">
     <% @outfits.each do |outfit| %>
-      <div class="scroll-card product-card product-image ">
-        <%= link_to outfit_path(outfit) do %>
-          <% outfit_item = outfit.outfit_items[0] %>
-          <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+      <div class="scroll-card outfit-preview-card">
+        <%= link_to outfit_path(outfit), class: "outfit-preview-link" do %>
+          <div class="outfit-preview-grid">
+            <% 4.times do |i| %>
+              <% outfit_item = outfit.outfit_items[i] %>
+              <div class="outfit-preview-cell">
+                <% if outfit_item&.item&.photo&.attached? %>
+                  <%= cl_image_tag outfit_item.item.photo.key, class: "outfit-preview-img" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       </div>
     <% end %>
   </div>
+</div>
 </div>
 <hr>
 </div>
