@@ -25,22 +25,19 @@
             collection: @bottoms,
             label_method: :name,
             value_method: :id,
-            include_blank: "Select a Top" %>
+            include_blank: "Select a Bottom" %>
 
         <%= f.input :footwear_item_id,
             collection: @footwear,
             label_method: :name,
             value_method: :id,
-            include_blank: "Select a Top" %>
+            include_blank: "Select a Shoes" %>
 
         <%= f.input :outer_item_id,
             collection: @outers,
             label_method: :name,
             value_method: :id,
-            include_blank: "Select a Top" %>
-
-
-
+            include_blank: "Select an Outer" %>
 
         <div class="form-actions mt-4">
           <%= f.submit "Create Outfit", class: "main-button" %>

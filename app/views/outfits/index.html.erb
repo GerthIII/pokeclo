@@ -11,6 +11,7 @@
               <p class="outfit-item-title"><%= outfit.name %></p>
               <div class="container d-flex">
                 <div class="outfit-item-image-one">
+                <!-- the images of the outfit show insider of the index card -->
                   <% outfit_item = outfit.outfit_items[0] %>
                   <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
                 </div>
