@@ -60,13 +60,22 @@ class MessagesController < ApplicationController
           next unless item
           OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
         end
-        style_advice = suggestions.map do |s| "#{s['slot'].capitalize}: #{s['style_comment']}" 
+        style_advice = suggestions.map do |s|
+          item = Item.find_by(id: s['item_id'], user_id: current_user.id)
+          img_html = if item&.photo&.attached?
+            url = item.photo.url(transformation: { width: 80, height: 80, crop: :fill })
+            "<img src=\"#{url}\" width=\"80\" height=\"80\" class=\"rounded me-2\" style=\"object-fit:cover;\">"
+          else
+            ""
+          end
           <<~HTML
-            <div class="mb-2">
-              <span class="fw-bold text-capitalize">#{s['slot']}</span>
-              <span class="text-muted"> &mdash; #{s['item_name']}</span>
-              
-              <p class="mb-0">#{s['style_comment']}</p>
+            <div class="d-flex align-items-center mb-2">
+              #{img_html}
+              <div>
+                <span class="fw-bold text-capitalize">#{s['slot']}</span>
+                <span class="text-muted"> &mdash; #{s['item_name']}</span>
+                <p class="mb-0">#{s['style_comment']}</p>
+              </div>
             </div>
           HTML
         end.join("\n")
@@ -106,7 +115,7 @@ class MessagesController < ApplicationController
         slot: item.slot,
         description: item.description,
         name: item.name
-    }
+      }
     end.to_json
     candidates = @outfit.candidate_items_for_missing_slots.map do |item|
       {
