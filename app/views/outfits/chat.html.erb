@@ -1,7 +1,8 @@
 <div class="container">
   <h1>Chat with Pokeclo AI</h1>
+  <h3 class="text-muted text-decoration-none"><%= @outfit.name %></h3>
   <div id="messages">
-    <%= render "messages/messages", messages: @messages %>
+    <%= render "messages/messages", messages: @messages, outfit: @outfit %>
   </div>
   <div id="message-form">
     <%= render "messages/form", outfit: @outfit, message: @message %>

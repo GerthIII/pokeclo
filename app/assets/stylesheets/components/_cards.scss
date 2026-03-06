@@ -17,7 +17,7 @@
 
 .outfit-card{
   max-width: 360px;
-  height: 360px;
+  height: 380px;
   background: #D8E1E6;
   border-radius: 14px;
 }
@@ -32,12 +32,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
 }
 
 .product-image img {
   max-height: 100%;
   max-width: 100%;
   object-fit: cover;
+  border-radius: 12px;
 }
 
 .product-image-wrapper {

@@ -9,12 +9,25 @@
           <%= link_to outfit_path(outfit), class: "outfit-item-link" do %>
             <div class="outfit-item-shell">
               <p class="outfit-item-title"><%= outfit.name %></p>
-
-              <div class="outfit-item-image">
-                <% outfit_item = outfit.outfit_items[0] %>
-                <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+              <div class="container d-flex">
+                <div class="outfit-item-image-one">
+                <!-- the images of the outfit show insider of the index card -->
+                  <% outfit_item = outfit.outfit_items[0] %>
+                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+                </div>
+                <div class="outfit-item-image-one">
+                  <% outfit_item = outfit.outfit_items[1] %>
+                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+                </div>
+                <div class="outfit-item-image-one">
+                  <% outfit_item = outfit.outfit_items[2] %>
+                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+                </div>
+                <div class="outfit-item-image-one">
+                  <% outfit_item = outfit.outfit_items[3] %>
+                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+                </div>
               </div>
-
               <div class="outfit-item-text">
                 <p class="outfit-item-subtitle"><%= outfit.description %></p>
               </div>
