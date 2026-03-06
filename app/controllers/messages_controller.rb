@@ -53,33 +53,8 @@ class MessagesController < ApplicationController
     if @message.save
       response = ai_response
       begin
-        suggestions = JSON.parse(response.content) 
-        suggestions.each do |suggestion|
-          next if @outfit.filled_slots.include?(suggestion["slot"])
-          item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
-          next unless item
-          OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
-        end
-        style_advice = suggestions.map do |s|
-          item = Item.find_by(id: s['item_id'], user_id: current_user.id)
-          img_html = if item&.photo&.attached?
-            url = item.photo.url(transformation: { width: 80, height: 80, crop: :fill })
-            "<img src=\"#{url}\" width=\"80\" height=\"80\" class=\"rounded me-2\" style=\"object-fit:cover;\">"
-          else
-            ""
-          end
-          <<~HTML
-            <div class="d-flex align-items-center mb-2">
-              #{img_html}
-              <div>
-                <span class="fw-bold text-capitalize">#{s['slot']}</span>
-                <span class="text-muted"> &mdash; #{s['item_name']}</span>
-                <p class="mb-0">#{s['style_comment']}</p>
-              </div>
-            </div>
-          HTML
-        end.join("\n")
-        @outfit.messages.build(role: 'assistant', content: style_advice)
+        suggestions = JSON.parse(response.content)
+        @outfit.messages.build(role: 'assistant', content: suggestions.to_json)
         @outfit.save
       rescue JSON::ParserError
         Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
@@ -88,6 +63,21 @@ class MessagesController < ApplicationController
     else
       render "messages/new", status: :unprocessable_entity
     end
+  end
+
+  def confirm
+    @outfit = Outfit.find(params[:outfit_id])
+    @message = @outfit.messages.find(params[:id])
+    suggestions = JSON.parse(@message.content)
+    suggestions.each do |suggestion|
+      next if @outfit.filled_slots.include?(suggestion["slot"])
+      item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
+      next unless item
+      OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
+    end
+    redirect_to chat_outfit_path(@outfit)
+  rescue JSON::ParserError
+    redirect_to chat_outfit_path(@outfit), alert: "Could not apply suggestions."
   end
 
   private
