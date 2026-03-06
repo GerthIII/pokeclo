@@ -1,32 +1,25 @@
-<%# app/views/pwa/manifest.json.erb %>
 {
-  "name": "PocketClo",
-  "short_name": "Pokeclo",
+  "name": "My App",
+  "short_name": "MyApp",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ff3b3b",
-  "theme_color": "#ff3b3b",
+  "background_color": "#ef2b2d",
+  "theme_color": "#ef2b2d",
   "icons": [
     {
-      "src": "<%= asset_path "logo.png" %>",
-      "sizes": "180x180",
+      "src": "<%= asset_path('icons/icon-192.png') %>",
+      "sizes": "192x192",
       "type": "image/png"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "<%= asset_path "screenshot-mobile.png" %>",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Pokeclo on Mobile"
     },
     {
-      "src": "<%= asset_path "screenshot-desktop.png" %>",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Pokeclo on Desktop"
+      "src": "<%= asset_path('icons/icon-512.png') %>",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "<%= asset_path('icons/apple-touch-icon.png') %>",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ]
 }
