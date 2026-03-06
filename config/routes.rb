@@ -18,7 +18,11 @@ end
       patch :generate
       get :chat # Creates /outfits/:id/generate
     end
-    resources :messages, only: [:new, :create]
+    resources :messages, only: [:new, :create] do
+      member do
+        post :confirm
+      end
+    end
     resources :outfit_items, only: [:create, :update]
   end
 

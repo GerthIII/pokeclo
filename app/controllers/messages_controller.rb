@@ -53,24 +53,8 @@ class MessagesController < ApplicationController
     if @message.save
       response = ai_response
       begin
-        suggestions = JSON.parse(response.content) 
-        suggestions.each do |suggestion|
-          next if @outfit.filled_slots.include?(suggestion["slot"])
-          item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
-          next unless item
-          OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
-        end
-        style_advice = suggestions.map do |s| "#{s['slot'].capitalize}: #{s['style_comment']}" 
-          <<~HTML
-            <div class="mb-2">
-              <span class="fw-bold text-capitalize">#{s['slot']}</span>
-              <span class="text-muted"> &mdash; #{s['item_name']}</span>
-              
-              <p class="mb-0">#{s['style_comment']}</p>
-            </div>
-          HTML
-        end.join("\n")
-        @outfit.messages.build(role: 'assistant', content: style_advice)
+        suggestions = JSON.parse(response.content)
+        @outfit.messages.build(role: 'assistant', content: suggestions.to_json)
         @outfit.save
       rescue JSON::ParserError
         Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
@@ -79,6 +63,21 @@ class MessagesController < ApplicationController
     else
       render "messages/new", status: :unprocessable_entity
     end
+  end
+
+  def confirm
+    @outfit = Outfit.find(params[:outfit_id])
+    @message = @outfit.messages.find(params[:id])
+    suggestions = JSON.parse(@message.content)
+    suggestions.each do |suggestion|
+      next if @outfit.filled_slots.include?(suggestion["slot"])
+      item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
+      next unless item
+      OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
+    end
+    redirect_to chat_outfit_path(@outfit)
+  rescue JSON::ParserError
+    redirect_to chat_outfit_path(@outfit), alert: "Could not apply suggestions."
   end
 
   private
@@ -106,7 +105,7 @@ class MessagesController < ApplicationController
         slot: item.slot,
         description: item.description,
         name: item.name
-    }
+      }
     end.to_json
     candidates = @outfit.candidate_items_for_missing_slots.map do |item|
       {

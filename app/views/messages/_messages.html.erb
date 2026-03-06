@@ -8,7 +8,31 @@
   <% elsif message.role == "assistant" %>
     <div class="d-flex justify-content-start mb-5">
       <div class="px-3 pb-0 pt-3">
-        <%= raw(render_markdown(message.content)) %>
+        <% begin %>
+          <% suggestions = JSON.parse(message.content) %>
+          <% suggestions.each do |s| %>
+            <% item = Item.find_by(id: s['item_id']) %>
+            <div class="d-flex align-items-center mb-2">
+              <% if item&.photo&.attached? %>
+                <% url = item.photo.url(transformation: { width: 80, height: 80, crop: :fill }) %>
+                <img src="<%= url %>" width="80" height="80" class="rounded me-2" style="object-fit:cover;">
+              <% end %>
+              <div>
+                <span class="fw-bold text-capitalize"><%= s['slot'] %></span>
+                <span class="text-muted"> &mdash; <%= s['item_name'] %></span>
+                <p class="mb-0"><%= s['style_comment'] %></p>
+              </div>
+            </div>
+          <% end %>
+          <% all_applied = suggestions.all? { |s| outfit.filled_slots.include?(s['slot']) } %>
+          <% if all_applied %>
+            <span class="badge bg-success mt-2">Applied to Outfit</span>
+          <% else %>
+            <%= button_to "Apply to Outfit", confirm_outfit_message_path(outfit, message), method: :post, class: "btn btn-primary btn-sm mt-2" %>
+          <% end %>
+        <% rescue JSON::ParserError %>
+          <%= raw(render_markdown(message.content)) %>
+        <% end %>
       </div>
     </div>
   <% end %>
