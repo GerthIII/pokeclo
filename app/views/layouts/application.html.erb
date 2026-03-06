@@ -22,6 +22,9 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+      <%# これだけで manifest と service_worker が読み込まれます %>
+    <%= display_meta_tags(pwa: true) if defined?(display_meta_tags) %>
+    <meta name="apple-mobile-web-app-capable" content="yes">
   </head>
 
   <body>
