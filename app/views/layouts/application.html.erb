@@ -7,11 +7,11 @@
     <meta name="application-name" content="Pokeclo">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <%# Rails 8 標準のパス指定（ここが重要です） %>
+      <%# 以前の <link rel="manifest" ...> は消して、以下に書き換えてください %>
     <%= tag.link rel: "manifest", href: pwa_manifest_path %>
 
-    <%# アイコンも logo.png を使うように合わせます %>
-    <link rel="apple-touch-icon" href="<%= asset_path 'apple-touch-icon' %>">
+    <%# apple-touch-icon も images 直下にある名前に合わせます %>
+    <link rel="apple-touch-icon" href="<%= asset_path 'apple-touch-icon.png' %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
