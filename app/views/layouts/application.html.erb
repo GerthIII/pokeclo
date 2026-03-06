@@ -6,6 +6,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Pokeclo">
     <meta name="mobile-web-app-capable" content="yes">
+
+      <%# 以前の <link rel="manifest" ...> は消して、以下に書き換えてください %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path %>
+
+    <%# apple-touch-icon も images 直下にある名前に合わせます %>
+    <link rel="apple-touch-icon" href="<%= asset_path 'apple-touch-icon.png' %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
