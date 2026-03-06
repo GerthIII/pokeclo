@@ -11,7 +11,7 @@
     <%= cl_image_tag @item.photo.key if @item.photo.attached? %>
   </div>
  <div class="container d-flex gap-4 show-button align-itens-center">
-    <%= link_to 'Back', items_path, class: "btn btn-primary rounded-pill"%>
+    <%= link_to 'Back', dashboard_path, class: "btn btn-primary rounded-pill"%>
     <%= link_to 'Create Outfit', new_outfit_path(item_id: @item.id), class: "btn btn-primary rounded-pill"%>
     <%= link_to 'Edit Item', edit_item_path(@item), class: "btn btn-primary rounded-pill"%>
   </div>
