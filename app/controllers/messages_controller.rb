@@ -5,14 +5,15 @@ class MessagesController < ApplicationController
     Complete an outfit by filling the empty slots using items from my provided closet.
 
     ### RULES:
-    1. **Strict Taxonomy:** You must NOT invent categories. For every item you select, you MUST use the exact "category" and "slot" string provided in the closet data. 
+    1. **Strict Taxonomy:** You must NOT invent categories. For every item you select, you MUST use the exact "category" and "slot" string provided in the closet data.
     2. **Fill the Gaps:** For every empty slot (Top, Bottom, Shoes, Accessories), select the best-matching item from my closet. If I already provided an item for that slot do not swap it. Only fill the slots that are not being provided.
-    3. **Styling Rationale:** Provide a "style_comment" for every item. Use simple fashion theory (e.g., "The slim top balances the wide pants"). 
-    4. **Tone:** Conversational, short, and jargon-free. Avoid run-on sentences.
+    3. **Styling Rationale:** Provide a "style_comment" for every item. Use simple fashion theory (e.g., "The slim top balances the wide pants").
+    4. **Tone:** Conversational, short, and jargon-free. Avoid run-on sentences and use plain language.
+    5. **Format:** You must order the items in this order: outer, top, bottom, footwear. This is to keep things looking nice.
 
     ### OUTPUT FORMAT:
     Return ONLY a JSON array of objects. No prose, no intro, no markdown code blocks.
-    
+
     Required JSON Keys:
     - "item_id": (integer) this must be the id of one of the items that I provided as candidate or current item.
     - "item_name": This must be the name of one of the items I provided as a candidate or current item. It needs to match the id of that item.
@@ -51,16 +52,30 @@ class MessagesController < ApplicationController
     @message.role = "user"
     if @message.save
       response = ai_response
-      suggestions = JSON.parse(response.content)
-      suggestions.each do |suggestion|
-        next if @outfit.filled_slots.include?(suggestion["slot"])
-        item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
-        next unless item
-        OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
+      begin
+        suggestions = JSON.parse(response.content) 
+        suggestions.each do |suggestion|
+          next if @outfit.filled_slots.include?(suggestion["slot"])
+          item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
+          next unless item
+          OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
+        end
+        style_advice = suggestions.map do |s| "#{s['slot'].capitalize}: #{s['style_comment']}" 
+          <<~HTML
+            <div class="mb-2">
+              <span class="fw-bold text-capitalize">#{s['slot']}</span>
+              <span class="text-muted"> &mdash; #{s['item_name']}</span>
+              
+              <p class="mb-0">#{s['style_comment']}</p>
+            </div>
+          HTML
+        end.join("\n")
+        @outfit.messages.build(role: 'assistant', content: style_advice)
+        @outfit.save
+      rescue JSON::ParserError
+        Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
       end
-      @outfit.messages.build(role: 'assistant', content: response.content)
-      @outfit.save
-      redirect_to new_outfit_message_path(@outfit)
+      redirect_to chat_outfit_path(@outfit)
     else
       render "messages/new", status: :unprocessable_entity
     end
@@ -73,7 +88,16 @@ class MessagesController < ApplicationController
     chat = RubyLLM.chat
     chat.with_instructions(SYSTEM_PROMPT)
     @outfit.messages.where.not(id: @message.id).each do |msg|
-      chat.add_message(role: msg.role, content: msg.content)
+      display_content = msg.content
+      if msg.role == 'assistant'
+        begin
+          json_content = JSON.parse(msg.content)
+          display_content = json_content['style_advice'] || msg.content
+        rescue JSON::ParserError
+          display_content = msg.content
+        end
+      end
+      chat.add_message(role: msg.role, content: display_content)
     end
     current_items = @outfit.items.map do |item|
       {
