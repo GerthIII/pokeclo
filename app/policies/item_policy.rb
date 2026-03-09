@@ -10,6 +10,14 @@ class ItemPolicy < ApplicationPolicy
     user.present?
   end
 
+  def capture_photo?
+    user.present?
+  end
+
+  def analyze_photo?
+    user.present?
+  end
+
   def show?
     true
   end
