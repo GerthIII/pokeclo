@@ -11,7 +11,21 @@ class OutfitsController < ApplicationController
 
   def new
     load_slot_items
-    @outfit = Outfit.new
+
+     if params[:outfit_id].present?
+      @outfit = current_user.outfits.find(params[:outfit_id])
+      @messages = @outfit.messages
+      @message = Message.new
+      authorize @outfit
+      prefill_from_item_param
+    else
+      # Cria draft automaticamente
+      @outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
+      authorize @outfit
+      redirect_to new_outfit_path(outfit_id: @outfit.id)
+      return
+    end
+
     # authorizes user to crate an item with Pundit
     authorize @outfit
     prefill_from_item_param
