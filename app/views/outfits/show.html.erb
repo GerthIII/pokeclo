@@ -93,3 +93,6 @@
     </div>
   </div>
 </div>
+<% if @outfit.photo.attached? %>
+<%= cl_image_tag @outfit.photo.key %>
+<% end %>
