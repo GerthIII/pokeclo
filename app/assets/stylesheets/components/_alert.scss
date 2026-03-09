@@ -1,7 +1,10 @@
 .alert {
   position: fixed;
-  bottom: 60px;
-  right: 60px;
+  bottom: 60px;   /* flush to the bottom */
+  right: 0.1px;    /* flush to the right */
   z-index: 1000;
+
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
