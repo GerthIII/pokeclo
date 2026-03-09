@@ -1,15 +1,19 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @items = policy_scope(Item)
   end
 
   def new
     @item = Item.new
+    # authorizes user to crate an item with Pundit
+    authorize @item
   end
 
   def create
     @item = Item.new(item_params)
     @item.user = current_user
+    # authorizes user to crate an item with Pundit
+    authorize @item
 
     if @item.save
       redirect_to items_path(@item)
@@ -20,14 +24,20 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    # this will authorize all of the items to be seen
+  authorize @item
   end
 
   def edit
     @item = Item.find(params[:id])
+    # authorizes user to crate an item with Pundit
+    authorize @item
   end
 
   def update
     @item = Item.find(params[:id])
+    # authorizes user to crate an item with Pundit
+    authorize @item
 
     if @item.update(item_params)
       redirect_to item_path(@item), notice: "Item updated!"
@@ -51,6 +61,8 @@ class ItemsController < ApplicationController
   def add_to_outfit
     item = Item.find(params[:id])
     outfit = current_user.outfits.order(created_at: :desc).first
+    # authorizes user to crate an item with Pundit
+    authorize @item
 
     if outfit.present?
       outfit.jackets.attach(item.photo.blob)

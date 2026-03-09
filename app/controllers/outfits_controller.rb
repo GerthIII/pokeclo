@@ -1,15 +1,19 @@
 class OutfitsController < ApplicationController
   def index
-    @outfits = Outfit.all
+    @outfits = policy_scope(Outfit)
   end
 
   def show
     @outfit = Outfit.find(params[:id])
+    # authorizes user to crate an item with Pundit
+    authorize @outfit
   end
 
   def new
     load_slot_items
     @outfit = Outfit.new
+    # authorizes user to crate an item with Pundit
+    authorize @outfit
     prefill_from_item_param
   end
 
@@ -17,6 +21,8 @@ class OutfitsController < ApplicationController
     load_slot_items
     @outfit = Outfit.new(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
     @outfit.user = current_user
+    # authorizes user to crate an item with Pundit
+    authorize @outfit
     # assign virtual attrs so validation can read them
     @outfit.top_item_id    = outfit_params[:top_item_id]
     @outfit.bottom_item_id = outfit_params[:bottom_item_id]
@@ -36,6 +42,8 @@ class OutfitsController < ApplicationController
 
   def edit
     @outfit = current_user.outfits.find(params[:id])
+    # authorizes user to crate an item with Pundit
+    authorize @outfit
     load_slot_items
   end
 
@@ -43,6 +51,8 @@ class OutfitsController < ApplicationController
     @outfit = current_user.outfits.find(params[:id])#.except(:top_item_id, :bottom_item_id, :outer_item_id,
                                                            #:footwear_item_id))
     @outfit.user = current_user
+    # authorizes user to crate an item with Pundit
+    authorize @outfit
     # assign virtual attrs so validation can read them
     @outfit.top_item_id    = outfit_params[:top_item_id]
     @outfit.bottom_item_id = outfit_params[:bottom_item_id]
@@ -58,8 +68,11 @@ class OutfitsController < ApplicationController
 
   def chat
     @outfit = Outfit.find(params[:id])
+    authorize @outfit
     @messages = @outfit.messages
+    authorize @messages
     @message = Message.new
+    authorize @message
   end
 
   private
