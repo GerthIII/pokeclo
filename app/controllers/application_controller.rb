@@ -2,8 +2,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   include Pundit::Authorization
 
-  after_action :verify_authorized, except: :index, unless: :skip_pundit?
-  after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
+# Thi line will make the home visible even with pundit
+after_action :verify_policy_scoped, if: -> { action_name == "index" && !skip_pundit? }
+after_action :verify_authorized,   if: -> { action_name != "index" && !skip_pundit? }
+
 
    def after_sign_in_path_for(resource)
     dashboard_path
