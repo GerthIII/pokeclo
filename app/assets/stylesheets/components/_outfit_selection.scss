@@ -14,15 +14,17 @@
 }
 
 .items-scroll-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* mobile: 3 colunas */
   gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  -webkit-overflow-scrolling: touch;
+
+  max-height: 55vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .item-choice-wrapper {
-  flex: 0 0 auto;
+  width: 100%;
 }
 
 .item-radio {
@@ -31,10 +33,9 @@
 
 .item-card-choice {
   display: block;
-  width: 92px;
+  width: 100%;
   border: 2px solid #ddd;
-  border-radius: 16px;
-  padding: 8px;
+  border-radius: 8px;
   background: white;
   text-align: center;
   cursor: pointer;
@@ -46,9 +47,9 @@
 
 .item-card-image {
   width: 100%;
-  height: 90px;
+  height: 120px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 8px;
   display: block;
 }
 
@@ -139,14 +140,6 @@
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 12px;
-}
-
-.items-scroll-row {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  -webkit-overflow-scrolling: touch;
 }
 
 .item-choice-wrapper {

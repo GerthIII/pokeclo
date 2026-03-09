@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   def index
     @items = policy_scope(Item)
+    @item_filtered = @items.where(params[:slot])
   end
 
   def new
@@ -70,6 +71,15 @@ class ItemsController < ApplicationController
     else
       redirect_to new_outfit_path, alert: "Create an outfit first!"
     end
+  end
+
+  # This action analyzes the photo provided during new item creation.
+  def analyze_photo
+    photo = params[:photo]
+    result = ItemAnalyzerService.call(photo)
+    render json: result
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
