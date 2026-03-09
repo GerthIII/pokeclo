@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
     @item.user = current_user
 
     if @item.save
-      redirect_to item_path(@item)
+      redirect_to items_path(@item)
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,6 +34,17 @@ class ItemsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def capture_photo
+    item = current_user.items.create(
+      name: "name",
+      description: "description",
+      category: "category",
+      slot: "top",
+    )
+    item.photo.attach(params[:item][:photo])
+    redirect_to edit_item_path(item)
   end
 
   # ✅ ここに独立して書く
