@@ -15,10 +15,11 @@ Outfit.destroy_all
 Item.destroy_all
 User.destroy_all
 
+#updated ryota to have easier login
 ryota = User.create!(
   name: "Ryota Hayakawa",
-  email: "r.hayakawasan@gmail.com",
-  password: "yamatodamashi"
+  email: "ryota@gmail.com",
+  password: "123123"
 )
 
 item1 = Item.new(

@@ -3,7 +3,9 @@
 </div>
 <hr>
 <div class="container">
-  <h2>My Items</h2>
+  <div class="container d-flex justify-content-center mt-4">
+    <p> <strong>My Items</strong></p>
+  </div>
   <div class="horizontal-scroll">
     <% @items.each do |item| %>
       <div class="scroll-card product-card product-image ">
@@ -16,7 +18,9 @@
 </div>
 <hr>
 <div class="container">
-  <h2>My Outfit</h2>
+ <div class="container d-flex justify-content-center mt-4">
+  <p> <strong>My Outfits</strong></p>
+  </div>
   <div class="horizontal-scroll my-3">
     <% @outfits.each do |outfit| %>
       <div class="scroll-card outfit-preview-card">
