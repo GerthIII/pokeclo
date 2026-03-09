@@ -62,7 +62,6 @@ class OutfitsController < ApplicationController
     @message = Message.new
   end
 
-  def 
 
   private
 
@@ -104,5 +103,9 @@ class OutfitsController < ApplicationController
     when "outer" then @outfit.outer_item_id = item.id
     when "footwear" then @outfit.footwear_item_id = item.id
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :profile_photo)
   end
 end
