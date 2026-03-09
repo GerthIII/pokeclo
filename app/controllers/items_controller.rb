@@ -73,6 +73,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  # This action analyzes the photo provided during new item creation.
+  def analyze_photo
+    photo = params[:photo]
+    result = ItemAnalyzerService.call(photo)
+    render json: result
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity
+  end
+
   private
 
   def item_params

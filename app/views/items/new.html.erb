@@ -1,9 +1,7 @@
-<div class="item-form">
+<div class="item-form" data-controller="photo-analyze">
   <h1 class="item-form__title">New item</h1>
-
   <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
     <div class="form-inputs">
-
       <div class="item-form__field mb-3">
         <label class="btn btn-secondary btn-lg w-100 py-3">
           <span class="main-button">📷 Take a Photo</span>
@@ -11,28 +9,40 @@
                             as: :file,
                             accept: 'image/*',
                             capture: 'camera',
-                            class: "d-none" %>
+                            class: "d-none",
+                            data: { photo_analyze_target: "photo", action: "change->photo-analyze#photoChanged" } %>
         </label>
         <small class="text-muted d-block text-center mt-1">Tap to open your camera</small>
       </div>
-
-      <div class="item-form__field mb-3">
-        <%= f.input :name, label: "Name", placeholder: "e.g., Vintage Levi's Jacket", input_html: { class: "item-input" } %>
+      <div data-photo-analyze-target="spinner" class="text-center my-4 d-none">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="text-muted mt-2">Analyzing your item...</p>
       </div>
-
-      <div class="item-form__field mb-3">
-        <%= f.input :description, label: "Description", placeholder: "Details about fit, material...", input_html: { class: "item-input" } %>
-      </div>
-
-      <div class="item-form__field mb-3">
-        <%= f.input :category, collection: ["sport", "casual", "formal", "outdoor"], prompt: "Select category", input_html: { class: "item-input" }%>
-      </div>
-
-      <div class="item-form__field mb-3">
-        <%= f.input :slot, collection: ["outer", "top", "bottom", "footwear"], prompt: "Select slot", input_html: { class: "item-input" }%>
+      <div data-photo-analyze-target="fields">
+        <div class="item-form__field mb-3">
+          <%= f.input :name, label: "Name",
+                        placeholder: "e.g., Vintage Levi's Jacket",
+                        input_html: { class: "item-input", data: { photo_analyze_target: "name" } } %>
+        </div>
+        <div class="item-form__field mb-3">
+          <%= f.input :description, label: "Description",
+                        placeholder: "Details about fit, material...",
+                        input_html: { class: "item-input", data: { photo_analyze_target: "description" } } %>
+        </div>
+        <div class="item-form__field mb-3">
+          <%= f.input :category, collection: Item::CATEGORY,
+                        prompt: "Select category",
+                        input_html: { class: "item-input", data: { photo_analyze_target: "category" } } %>
+        </div>
+        <div class="item-form__field mb-3">
+          <%= f.input :slot, collection: Item::SLOT,
+                        prompt: "Select slot",
+                        input_html: { class: "item-input", data: { photo_analyze_target: "slot" } } %>
+        </div>
       </div>
     </div>
-  <div class="form-actions mt-4">
-    <%= f.button :submit, "Add to Closet", class: "btn-primary btn-lg w-100" %>
-  </div>
-<% end %>
+    <div class="form-actions mt-4">
+      <%= f.button :submit, "Add to Closet", class: "btn-primary btn-lg w-100" %>
+    </div>
+  <% end %>
+</div>
