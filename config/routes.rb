@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get :dashboard, to: "users#dashboard", as: :dashboard # Creates /users/:id/dashboard
 
   resources :items do
+  post :capture_photo, on: :collection
   post :add_to_outfit, on: :member
 end
 

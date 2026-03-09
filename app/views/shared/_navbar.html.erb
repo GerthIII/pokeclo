@@ -9,7 +9,7 @@
       <i class="fa-solid fa-shirt"></i>
     <% end %>
 
-    <%= form_with(model: Item.new, url: items_path, local: true, class: "d-inline") do |f| %>
+    <%= form_with(model: Item, url:capture_photo_items_path, local: true, class: "d-inline", method: :post) do |f| %>
       <label class="mb-0" style="cursor: pointer;">
         <i class="fa-solid fa-camera fs-2"></i>
         <%= f.file_field :photo,
