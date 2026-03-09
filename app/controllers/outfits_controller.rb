@@ -68,8 +68,11 @@ class OutfitsController < ApplicationController
 
   def chat
     @outfit = Outfit.find(params[:id])
+    authorize @outfit
     @messages = @outfit.messages
+    authorize @messages
     @message = Message.new
+    authorize @message
   end
 
   private

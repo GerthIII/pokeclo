@@ -7,7 +7,7 @@ after_action :verify_policy_scoped, if: -> { action_name == "index" && !skip_pun
 after_action :verify_authorized,   if: -> { action_name != "index" && !skip_pundit? }
 
 
-   def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(resource)
     dashboard_path
   end
 

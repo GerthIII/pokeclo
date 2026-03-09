@@ -44,11 +44,12 @@ class MessagesController < ApplicationController
     # Bottom (Black Hummel Track Pants): By choosing black bottoms, we create a "Vertical Column of Color" with the black accents on the shirt. The white chevron panels on the legs mirror the sporty vibe of the Adidas stripes, creating visual harmony.
 
     # Footwear (White Adizero Cleats): The crisp white of the shoes "sandwiches" the outfit, pulling the cream/white from the top down to the feet. This prevents the outfit from feeling "bottom-heavy" with all-black pants.
-    
+
 
   def create
     @outfit = Outfit.find(params[:outfit_id])
     @message = @outfit.messages.build(message_params)
+    authorize @message
     @message.role = "user"
     if @message.save
       response = ai_response
@@ -61,13 +62,14 @@ class MessagesController < ApplicationController
       end
       redirect_to chat_outfit_path(@outfit)
     else
-      render "messages/new", status: :unprocessable_entity
+      render outfits_path, status: :unprocessable_entity
     end
   end
 
   def confirm
     @outfit = Outfit.find(params[:outfit_id])
     @message = @outfit.messages.find(params[:id])
+    authorize @message
     suggestions = JSON.parse(@message.content)
     suggestions.each do |suggestion|
       next if @outfit.filled_slots.include?(suggestion["slot"])
