@@ -78,5 +78,5 @@ group :test do
 end
 
 gem "cloudinary"
-
+gem "pundit"
 gem "ruby_llm", "~> 1.11.0"
