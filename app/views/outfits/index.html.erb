@@ -37,17 +37,8 @@
       <% end %>
     </div>
 
-    <%= button_to "Create an Outfit",
-      outfits_path,
-      method: :post,
-      params: {
-      outfit: {
-      name: "Untitled Outfit",
-      description: "Add your outfit description."
-      },
-      open_in_new: true
-      },
-      class: "main-button border-0" %>
+   <%= link_to 'Create Outfit', new_outfit_path, class: "main-button rounded-pill"%>
+
   </div>
   <div class="container mt-3">
     <%= link_to "Back to items", items_path, class: "main-button" %>

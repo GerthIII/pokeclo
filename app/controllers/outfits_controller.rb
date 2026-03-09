@@ -11,18 +11,19 @@ class OutfitsController < ApplicationController
 
   def new
     load_slot_items
+    @auto_ask = params[:auto_ask].present?
 
      if params[:outfit_id].present?
       @outfit = current_user.outfits.find(params[:outfit_id])
       @messages = @outfit.messages
       @message = Message.new
       authorize @outfit
+      hydrate_slot_item_ids(@outfit)
       prefill_from_item_param
     else
-      # Cria draft automaticamente
       @outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
       authorize @outfit
-      redirect_to new_outfit_path(outfit_id: @outfit.id)
+      redirect_to new_outfit_path(outfit_id: @outfit.id, item_id: params[:item_id])
       return
     end
 
@@ -33,19 +34,29 @@ class OutfitsController < ApplicationController
 
   def create
     load_slot_items
-    @outfit = Outfit.new(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
-    @outfit.user = current_user
-    # authorizes user to crate an item with Pundit
-    authorize @outfit
-    # assign virtual attrs so validation can read them
-    @outfit.top_item_id    = outfit_params[:top_item_id]
-    @outfit.bottom_item_id = outfit_params[:bottom_item_id]
-    @outfit.outer_item_id  = outfit_params[:outer_item_id]
+
+    # Se veio de um draft, atualiza ele em vez de criar novo
+    if params[:outfit_id].present?
+      @outfit = current_user.outfits.find(params[:outfit_id])
+      authorize @outfit
+    else
+      @outfit = Outfit.new(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
+      @outfit.user = current_user
+      authorize @outfit
+    end
+
+    @outfit.top_item_id      = outfit_params[:top_item_id]
+    @outfit.bottom_item_id   = outfit_params[:bottom_item_id]
+    @outfit.outer_item_id    = outfit_params[:outer_item_id]
     @outfit.footwear_item_id = outfit_params[:footwear_item_id]
-    if @outfit.save
+
+    if @outfit.update(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
+      @outfit.outfit_items.destroy_all
       create_outfit_items(@outfit)
-      if params[:open_in_new].present?
-        redirect_to new_outfit_path(outfit_id: @outfit.id), notice: "Outfit draft created!"
+      if params[:ask_for_advice]
+        redirect_to new_outfit_path(outfit_id: @outfit.id, auto_ask: true)
+      elsif params[:redirect_to_edit]
+        redirect_to edit_outfit_path(@outfit)
       else
         redirect_to outfit_path(@outfit), notice: "Outfit created!"
       end
@@ -58,7 +69,11 @@ class OutfitsController < ApplicationController
     @outfit = current_user.outfits.find(params[:id])
     # authorizes user to crate an item with Pundit
     authorize @outfit
+    @auto_ask = params[:auto_ask].present?
+    hydrate_slot_item_ids(@outfit)
     load_slot_items
+    @messages = @outfit.messages
+    @message = Message.new
   end
 
   def update
@@ -73,8 +88,16 @@ class OutfitsController < ApplicationController
     @outfit.outer_item_id  = outfit_params[:outer_item_id]
     @outfit.footwear_item_id = outfit_params[:footwear_item_id]
 
-    if @outfit.update(outfit_params)
-      redirect_to outfit_path(@outfit), notice: "Outfit updated!"
+    if @outfit.update(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
+      @outfit.outfit_items.destroy_all
+      create_outfit_items(@outfit)
+      if params[:ask_for_advice]
+        redirect_to edit_outfit_path(@outfit, auto_ask: true)
+      elsif params[:redirect_to_edit]
+        redirect_to edit_outfit_path(@outfit)
+      else
+        redirect_to outfit_path(@outfit), notice: "Outfit updated!"
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -111,10 +134,18 @@ class OutfitsController < ApplicationController
   end
 
   def create_outfit_items(outfit)
-    outfit.outfit_items.create(item_id: outfit.top_item_id) if outfit.top_item_id.present?
-    outfit.outfit_items.create(item_id: outfit.bottom_item_id) if outfit.bottom_item_id.present?
-    outfit.outfit_items.create(item_id: outfit.outer_item_id) if outfit.outer_item_id.present?
-    outfit.outfit_items.create(item_id: outfit.footwear_item_id) if outfit.footwear_item_id.present?
+    outfit.outfit_items.create(item_id: outfit.top_item_id, slot: "top") if outfit.top_item_id.present?
+    outfit.outfit_items.create(item_id: outfit.bottom_item_id, slot: "bottom") if outfit.bottom_item_id.present?
+    outfit.outfit_items.create(item_id: outfit.outer_item_id, slot: "outer") if outfit.outer_item_id.present?
+    outfit.outfit_items.create(item_id: outfit.footwear_item_id, slot: "footwear") if outfit.footwear_item_id.present?
+  end
+
+  def hydrate_slot_item_ids(outfit)
+    slot_item_ids = outfit.outfit_items.pluck(:slot, :item_id).to_h
+    outfit.top_item_id = slot_item_ids["top"]
+    outfit.bottom_item_id = slot_item_ids["bottom"]
+    outfit.outer_item_id = slot_item_ids["outer"]
+    outfit.footwear_item_id = slot_item_ids["footwear"]
   end
 
   def prefill_from_item_param

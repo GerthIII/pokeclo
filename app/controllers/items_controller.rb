@@ -54,6 +54,7 @@ class ItemsController < ApplicationController
       category: "category",
       slot: "top",
     )
+    authorize item
     item.photo.attach(params[:item][:photo])
     redirect_to edit_item_path(item)
   end
