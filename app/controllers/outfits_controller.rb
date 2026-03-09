@@ -62,6 +62,8 @@ class OutfitsController < ApplicationController
     @message = Message.new
   end
 
+  def 
+
   private
 
   def outfit_params
