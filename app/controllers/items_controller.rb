@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   def index
     @items = policy_scope(Item)
+    @item_filtered = @items.where(params[:slot])
   end
 
   def new
