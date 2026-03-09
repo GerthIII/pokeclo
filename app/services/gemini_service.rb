@@ -6,7 +6,7 @@ class GeminiService
     attachments = items.map { |item| item.blob.url }
     attachments << base
     # Call chat with the prompt and the attachments array
-    image_chat = RubyLLM.chat(model: "gemini-2.5-flash-image")
+    image_chat = RubyLLM.chat(model: "gemini-2.5-flash-image" )
     reply = image_chat.ask(prompt, with: { images: attachments })
     image = reply.content[:attachments][0].source
     # Return the content (the generated image data)
