@@ -91,3 +91,66 @@ ul {
 .social-icon:hover {
   color: #000;
 }
+
+.create-account-button{
+  font-family: $body-font;
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  opacity: 0.85;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+    .cta {
+    letter-spacing: 0.5px;
+  }
+
+  &:hover {
+    background-color: #e63232;
+    transform: translateY(-1px);
+    transform: scale(1.05);
+  }
+
+   &:active {
+    transform: scale(1.1);
+    text-decoration: none;
+  }
+}
+
+.create-account-button-bottom{
+  font-family: $body-font;
+  display: inline-flex;
+  align-items: center;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+    .cta {
+    letter-spacing: 0.5px;
+  }
+
+  &:hover {
+    background-color: #e63232;
+    transform: translateY(-1px);
+    transform: scale(1.05);
+  }
+
+   &:active {
+    transform: scale(1.1);
+    text-decoration: none;
+  }
+}
