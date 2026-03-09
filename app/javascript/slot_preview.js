@@ -74,3 +74,16 @@ document.addEventListener("turbo:load", () => {
     applyPreview(input)
   })
 })
+
+document.addEventListener("change", (event) => {
+  const input = radioFromTarget(event.target)
+  if (!input) return
+
+  applyPreview(input)
+
+  const offcanvasEl = input.closest(".offcanvas")
+  if (!offcanvasEl) return
+
+  const instance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl)
+  instance.hide()
+})
