@@ -1,18 +1,18 @@
 .product-card {
-  width: 45%;
-  max-width: 160px;
+  width: 100%;
+  max-width: 200px;
+  min-height: 240px;
   height: 200px;
   background: #f5f5f5;
-  padding: 12px;
+  padding: 8px;
   text-align: center;
   border-radius: 14px;
 }
 
 .cards-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns like screenshot */
+  gap: 1px;
 }
 
 .outfit-card{
@@ -22,17 +22,12 @@
   border-radius: 14px;
 }
 
-.product-unique-card{
-  border: 1px solid #b4b2b2;
-  border-radius: 14px;
-}
-
 .product-image {
-  height: 120px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
 }
 
 .product-image img {
@@ -72,10 +67,6 @@
   font-weight: 300;
 }
 
-.p-text-box{
-  height: 8px;
-}
-
 .product-colors {
   display: flex;
   justify-content: center;
@@ -97,4 +88,10 @@
 
 .color-green {
   background: #8f9a8a;
+}
+
+@media (min-width: 768px) {
+  .cards-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
