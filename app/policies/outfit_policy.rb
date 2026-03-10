@@ -14,6 +14,10 @@ class OutfitPolicy < ApplicationPolicy
     user.present?
   end
 
+  def try_on?
+    user.present?
+  end
+
   def show?
     true
   end
