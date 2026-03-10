@@ -112,6 +112,20 @@ class OutfitsController < ApplicationController
     authorize @message
   end
 
+  def try_on
+    @outfit = Outfit.find(params[:id])
+    if current_user.profile_photo.attached?
+      result_image = GeminiService.generate_try_on(
+        base: current_user.profile_photo,
+        items: @outfit.items.map(&:photo)
+      )
+      @outfit.photo.attach(io: result_image, filename: "#{@outfit.id}.png", content_type: "image/png")
+      redirect_to outfit_path(@outfit), notice: "Virtual try_on complete!"
+    else
+      redirect_to edit_user_path(current_user), alert: "Please upload a full-body photo first"
+    end
+  end
+
   private
 
   def outfit_params
@@ -160,5 +174,9 @@ class OutfitsController < ApplicationController
     when "outer" then @outfit.outer_item_id = item.id
     when "footwear" then @outfit.footwear_item_id = item.id
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :profile_photo)
   end
 end
