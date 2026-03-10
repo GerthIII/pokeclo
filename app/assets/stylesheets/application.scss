@@ -15,3 +15,20 @@
 main.has-bottom-navbar {
   padding-bottom: calc(96px + env(safe-area-inset-bottom));
 }
+
+.page-back-button {
+  position: fixed;
+  top: calc(26px + env(safe-area-inset-top));
+  left: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1b1b1b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1100;
+}

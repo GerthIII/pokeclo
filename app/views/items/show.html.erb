@@ -1,21 +1,29 @@
-  <div class="show-card">
-    <h3 class="show-title"><%= @item.name %></h3>
-    <hr>
-    <div class="show-text mt-1">
-      <div class="container d-flex justify-content-around">
-        <p class="category-pill"><%= @item.category %></p>
-        <p class="category-pill"><%= @item.slot %></p>
+<div class="container py-3 pb-5 item-show-page">
+  <article class="item-show-card">
+    <div class="item-show-media">
+      <% if @item.photo.attached? %>
+        <%= cl_image_tag @item.photo.key, class: "item-show-image" %>
+      <% else %>
+        <div class="item-show-image-placeholder">No image</div>
+      <% end %>
+    </div>
+
+    <div class="item-show-content">
+      <p class="item-show-title"><%= @item.name.capitalize %></p>
+
+      <div class="item-show-meta">
+        <span class="item-show-pill"><%= @item.category %></span>
+        <span class="item-show-pill"><%= @item.slot %></span>
+      </div>
+
+      <% if @item.description.present? %>
+        <p class="item-show-description"><%= @item.description %></p>
+      <% end %>
+
+      <div class="item-show-actions">
+        <%= link_to "Create Outfit", new_outfit_path(item_id: @item.id), class: "main-button" %>
+        <%= link_to "Edit Item", edit_item_path(@item), class: "main-button item-show-secondary-action" %>
       </div>
     </div>
-    <div class="show-image">
-      <%= cl_image_tag @item.photo.key if @item.photo.attached? %>
-    </div>
-  <div class="container d-flex gap-4 show-button align-itens-center">
-      <%= link_to 'Back', dashboard_path, class: "btn btn-primary rounded-pill"%>
-      <%= link_to 'Create Outfit', new_outfit_path(item_id: @item.id), class: "btn btn-primary rounded-pill"%>
-      <%= link_to 'Edit Item', edit_item_path(@item), class: "btn btn-primary rounded-pill"%>
-    </div>
-    <div class="show-text mt-3">
-      <p><%= @item.description %></p>
-      </div>
-  </div>
+  </article>
+</div>
