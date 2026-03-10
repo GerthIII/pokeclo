@@ -1,16 +1,16 @@
-<div class="container p-3">
+<div class="container p-3 session-page">
 <div class="item-form">
   <h1 class="item-form__title">Log in</h1>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
-    <div class="item form__field">
+    <div class="item-form__field">
     <%= f.input :email,
                 required: false,
                 autofocus: true,
                 input_html: { autocomplete: "email", class: "item-input" } %>
     </div>
-    <div class="item form__field">
+    <div class="item-form__field">
     <%= f.input :password,
                 required: false,
                 input_html: { autocomplete: "current-password", class: "item-input" } %>
