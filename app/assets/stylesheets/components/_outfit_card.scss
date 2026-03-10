@@ -3,7 +3,7 @@
 .outfit-items-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on mobile */
+  grid-template-columns: 1fr; /* 2 columns on mobile */
   gap: 12px;
   padding: 8px 0 16px;
 }
@@ -88,4 +88,10 @@
 
 .outfit-item-subtitle{
   font-size: 8px;
+}
+
+.slot-sheet {
+  --bs-offcanvas-height: 80vh; /* 2/3 da tela */
+  height: 66vh;
+  border-radius: 16px 16px 0 0;
 }

@@ -3,15 +3,18 @@
 
     <%= link_to dashboard_path, class: "navbar-brand #{'active' if current_page?(dashboard_path)}" do %>
       <i class="fa-solid fa-house"></i>
+      <span class="navbar-text"><p>Home</p></span>
     <% end %>
 
     <%= link_to items_path, class: "navbar-brand #{'active' if controller_name == 'items'}" do %>
       <i class="fa-solid fa-shirt"></i>
+      <span class="navbar-text"><p>Items</p></span>
     <% end %>
 
-    <%= form_with(model: Item.new, url: items_path, local: true, class: "d-inline") do |f| %>
+    <%= form_with(model: Item, url:capture_photo_items_path, local: true, class: "d-inline", method: :post) do |f| %>
       <label class="mb-0" style="cursor: pointer;">
-        <i class="fa-solid fa-camera fs-2"></i>
+        <i class="fa-solid fa-camera fs-2 ms-2"></i>
+        <span class="navbar-text"><p>New Item</p></span>
         <%= f.file_field :photo,
           accept: "image/*",
           capture: "camera",
@@ -21,7 +24,8 @@
     <% end %>
 
     <%= link_to outfits_path, class: "navbar-brand #{'active' if controller_name == 'outfits'}" do %>
-      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star ms-1"></i>
+      <span class="navbar-text"><p>Outfits</p></span>
     <% end %>
 
     <button class="navbar-toggler"
