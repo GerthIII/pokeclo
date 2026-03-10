@@ -48,11 +48,12 @@ class ItemsController < ApplicationController
   end
 
   def capture_photo
+    result = ItemAnalyzerService.call(params[:item][:photo])
     item = current_user.items.create(
-      name: "name",
-      description: "description",
-      category: "category",
-      slot: "top",
+      name: result["name"],
+      description: result["description"],
+      category: result["category"],
+      slot: result["slot"]
     )
     authorize item
     item.photo.attach(params[:item][:photo])
@@ -76,6 +77,7 @@ class ItemsController < ApplicationController
 
   # This action analyzes the photo provided during new item creation.
   def analyze_photo
+    authorize Item
     photo = params[:photo]
     result = ItemAnalyzerService.call(photo)
     render json: result
