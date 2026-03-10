@@ -368,19 +368,19 @@ file18 = URI.open("https://images.unsplash.com/photo-1591047139829-d91aecb6caea?
 item18.photo.attach(io: file18, filename: "#{item18.name}.jpg", content_type: "image/jpeg")
 item18.save
 
-file19 = URI.open("https://images.unsplash.com/photo-1548126032-079a0fb0099d?auto=format&fit=crop&w=800&q=80")
+file19 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125970/61XUeKFhUqL._AC_UY1000__eaguoh.jpg")
 item19.photo.attach(io: file19, filename: "#{item19.name}.jpg", content_type: "image/jpeg")
 item19.save
 
-file20 = URI.open("https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=800&q=80")
+file20 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125820/71qNDKpZglL._AC_UY1000__mudsvu.jpg")
 item20.photo.attach(io: file20, filename: "#{item20.name}.jpg", content_type: "image/jpeg")
 item20.save
 
-file21 = URI.open("https://images.unsplash.com/photo-1604644401890-0bd678c83788?auto=format&fit=crop&w=800&q=80")
+file21 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125676/740_NAV_FRT_jh855b.jpg")
 item21.photo.attach(io: file21, filename: "#{item21.name}.jpg", content_type: "image/jpeg")
 item21.save
 
-file22 = URI.open("https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80")
+file22 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773126060/sgmsqlocr1kbkuakkltd_nd3m9a.jpg")
 item22.photo.attach(io: file22, filename: "#{item22.name}.jpg", content_type: "image/jpeg")
 item22.save
 
