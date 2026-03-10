@@ -94,13 +94,29 @@
   </div>
 </div>
 
-<div class="">
-
-
-<% if @outfit.photo.attached? %>
-  <%# 試着結果を縦長で見るための専用ページ（または画像直接）へのリンク %>
-    <div class="card shadow-sm border-0 overflow-hidden" style="border-radius: 15px;">
-      <%= cl_image_tag @outfit.photo.key,
-                    class: "img-fluid",
-                    style: "aspect-ratio: 2 / 3; object-fit: cover;" %>
+<%= link_to "Try on!", try_on_outfit_path(@outfit), class: "btn btn-primary w-100 rounded-pill"  %>
+<% if @outfit.photo.attached?  %>
+  <button type="button" class="btn btn-primary w-100 rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Show outfit
+  </button>
 <% end %>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> <div class="modal-content overflow-hidden" style="border-radius: 20px;">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Your image</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-0"> <% if @outfit.photo.attached? %>
+          <%= cl_image_tag @outfit.photo.key,
+                           class: "img-fluid w-100",
+                           style: "aspect-ratio: 2 / 3; object-fit: cover; display: block;" %>
+        <% end %>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary w-100 rounded-pill" data-bs-dismiss="modal">Back</button>
+      </div>
+    </div>
+  </div>
+</div>

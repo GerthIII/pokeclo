@@ -69,7 +69,6 @@ class OutfitsController < ApplicationController
         base: current_user.profile_photo,
         items: @outfit.items.map(&:photo)
       )
-
       @outfit.photo.attach(io: result_image, filename: "#{@outfit.id}.png", content_type: "image/png")
       redirect_to outfit_path(@outfit), notice: "Virtual try_on complete!"
     else
