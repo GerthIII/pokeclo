@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit::Authorization
 
 # Thi line will make the home visible even with pundit
-after_action :verify_policy_scoped, if: -> { action_name == "index" && !skip_pundit? }
-after_action :verify_authorized,   if: -> { action_name != "index" && !skip_pundit? }
+  after_action :verify_policy_scoped, if: -> { action_name == "index" && !skip_pundit? }
+  after_action :verify_authorized,   if: -> { action_name != "index" && !skip_pundit? }
 
 
   def after_sign_in_path_for(resource)
@@ -15,7 +16,15 @@ after_action :verify_authorized,   if: -> { action_name != "index" && !skip_pund
     dashboard_path
   end
 
- def skip_pundit?
+
+  def configure_permitted_parameters
+    # For additional fields in app/views/devise/registrations/new.html.erb
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:profile_photo])
+
+    # For additional in app/views/devise/registrations/edit.html.erb
+    devise_parameter_sanitizer.permit(:account_update, keys: [:profile_photo])
+  end
+  def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
