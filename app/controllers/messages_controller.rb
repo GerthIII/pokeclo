@@ -100,7 +100,19 @@ class MessagesController < ApplicationController
       if msg.role == 'assistant'
         begin
           json_content = JSON.parse(msg.content)
-          display_content = json_content['style_advice'] || msg.content
+          display_content =
+            case json_content
+            when Hash
+              json_content['style_advice'].presence || msg.content
+            when Array
+              json_content
+                .map { |entry| entry.is_a?(Hash) ? entry['style_comment'].presence || entry['item_name'] : nil }
+                .compact
+                .join("\n")
+                .presence || msg.content
+            else
+              msg.content
+            end
         rescue JSON::ParserError
           display_content = msg.content
         end

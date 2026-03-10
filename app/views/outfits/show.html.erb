@@ -1,4 +1,4 @@
-<div class="container py-3 pb-5 outfit-show-page">
+<div class="container pt-3 outfit-show-page">
   <article class="outfit-show-card-minimal">
     <div class="outfit-show-grid">
       <% 4.times do |i| %>
@@ -28,13 +28,17 @@
     </div>
   </article>
 </div>
-
-<%= link_to "Try on!", try_on_outfit_path(@outfit), class: "btn btn-primary w-100 rounded-pill"  %>
+<article class="outfit-show-card-minimal pt-0">
+<p class="outfit-show-description mb-3 mx-3">Use Pokeclo AI to see how you would look in this outfit!</p>
+<div class="container d-flex px-3 gap-4">
+  <%= link_to "Try on!", try_on_outfit_path(@outfit), class: "main-button" %>
 <% if @outfit.photo.attached?  %>
-  <button type="button" class="btn btn-primary w-100 rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Show outfit
+  <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Show Me in This Outfit
   </button>
+</div>
 <% end %>
+</article>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered"> <div class="modal-content overflow-hidden" style="border-radius: 20px;">
       <div class="modal-header">
