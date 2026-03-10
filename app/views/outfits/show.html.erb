@@ -1,105 +1,44 @@
-<div class="outfit-show p-4">
-  <div class="container outfit-card">
-    <div class="callout">
-      <% outfit_item = @outfit.outfit_items[0] %>
-      <% item = outfit_item&.item %>
-      <span class="callout-text-slot-one">
-        <% if item %>
-          <%= item.name.capitalize %><br>
-          <span style="font-size: 8px;">
-            <%= truncate(item.description, length: 30) %>
-          </span>
-        <% else %>
-          No item selected
-        <% end %>
-      </span>
-
-      <div class="outfit-show-img-one">
-        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
-      </div>
-
-      <div class="callout-line-slot-one"></div>
-
-      <% outfit_item = @outfit.outfit_items[1] %>
-      <% item = outfit_item&.item %>
-      <span class="callout-text-slot-two">
-        <% if item %>
-          <%= item.name.capitalize %><br>
-          <span style="font-size: 8px;">
-            <%= truncate(item.description, length: 30) %>
-          </span>
-        <% else %>
-          No item selected
-        <% end %>
-      </span>
-
-      <div class="outfit-show-img-two">
-        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
-      </div>
-
-      <div class="callout-line-slot-two"></div>
-
-      <% outfit_item = @outfit.outfit_items[2] %>
-      <% item = outfit_item&.item %>
-      <span class="callout-text-slot-three">
-        <% if item %>
-          <%= item.name.capitalize %><br>
-          <span style="font-size: 8px;">
-            <%= truncate(item.description, length: 30) %>
-          </span>
-        <% else %>
-          No item selected
-        <% end %>
-      </span>
-
-      <div class="outfit-show-img-three">
-        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
-      </div>
-
-      <div class="callout-line-slot-three"></div>
-
-      <% outfit_item = @outfit.outfit_items[3] %>
-      <% item = outfit_item&.item %>
-      <span class="callout-text-slot-four">
-        <% if item %>
-          <%= item.name.capitalize %><br>
-          <span style="font-size: 8px;">
-            <%= truncate(item.description, length: 30) %>
-          </span>
-        <% else %>
-          No item selected
-        <% end %>
-      </span>
-
-      <div class="outfit-show-img-four">
-        <%= cl_image_tag(item.photo.key) if item&.photo&.attached? %>
-      </div>
-
-      <div class="callout-line-slot-four"></div>
-    </div>
-  </div>
-    <div class="container d-flex justify-content-center mt-3">
-      <%= link_to "Edit", edit_outfit_path(@outfit), class: "main-button" %>
+<div class="container pt-3 outfit-show-page">
+  <article class="outfit-show-card-minimal">
+    <div class="outfit-show-grid">
+      <% 4.times do |i| %>
+        <% outfit_item = @outfit.outfit_items[i] %>
+        <% item = outfit_item&.item %>
+        <div class="outfit-show-grid-cell">
+          <% if item&.photo&.attached? %>
+            <%= cl_image_tag item.photo.key, class: "outfit-show-grid-image" %>
+          <% else %>
+            <div class="outfit-show-grid-placeholder">No item</div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
-  <hr>
+    <div class="outfit-show-content">
+      <p class="outfit-show-title"><%= @outfit.name.capitalize.presence || "Untitled Outfit" %></p>
 
-  <div class="container">
-    <h2><%= @outfit.name %></h2>
-    <p><%= @outfit.description %></p>
+      <% if @outfit.description.present? %>
+        <p class="outfit-show-description"><%= @outfit.description %></p>
+      <% end %>
 
-    <div class="d-flex justify-content-center">
-      <%= link_to "Back", outfits_path, class: "main-button" %>
+      <div class="outfit-show-actions">
+        <%= link_to "Edit Outfit", edit_outfit_path(@outfit), class: "main-button" %>
+        <%= link_to "All Outfits", outfits_path, class: "main-button outfit-show-secondary-action" %>
+      </div>
     </div>
-  </div>
+  </article>
 </div>
-
-<%= link_to "Try on!", try_on_outfit_path(@outfit), class: "btn btn-primary w-100 rounded-pill"  %>
+<article class="outfit-show-card-minimal pt-0">
+<p class="outfit-show-description mb-3 mx-3">Use Pokeclo AI to see how you would look in this outfit!</p>
+<div class="container d-flex px-3 gap-4">
+  <%= link_to "Try on!", try_on_outfit_path(@outfit), class: "main-button" %>
 <% if @outfit.photo.attached?  %>
-  <button type="button" class="btn btn-primary w-100 rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Show outfit
+  <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Show Me in This Outfit
   </button>
+</div>
 <% end %>
+</article>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered"> <div class="modal-content overflow-hidden" style="border-radius: 20px;">
       <div class="modal-header">

@@ -1,25 +1,43 @@
-<div class="item-form" data-controller="ask-pokeclo" data-ask-pokeclo-auto-ask-value="<%= @auto_ask %>">
+<div class="item-form outfit-new-page" data-controller="ask-pokeclo" data-ask-pokeclo-auto-ask-value="<%= @auto_ask %>">
   <h1 class="item-form__title">Edit Outfit</h1>
 
   <%= simple_form_for @outfit, url: outfits_path, method: :post, html: { multipart: true, class: "item-form__card", data: { ask_pokeclo_target: "outfitForm" } } do |f| %>
     <%= hidden_field_tag :outfit_id, @outfit.id %>
+
     <div class="form-inputs">
       <div class="form-fields">
-
-        <div class="item-form__field mb-3">
-          <%= f.input :name, input_html: { class: "item-input" } %>
+        <div class="item-form__field mb-2">
+          <%= f.input :name, label: "Outfit name", input_html: { class: "item-input", placeholder: "Weekend casual, Office look..." } %>
         </div>
 
-        <div class="item-form__field mb-3">
-          <%= f.input :description, input_html: { class: "item-input", data: { ask_pokeclo_target: "description" } } %>
-        </div>
+        <section class="outfit-path-card">
+          <p class="outfit-path-title">Build it myself</p>
+          <p class="outfit-path-copy">Select one item per slot.</p>
 
-        <div class="slot-grid">
-          <button class="slot-square" data-slot="top" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-sheet">Top</button>
-          <button class="slot-square" data-slot="bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#bottom-sheet">Bottom</button>
-          <button class="slot-square" data-slot="footwear" type="button" data-bs-toggle="offcanvas" data-bs-target="#footwear-sheet">Shoes</button>
-          <button class="slot-square" data-slot="outer" type="button" data-bs-toggle="offcanvas" data-bs-target="#outer-sheet">Outer</button>
-        </div>
+          <div class="slot-grid">
+            <button class="slot-square" data-slot="top" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-sheet">Top</button>
+            <button class="slot-square" data-slot="bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#bottom-sheet">Bottom</button>
+            <button class="slot-square" data-slot="footwear" type="button" data-bs-toggle="offcanvas" data-bs-target="#footwear-sheet">Shoes</button>
+            <button class="slot-square" data-slot="outer" type="button" data-bs-toggle="offcanvas" data-bs-target="#outer-sheet">Outer</button>
+          </div>
+
+          <div class="outfit-path-actions">
+            <%= f.submit "Update Outfit", class: "main-button" %>
+          </div>
+        </section>
+
+        <section class="outfit-path-card">
+          <p class="outfit-path-title">Ask Pokeclo</p>
+          <p class="outfit-path-copy">Describe the vibe and let AI fill missing slots.</p>
+
+          <div class="item-form__field mb-2">
+            <%= f.input :description, label: "Style prompt", input_html: { class: "item-input", data: { ask_pokeclo_target: "description" }, placeholder: "Streetwear for rainy weather, neutral tones..." } %>
+          </div>
+
+          <div class="outfit-path-actions">
+            <button type="button" class="main-button" data-action="ask-pokeclo#ask">Ask Pokeclo AI to Build</button>
+          </div>
+        </section>
 
         <!-- TOP -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="top-sheet">
@@ -32,7 +50,6 @@
               <% @tops.each do |item| %>
                 <div class="item-choice-wrapper">
                   <%= radio_button_tag "outfit[top_item_id]", item.id, @outfit.top_item_id.to_i == item.id, id: "top_item_#{item.id}", class: "item-radio", data: { slot: "top", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
-
                   <label for="top_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>
@@ -101,7 +118,13 @@
             <div class="items-scroll-row">
               <% @outers.each do |item| %>
                 <div class="item-choice-wrapper">
-                  <%= radio_button_tag "outfit[outer_item_id]", item.id, @outfit.outer_item_id.to_i == item.id, id: "outer_item_#{item.id}", class: "item-radio", data: { slot: "outer", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+                  <%= radio_button_tag "outfit[outer_item_id]",
+                  item.id,
+                  @outfit.outer_item_id.to_i == item.id,
+                  id: "outer_item_#{item.id}",
+                  class: "item-radio",
+                  data: { slot: "outer", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+
                   <label for="outer_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>
@@ -113,26 +136,19 @@
             </div>
           </div>
         </div>
-        <div class="form-actions d-flex justify-content-center mt-4 gap-4">
-          <%= f.submit "Create Outfit", class: "main-button" %>
-          <% if @outfit.persisted? %>
-            <button type="button" class="main-button" data-action="ask-pokeclo#ask">Ask for Advice</button>
-          <% end %>
-        </div>
-
       </div>
     </div>
   <% end %>
-  <div class="container my-4">
-    <%= render "messages/messages", messages: @messages, outfit: @outfit %>
-  </div>
-  <div class="container my-4">
-    <% if @outfit.persisted? %>
+
+  <% if @outfit.persisted? %>
+    <div class="container my-3">
+      <%= render "messages/messages", messages: @messages, outfit: @outfit %>
+    </div>
+    <div class="container my-3">
       <%= simple_form_for [@outfit, @message], html: { data: { ask_pokeclo_target: "form" } } do |f| %>
         <%= f.input :content, class: "d-none", input_html: { data: { ask_pokeclo_target: "content" } }, label: false, wrapper: false %>
         <%= f.button :submit, "Send", class: "d-none" %>
       <% end %>
-    <% end %>
-  </div>
-
+    </div>
+  <% end %>
 </div>

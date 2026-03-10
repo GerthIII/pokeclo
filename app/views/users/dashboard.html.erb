@@ -1,45 +1,59 @@
-<div class="container d-flex flex-column align-items-center mt-3">
-  <h1>Pokeclo</h1>
-</div>
-<hr>
-<div class="container">
-  <div class="container d-flex justify-content-center mt-4">
-    <p> <strong>My Items</strong></p>
+<div class="container my-3">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Pokeclo</h1>
+    <button class="dashboard-menu-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </div>
-  <div class="horizontal-scroll">
-    <% @items.each do |item| %>
-      <div class="scroll-card product-card product-image ">
-        <%= link_to item_path(item) do %>
-          <%= cl_image_tag item.photo.key if item.photo.attached? %>
+</div>
+<div class="container body-container pt-3">
+  <section class="dashboard-section">
+    <div class="d-flex justify-content-center">
+      <p><strong>My Items</strong></p>
+    </div>
+    <div class="carousel-shell">
+      <div class="horizontal-scroll">
+        <% @items.each do |item| %>
+          <div class="scroll-card item-preview-card">
+            <%= link_to item_path(item), class: "item-preview-link" do %>
+              <div class="item-preview-cell">
+                <%= cl_image_tag item.photo.key, class: "item-preview-img" if item.photo.attached? %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
-</div>
-<hr>
-<div class="container">
- <div class="container d-flex justify-content-center mt-4">
-  <p> <strong>My Outfits</strong></p>
-  </div>
-  <div class="horizontal-scroll my-3">
-    <% @outfits.each do |outfit| %>
-      <div class="scroll-card outfit-preview-card">
-        <%= link_to outfit_path(outfit), class: "outfit-preview-link" do %>
-          <div class="outfit-preview-grid">
-            <% 4.times do |i| %>
-              <% outfit_item = outfit.outfit_items[i] %>
-              <div class="outfit-preview-cell">
-                <% if outfit_item&.item&.photo&.attached? %>
-                  <%= cl_image_tag outfit_item.item.photo.key, class: "outfit-preview-img" %>
+    </div>
+  </section>
+  <section class="dashboard-section">
+    <div class="d-flex justify-content-center mt-1">
+      <p><strong>My Outfits</strong></p>
+    </div>
+    <div class="carousel-shell">
+      <div class="horizontal-scroll my-3">
+        <% @outfits.each do |outfit| %>
+          <div class="scroll-card outfit-preview-card">
+            <%= link_to outfit_path(outfit), class: "outfit-preview-link" do %>
+              <div class="outfit-preview-grid">
+                <% 4.times do |i| %>
+                  <% outfit_item = outfit.outfit_items[i] %>
+                  <div class="outfit-preview-cell">
+                    <% if outfit_item&.item&.photo&.attached? %>
+                      <%= cl_image_tag outfit_item.item.photo.key, class: "outfit-preview-img" %>
+                    <% end %>
+                  </div>
                 <% end %>
               </div>
             <% end %>
           </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
-</div>
-</div>
-<hr>
+    </div>
+  </section>
 </div>

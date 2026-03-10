@@ -1,44 +1,34 @@
 <div class="container d-flex flex-column align-items-center text-center pb-5">
   <div class="container d-flex flex-column align-items-center mt-3">
     <h1>Pokeclo</h1>
-    <h2>My Outfits</h2>
-
-    <div class="outfit-items-grid">
-      <% @outfits.each do |outfit| %>
-        <div class="outfit-item-card">
-          <%= link_to outfit_path(outfit), class: "outfit-item-link" do %>
-            <div class="outfit-item-shell">
-              <p class="outfit-item-title"><%= outfit.name %></p>
-              <div class="container d-flex">
-                <div class="outfit-item-image-one">
-                <!-- the images of the outfit show insider of the index card -->
-                  <% outfit_item = outfit.outfit_items[0] %>
-                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+    <div class="container body-container pt-3 pb-3">
+      <div class="container d-flex justify-content-center mt-1">
+        <p><strong>My Outfits</strong></p>
+      </div>
+      <div class="container my-1">
+        <%= link_to "Create Outfit", new_outfit_path, class: "main-button mb-4" %>
+      </div>
+      <div class="outfit-items-grid">
+        <% @outfits.each do |outfit| %>
+          <div class="outfit-item-card">
+            <%= link_to outfit_path(outfit), class: "outfit-item-link" do %>
+              <div class="outfit-item-shell">
+                <p class="outfit-item-title"><%= outfit.name %></p>
+                <div class="outfit-item-grid">
+                  <% 4.times do |i| %>
+                    <% outfit_item = outfit.outfit_items[i] %>
+                    <div class="outfit-item-grid-cell">
+                      <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
+                    </div>
+                  <% end %>
                 </div>
-                <div class="outfit-item-image-one">
-                  <% outfit_item = outfit.outfit_items[1] %>
-                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
-                </div>
-                <div class="outfit-item-image-one">
-                  <% outfit_item = outfit.outfit_items[2] %>
-                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
-                </div>
-                <div class="outfit-item-image-one">
-                  <% outfit_item = outfit.outfit_items[3] %>
-                  <%= cl_image_tag(outfit_item.item.photo.key, class: "outfit-item-img") if outfit_item&.item&.photo&.attached? %>
-                </div>
+                <div class="outfit-item-cta">View Outfit</div>
               </div>
-              <div class="outfit-item-text">
-                <p class="outfit-item-subtitle"><%= outfit.description %></p>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
-
-   <%= link_to 'Create Outfit', new_outfit_path, class: "main-button rounded-pill"%>
-
   </div>
   <div class="container mt-3">
     <%= link_to "Back to items", items_path, class: "main-button" %>

@@ -3,32 +3,27 @@
 .outfit-items-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr; /* 2 columns on mobile */
-  gap: 12px;
+  grid-template-columns: 1fr;
+  row-gap: 24px;
+  column-gap: 18px;
   padding: 8px 0 16px;
 }
 
-/* Card container */
 .outfit-item-card {
   width: 100%;
 }
 
-/* Make the whole card clickable */
 .outfit-item-link {
   display: block;
   text-decoration: none;
   color: inherit;
 }
 
-/* Card styling */
 .outfit-item-shell {
-  position: relative;
-  background: #f5f5f5;
-  border: 1px solid #b4b2b2;
-  border-radius: 14px;
-  overflow: hidden;
-
-  /* Mobile-friendly tap feel */
+  background: #d8d8d8;
+  border-radius: 18px;
+  padding: 10px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
   transition: transform 120ms ease, box-shadow 120ms ease;
 }
 
@@ -36,58 +31,52 @@
   transform: scale(0.98);
 }
 
-/* Title */
 .outfit-item-title {
-  margin: 10px 10px 6px;
-  font-size: 12px;
+  margin: 0 0 10px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.2;
-
-  /* keep it neat on small cards */
+  line-height: 1.25;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* Image area */
-.outfit-item-image-one {
-  width: 70px;
-  height: 70px;
-  background: #e9e9e9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.outfit-item-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-/* The image itself */
+.outfit-item-grid-cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #efefef;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 .outfit-item-img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* fill nicely without stretching */
+  object-fit: cover;
   display: block;
 }
 
-/* Text box */
-.outfit-item-text {
-  padding: 8px 10px 12px;
-  min-height: 44px; /* keeps cards consistent height */
-}
-
-/* Badge (top-left) */
-.outfit-item-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #2F80ED;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 6px 10px;
+.outfit-item-cta {
+  background: #ffffff;
+  color: #111111;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 12px;
   border-radius: 999px;
 }
 
-.outfit-item-subtitle{
-  font-size: 8px;
+@media (min-width: 768px) {
+  .outfit-items-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .slot-sheet {

@@ -61,6 +61,8 @@ class OutfitsController < ApplicationController
         redirect_to outfit_path(@outfit), notice: "Outfit created!"
       end
     else
+      @messages = @outfit.messages
+      @message = Message.new
       render :new, status: :unprocessable_entity
     end
   end
@@ -99,6 +101,8 @@ class OutfitsController < ApplicationController
         redirect_to outfit_path(@outfit), notice: "Outfit updated!"
       end
     else
+      @messages = @outfit.messages
+      @message = Message.new
       render :edit, status: :unprocessable_entity
     end
   end
