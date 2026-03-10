@@ -60,7 +60,7 @@ class MessagesController < ApplicationController
       rescue JSON::ParserError
         Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
       end
-      redirect_to chat_outfit_path(@outfit)
+       redirect_to edit_outfit_path(@outfit)
     else
       render outfits_path, status: :unprocessable_entity
     end
@@ -77,9 +77,9 @@ class MessagesController < ApplicationController
       next unless item
       OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
     end
-    redirect_to chat_outfit_path(@outfit)
+      redirect_to outfit_path(@outfit)
   rescue JSON::ParserError
-    redirect_to chat_outfit_path(@outfit), alert: "Could not apply suggestions."
+      redirect_to new_outfit_path(@outfit), alert: "Could not apply suggestions."
   end
 
   private
