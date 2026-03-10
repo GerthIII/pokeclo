@@ -94,8 +94,8 @@
   </div>
 </div>
 
-<%= link_to "Try on!", try_on_outfit_path(@outfit),
-            class: "btn btn-primary btn-lg w-100 rounded-pill shadow-sm mb-4" %>
+<div class="">
+
 
 <% if @outfit.photo.attached? %>
   <%# 試着結果を縦長で見るための専用ページ（または画像直接）へのリンク %>
@@ -103,9 +103,4 @@
       <%= cl_image_tag @outfit.photo.key,
                     class: "img-fluid",
                     style: "aspect-ratio: 2 / 3; object-fit: cover;" %>
-      <div class="card-body text-center bg-dark text-white p-2">
-        <span class="small">タップして縦長フルサイズで表示 📱</span>
-      </div>
-    </div>
-
 <% end %>
