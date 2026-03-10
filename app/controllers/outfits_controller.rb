@@ -77,8 +77,8 @@ class OutfitsController < ApplicationController
   end
 
   def update
-    @outfit = current_user.outfits.find(params[:id])#.except(:top_item_id, :bottom_item_id, :outer_item_id,
-                                                           #:footwear_item_id))
+    @outfit = current_user.outfits.find(params[:id])#v.except(:top_item_id, :bottom_item_id, :outer_item_id,
+  #:footwear_item_id))
     @outfit.user = current_user
     # authorizes user to crate an item with Pundit
     authorize @outfit
@@ -114,6 +114,7 @@ class OutfitsController < ApplicationController
 
   def try_on
     @outfit = Outfit.find(params[:id])
+    authorize @outfit, :try_on?
     if current_user.profile_photo.attached?
       result_image = GeminiService.generate_try_on(
         base: current_user.profile_photo,
@@ -122,7 +123,7 @@ class OutfitsController < ApplicationController
       @outfit.photo.attach(io: result_image, filename: "#{@outfit.id}.png", content_type: "image/png")
       redirect_to outfit_path(@outfit), notice: "Virtual try_on complete!"
     else
-      redirect_to edit_user_path(current_user), alert: "Please upload a full-body photo first"
+      redirect_to edit_user_registration_path, alert: "Please upload a full-body photo first"
     end
   end
 

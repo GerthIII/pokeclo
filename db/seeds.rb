@@ -19,7 +19,8 @@ User.destroy_all
 ryota = User.create!(
   name: "Ryota Hayakawa",
   email: "ryota@gmail.com",
-  password: "123123"
+  password: "123123",
+  profile_photo: URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773114147/Ryota_Base_dbgxbm.jpg")
 )
 
 item1 = Item.new(
