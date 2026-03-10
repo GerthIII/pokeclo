@@ -35,16 +35,21 @@ class MessagesController < ApplicationController
     ]
   PROMPT
 
-    # Sample AI Response (The Template)
-    # Styling Your Outfit: "Modern Heritage"
-    # Outer (Sports Jacket): The blue adds a subtle pop of color that doesn't clash with the monochrome palette, maintaining the aesthetic.
+  # Sample AI Response (The Template)
+  # Styling Your Outfit: "Modern Heritage"
+  # Outer (Sports Jacket):
+  # The blue adds a subtle pop of color that doesn't clash with the monochrome palette, maintaining the aesthetic.
 
-    # Top (Adidas x Oasis Ringer Tee): The cream base provides a soft, neutral foundation, while the black ribbing at the neck draws attention to your face. This serves as the "statement piece" of the look.
+  # Top (Adidas x Oasis Ringer Tee):
+  # The cream base provides a soft, neutral foundation, while the black part at the neck draws attention to your face.
 
-    # Bottom (Black Hummel Track Pants): By choosing black bottoms, we create a "Vertical Column of Color" with the black accents on the shirt. The white chevron panels on the legs mirror the sporty vibe of the Adidas stripes, creating visual harmony.
+  # Bottom (Black Hummel Track Pants):
+  # By choosing black bottoms, we create a "Vertical Column of Color" with the black accents on the shirt.
+  # The white panels on the legs mirror the sporty vibe of the Adidas stripes, creating visual harmony.
 
-    # Footwear (White Adizero Cleats): The crisp white of the shoes "sandwiches" the outfit, pulling the cream/white from the top down to the feet. This prevents the outfit from feeling "bottom-heavy" with all-black pants.
-
+  # Footwear (White Adizero Cleats): 
+  # The crisp white of the shoes "sandwiches" the outfit, pulling the cream/white from the top down to the feet.
+  # This prevents the outfit from feeling "bottom-heavy" with all-black pants.
 
   def create
     @outfit = Outfit.find(params[:outfit_id])
@@ -73,8 +78,10 @@ class MessagesController < ApplicationController
     suggestions = JSON.parse(@message.content)
     suggestions.each do |suggestion|
       next if @outfit.filled_slots.include?(suggestion["slot"])
+
       item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
       next unless item
+
       OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
     end
     redirect_to chat_outfit_path(@outfit)
@@ -116,7 +123,7 @@ class MessagesController < ApplicationController
         slot: item.slot,
         description: item.description,
         name: item.name
-    }
+      }
     end.to_json
     chat.ask("#{@message.content} these are the current items in this outfit: #{current_items}. Here are the items that I own that you can use to suggest me an outfit. candidates: #{candidates}.")
   end
