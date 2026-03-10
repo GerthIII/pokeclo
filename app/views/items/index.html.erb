@@ -1,11 +1,12 @@
-<div class="container d-flex flex-column align-items-center text-center pb-5">
+<div class="container d-flex flex-column align-items-center text-center">
   <div class="container d-flex flex-column align-items-center mt-3">
     <h1>Pokeclo</h1>
-
-    <div class="container d-flex justify-content-center mt-4">
+    <div class="container body-container pt-3">
+    <div class="container d-flex justify-content-center mt-1">
       <p><strong>My Items</strong></p>
     </div>
-  <div class="container my-3" data-controller="filter-items">
+  <div class="container my-1" data-controller="filter-items">
+    <%= link_to "Create an Item", new_item_path, class: "main-button mb-4" %>
     <p>FIlter by Category</p>
     <div class="container mb-3">
       <select class="form-select" data-action="change->filter-items#filter" data-filter-items-target="select">
@@ -31,7 +32,7 @@
       <% end %>
     </div>
   </div>
+ </div>
 
-    <%= link_to "Create an Item", new_item_path, class: "main-button mt-5" %>
   </div>
 </div>
