@@ -21,6 +21,7 @@ end
   resources :outfits do
     member do
       patch :generate
+      get :try_on
       get :chat # Creates /outfits/:id/generate
     end
     resources :messages, only: [:new, :create] do
