@@ -62,6 +62,7 @@ class MessagesController < ApplicationController
         suggestions = JSON.parse(response.content)
         @outfit.messages.build(role: 'assistant', content: suggestions.to_json)
         @outfit.save
+        apply_suggestions_to_outfit!(suggestions)
       rescue JSON::ParserError
         Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
       end
@@ -76,15 +77,8 @@ class MessagesController < ApplicationController
     @message = @outfit.messages.find(params[:id])
     authorize @message
     suggestions = JSON.parse(@message.content)
-    suggestions.each do |suggestion|
-      next if @outfit.filled_slots.include?(suggestion["slot"])
-
-      item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
-      next unless item
-
-      OutfitItem.create(outfit: @outfit, item: item, slot: suggestion["slot"])
-    end
-      redirect_to outfit_path(@outfit)
+    apply_suggestions_to_outfit!(suggestions)
+      redirect_to edit_outfit_path(@outfit)
   rescue JSON::ParserError
       redirect_to new_outfit_path(@outfit), alert: "Could not apply suggestions."
   end
@@ -142,5 +136,20 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content)
+  end
+
+  def apply_suggestions_to_outfit!(suggestions)
+    suggestions.each do |suggestion|
+      item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
+      next unless item
+
+      slot = suggestion["slot"]
+      next if slot.blank?
+
+      outfit_item = @outfit.outfit_items.find_or_initialize_by(slot: slot)
+      outfit_item.item = item
+      outfit_item.save!
+      @outfit.outfit_items.where(slot: slot).where.not(id: outfit_item.id).delete_all
+    end
   end
 end

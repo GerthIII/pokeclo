@@ -80,6 +80,7 @@
 .outfit-new-page {
   max-width: 760px;
   margin: 0 auto;
+  position: relative;
 }
 
 .item-form__title {
@@ -159,6 +160,55 @@
   box-shadow: none;
 }
 
+.ask-ai-fab {
+  position: fixed;
+  right: 18px;
+  bottom: 84px;
+  z-index: 1050;
+  min-width: 132px;
+  height: 48px;
+  border: 0;
+  border-radius: 999px;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #13c3c6 0%, #2f65ff 55%, #bb55f6 100%);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.ask-ai-fab__inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #2f65ff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0 16px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ask-pokeclo-sheet {
+  --bs-offcanvas-height: 92vh;
+  height: var(--bs-offcanvas-height);
+  max-height: 100vh;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.ask-pokeclo-sheet .offcanvas-header {
+  padding: 14px 16px 8px;
+}
+
+.ask-pokeclo-sheet .offcanvas-body {
+  padding: 0 16px 16px;
+}
+
 .slot-items-panel {
   background: #ffffff;
   border: 1px solid #eeeeee;
@@ -231,5 +281,10 @@
 
   .outfit-path-card {
     padding: 16px;
+  }
+
+  .ask-ai-fab {
+    right: calc((100vw - 700px) / 2 + 16px);
+    bottom: 20px;
   }
 }

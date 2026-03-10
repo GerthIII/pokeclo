@@ -26,19 +26,6 @@
           </div>
         </section>
 
-        <section class="outfit-path-card">
-          <p class="outfit-path-title">Ask Pokeclo</p>
-          <p class="outfit-path-copy">Describe the vibe and let AI fill missing slots.</p>
-
-          <div class="item-form__field mb-2">
-            <%= f.input :description, label: "Style prompt", input_html: { class: "item-input", data: { ask_pokeclo_target: "description" }, placeholder: "Streetwear for rainy weather, neutral tones..." } %>
-          </div>
-
-          <div class="outfit-path-actions">
-            <button type="button" class="main-button" data-action="ask-pokeclo#ask">Ask Pokeclo AI to Build</button>
-          </div>
-        </section>
-
         <!-- TOP -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="top-sheet">
           <div class="offcanvas-header">
@@ -136,18 +123,53 @@
             </div>
           </div>
         </div>
+
+        <button
+          type="button"
+          class="ask-ai-fab"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#ask-pokeclo-sheet"
+          aria-controls="ask-pokeclo-sheet"
+          aria-label="Open Ask Pokeclo AI"
+        >
+          <span class="ask-ai-fab__inner">Ask Pokeclo</span>
+        </button>
+
+        <div class="offcanvas offcanvas-bottom ask-pokeclo-sheet" tabindex="-1" id="ask-pokeclo-sheet">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Ask Pokeclo AI</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div class="offcanvas-body">
+            <section class="outfit-path-card">
+              <p class="outfit-path-title">Generate My Outfit</p>
+              <p class="outfit-path-copy">Describe the vibe and let AI fill missing slots.</p>
+
+              <div class="item-form__field mb-2">
+                <%= f.input :description, label: "Style prompt", input_html: { class: "item-input", data: { ask_pokeclo_target: "description" }, placeholder: "Streetwear for rainy weather, neutral tones..." } %>
+              </div>
+
+              <div class="outfit-path-actions">
+                <button type="button" class="main-button" data-action="ask-pokeclo#ask">Generate Outfit</button>
+              </div>
+            </section>
+
+            <% if @outfit.persisted? %>
+              <div class="container my-3 px-0">
+                <%= render "messages/messages", messages: @messages, outfit: @outfit %>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
 
   <% if @outfit.persisted? %>
-    <div class="container my-3">
-      <%= render "messages/messages", messages: @messages, outfit: @outfit %>
-    </div>
-    <div class="container my-3">
-      <%= simple_form_for [@outfit, @message], html: { data: { ask_pokeclo_target: "form" } } do |f| %>
-        <%= f.input :content, class: "d-none", input_html: { data: { ask_pokeclo_target: "content" } }, label: false, wrapper: false %>
-        <%= f.button :submit, "Send", class: "d-none" %>
+    <div class="d-none">
+      <%= simple_form_for [@outfit, @message], html: { data: { ask_pokeclo_target: "form" } } do |msg_form| %>
+        <%= msg_form.input :content, class: "d-none", input_html: { data: { ask_pokeclo_target: "content" } }, label: false, wrapper: false %>
+        <%= msg_form.button :submit, "Send", class: "d-none" %>
       <% end %>
     </div>
   <% end %>
