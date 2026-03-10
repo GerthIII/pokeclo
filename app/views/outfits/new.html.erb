@@ -27,7 +27,7 @@
         </section>
 
         <section class="outfit-path-card">
-          <p class="outfit-path-title">Ask AI</p>
+          <p class="outfit-path-title">Ask Pokeclo</p>
           <p class="outfit-path-copy">Describe the vibe and let AI fill missing slots.</p>
 
           <div class="item-form__field mb-2">
@@ -124,7 +124,7 @@
                   id: "outer_item_#{item.id}",
                   class: "item-radio",
                   data: { slot: "outer", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
-                  
+
                   <label for="outer_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>

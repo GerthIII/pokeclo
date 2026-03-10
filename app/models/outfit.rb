@@ -11,7 +11,6 @@ class Outfit < ApplicationRecord
   belongs_to :user
 
   validates :name, presence: true
-  validates :description, presence: true
 
   def filled_slots
     items.pluck(:slot).compact.uniq
