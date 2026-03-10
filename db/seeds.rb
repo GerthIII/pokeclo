@@ -161,6 +161,140 @@ item15 = Item.new(
   description: "these Zegna penny loafers are crafted in a rich, warm tan suede that offers a soft, matte texture. The design features a classic moc-toe construction with visible tonal stitching that defines the apron, while a traditional leather saddle strap with a signature slit rests across the vamp. The interior is lined with a smooth, lighter-colored leather and showcases the ZEGNA logo embossed on the footbed. With their streamlined silhouette and lack of structured hardware, these shoes represent a sophisticated quiet luxury aesthetic, making them ideal for elevated casual or summer-business ensembles.",
   status: 1
 )
+item16 = Item.new(
+  user: ryota,
+  name: "White Basic Tee",
+  slot: "top",
+  category: "casual",
+  description: "A clean, minimalist white crew-neck t-shirt photographed on a male model against a blurred background of shelves with terracotta potted plants. The shirt is a classic short-sleeved cut in bright, crisp white cotton with no branding or graphic, featuring a ribbed crew neckline and a comfortable, slightly relaxed fit. The quintessential wardrobe staple — a blank canvas that complements virtually any bottom or outerwear layer.",
+  status: 1
+)
+
+item17 = Item.new(
+  user: ryota,
+  name: "White Crewneck Sweatshirt",
+  slot: "top",
+  category: "casual",
+  description: "A classic white fleece crewneck sweatshirt presented in a flat-lay arrangement on a light grey surface, styled alongside a pair of grey jeans and white canvas low-top sneakers. The sweatshirt features a relaxed boxy fit, a thick ribbed crew neckline, matching ribbed cuffs and a wide ribbed hem band, and a soft brushed interior for warmth. The blank, unbranded design makes it a versatile layering piece suited to streetwear and relaxed weekend dressing.",
+  status: 1
+)
+
+item18 = Item.new(
+  user: ryota,
+  name: "Rust Bomber Jacket",
+  slot: "outer",
+  category: "casual",
+  description: "A warm rust or burnt sienna-colored nylon bomber jacket suspended from a simple white plastic hanger against a neutral grey wall. The jacket follows the classic MA-1 silhouette with a full-length front zipper, ribbed elastic collar, cuffs, and waistband in a matching tonal finish. A secondary zipper pocket is stitched onto the left sleeve, and there are two discreet welt pockets set into the lower front. The smooth, slightly lustrous fabric gives the jacket an elevated streetwear sensibility.",
+  status: 1
+)
+
+item19 = Item.new(
+  user: ryota,
+  name: "Black Quilted Puffer Jacket",
+  slot: "outer",
+  category: "casual",
+  description: "A black channel-quilted puffer jacket with a slightly structured moto-inspired silhouette, worn open by a male model over a bright red hoodie in an outdoor urban setting. The jacket features a bold asymmetric zip closure, a stand collar, multiple silver-tone zipper pockets across the chest and sides, and stitched quilting in a narrow vertical channel pattern that creates a sleek, non-bulky profile. The combination of technical quilting and edgy hardware gives this jacket a contemporary, street-ready aesthetic.",
+  status: 1
+)
+
+item20 = Item.new(
+  user: ryota,
+  name: "Tan Casual Blazer",
+  slot: "outer",
+  category: "social",
+  description: "A tailored tan or khaki single-breasted sport coat captured in a styled flat-lay alongside a light blue floral-print dress shirt, dark navy selvedge jeans, and dark brown brogue wingtip oxfords. The blazer features a notch lapel, two-button front closure, a breast pocket finished with a blue and white gingham pocket square, and functional sleeve buttons. The structured shoulder and clean drape make this ideal for social outings or elevated everyday smart-casual wear.",
+  status: 1
+)
+
+item21 = Item.new(
+  user: ryota,
+  name: "Navy Wool Overcoat",
+  slot: "outer",
+  category: "formal",
+  description: "A selection of heavy-weight wool and fleece outerwear displayed on ring hangers outside an artisan boutique. The centerpiece is a deep navy blue wool fleece coat featuring a thick oversized ribbed collar, a single-breasted button closure, and a long silhouette that falls past the hip. Flanking it are heathered grey and deep orange-red counterparts, all sharing the same plush, substantial fabric that promises exceptional warmth and an understated, heritage-tinged formality.",
+  status: 1
+)
+
+item22 = Item.new(
+  user: ryota,
+  name: "Black Levi's Jeans",
+  slot: "bottom",
+  category: "casual",
+  description: "A flat-lay arrangement of three pairs of Levi's jeans in different washes — a washed light blue, a dark raw indigo, and a clean solid black — fanned out against a dark background. The black pair at the front showcases the classic five-pocket construction with contrasting orange topstitching, copper rivets at the stress points, a Levi's red tab on the right back pocket, and a black-finished Two Horse leather patch at the rear waistband. A versatile and timeless wardrobe foundation built for everyday wear.",
+  status: 1
+)
+
+item23 = Item.new(
+  user: ryota,
+  name: "Dark Indigo Raw Denim",
+  slot: "bottom",
+  category: "casual",
+  description: "A pair of Acne Studios dark indigo raw selvedge denim jeans presented in a flat-lay product shot on a white, slightly wrinkled linen surface. The jeans are characterized by a very deep, almost charcoal-navy wash that retains the rigid, stiff quality of unwashed denim. Key details include copper rivets at the pocket corners, a minimalist Acne Studios leather tab at the rear waistband, a slightly tapered straight-leg silhouette, and a low-rise waist. These jeans reward wear and develop personalized fades over time.",
+  status: 1
+)
+
+item24 = Item.new(
+  user: ryota,
+  name: "Black Pleated Chinos",
+  slot: "bottom",
+  category: "social",
+  description: "A pair of slim-cut black pleated chino trousers worn by a male model standing against a deep emerald-green studio background. The trousers feature a single forward pleat at each leg, a clean flat front panel, a standard waistband with multiple belt loops, and a tapered leg that narrows toward the ankle for a refined silhouette. The solid black fabric has a slight sheen suggesting a cotton-twill blend, bridging the gap between smart casual and relaxed social dressing.",
+  status: 1
+)
+
+item25 = Item.new(
+  user: ryota,
+  name: "Brown Corduroy Trousers",
+  slot: "bottom",
+  category: "casual",
+  description: "A pair of deep espresso-brown fine-wale corduroy trousers worn by a male model against a neutral grey studio background. The trousers are cut in a relaxed straight fit with a high-rise waistband, single-button closure, a flat front enhanced by the corduroy's vertical ridges, and discreet slanted side pockets. The rich, warm brown tone is highlighted by the way the fine ribs catch the light, lending tactile depth to an otherwise clean, unfussy silhouette. Styled here with a blue dress shirt and dark suede boat shoes.",
+  status: 1
+)
+
+item26 = Item.new(
+  user: ryota,
+  name: "Nike Air Force 1 x Carhartt",
+  slot: "footwear",
+  category: "casual",
+  description: "A Nike Air Force 1 Low from the collaborative capsule with Carhartt WIP, photographed on a draped background of golden corduroy fabric. The sneaker features a tan/brown canvas upper referencing Carhartt's iconic duck canvas workwear, a tonal brown Swoosh, a Carhartt WIP logo woven patch at the heel tab with orange interior lining, bronze-tone eyelets, and a white Air unit midsole with a lightly gum-tinted outsole. A limited-edition collision of workwear heritage and sneaker culture.",
+  status: 1
+)
+
+item27 = Item.new(
+  user: ryota,
+  name: "New Balance 247 Olive",
+  slot: "footwear",
+  category: "sports",
+  description: "A New Balance 247 athletic sneaker in an olive green or army surplus colorway, photographed floating against a blurred brick wall background. The upper combines a breathable mesh base with smooth synthetic leather overlays, dominated by a bold embossed black N logo on the lateral side panel. The shoe rides on a white RevLite foam midsole for cushioned everyday comfort, finished with a black rubber outsole for grip. Its modern, streamlined silhouette and muted military-inspired color make it a versatile sports-casual option.",
+  status: 1
+)
+
+item28 = Item.new(
+  user: ryota,
+  name: "Cognac Leather Derbies",
+  slot: "footwear",
+  category: "formal",
+  description: "A close-up studio shot of a pair of warm cognac or tan-brown leather derby shoes, showcasing texture and craftsmanship in fine detail. The shoes feature an open lacing system with matching tan leather laces, a cap-toe construction in smooth calfskin contrasting with a pebbled grain leather vamp, a low block heel, and a structured silhouette with a rounded-almond toe. The rich chestnut coloring and fine detailing make these shoes an elegant yet approachable option for business-casual and formal occasions.",
+  status: 1
+)
+
+item29 = Item.new(
+  user: ryota,
+  name: "Black Chelsea Boots",
+  slot: "footwear",
+  category: "social",
+  description: "A pair of sleek black leather Chelsea boots photographed in a clean three-quarter studio shot against a white background. The boots are crafted from smooth, subtly pebbled full-grain black leather with a slightly matte finish. True to the Chelsea silhouette, they feature a single elasticated gusset on the side for easy on-and-off, a rear loop pull tab in coordinating black, a rounded almond toe, and a low stacked block heel. A powder-blue suede lining is visible at the collar, providing a refined contrast detail. A wardrobe essential that transitions from smart casual to semi-formal settings.",
+  status: 1
+)
+
+item30 = Item.new(
+  user: ryota,
+  name: "Black Cap-Toe Derby",
+  slot: "footwear",
+  category: "formal",
+  description: "An extreme close-up of a black leather cap-toe derby shoe, showcasing the craftsmanship in fine detail. The shoe features a pebbled tumbled-grain leather upper transitioning into a smooth, polished cap-toe extension at the toe box, an open lacing system with flat black laces threaded through four pairs of silver-tone metal eyelets, and a thick black rubber outsole. The bold texture contrast between the grainy upper and the smooth cap-toe gives this practical, long-lasting formal shoe a modern, slightly rugged character.",
+  status: 1
+)
 
 file1 = URI.open("https://c.imgz.jp/265/98748265/98748265b_1_d_500.jpg")
 item1.photo.attach(io: file1, filename: "#{item1.name}.png", content_type: "image/png")
@@ -219,8 +353,69 @@ item14.photo.attach(io: file14, filename: "#{item14.name}.png", content_type: "i
 item14.save
 
 file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.jpg")
-item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
+item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")  
 item15.save
+
+file16 = URI.open("https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80")
+item16.photo.attach(io: file16, filename: "#{item16.name}.jpg", content_type: "image/jpeg")
+item16.save
+
+file17 = URI.open("https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80")
+item17.photo.attach(io: file17, filename: "#{item17.name}.jpg", content_type: "image/jpeg")
+item17.save
+
+file18 = URI.open("https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80")
+item18.photo.attach(io: file18, filename: "#{item18.name}.jpg", content_type: "image/jpeg")
+item18.save
+
+file19 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125970/61XUeKFhUqL._AC_UY1000__eaguoh.jpg")
+item19.photo.attach(io: file19, filename: "#{item19.name}.jpg", content_type: "image/jpeg")
+item19.save
+
+file20 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125820/71qNDKpZglL._AC_UY1000__mudsvu.jpg")
+item20.photo.attach(io: file20, filename: "#{item20.name}.jpg", content_type: "image/jpeg")
+item20.save
+
+file21 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125676/740_NAV_FRT_jh855b.jpg")
+item21.photo.attach(io: file21, filename: "#{item21.name}.jpg", content_type: "image/jpeg")
+item21.save
+
+file22 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773126060/sgmsqlocr1kbkuakkltd_nd3m9a.jpg")
+item22.photo.attach(io: file22, filename: "#{item22.name}.jpg", content_type: "image/jpeg")
+item22.save
+
+file23 = URI.open("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80")
+item23.photo.attach(io: file23, filename: "#{item23.name}.jpg", content_type: "image/jpeg")
+item23.save
+
+file24 = URI.open("https://www.zoomshoes.in/cdn/shop/files/L-50_BROWN_2.jpg?v=1726898204")
+item24.photo.attach(io: file24, filename: "#{item24.name}.jpg", content_type: "image/jpeg")
+item24.save
+
+file25 = URI.open("https://www.zoomshoes.in/cdn/shop/files/2641BLACK_1.jpg?v=1721818550")
+item25.photo.attach(io: file25, filename: "#{item25.name}.jpg", content_type: "image/jpeg")
+item25.save
+
+file26 = URI.open("https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80")
+item26.photo.attach(io: file26, filename: "#{item26.name}.jpg", content_type: "image/jpeg")
+item26.save
+
+file27 = URI.open("https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80")
+item27.photo.attach(io: file27, filename: "#{item27.name}.jpg", content_type: "image/jpeg")
+item27.save
+
+file28 = URI.open("https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80")
+item28.photo.attach(io: file28, filename: "#{item28.name}.jpg", content_type: "image/jpeg")
+item28.save
+
+file29 = URI.open("https://www.zoomshoes.in/cdn/shop/products/8_1_926d35d2-3c0f-4370-9927-f59b03a6efe5.jpg?v=1682153369")
+item29.photo.attach(io: file29, filename: "#{item29.name}.jpg", content_type: "image/jpeg")
+item29.save
+
+file30 = URI.open("https://www.zoomshoes.in/cdn/shop/files/D047BLACK_1.jpg?v=1732610876")
+item30.photo.attach(io: file30, filename: "#{item30.name}.jpg", content_type: "image/jpeg")
+item30.save
+
 
 outfit = Outfit.create!(
   user: ryota,
