@@ -1,9 +1,7 @@
 <div class="container pt-3 outfit-show-page">
   <% if @pending_purchase_items.any? %>
-    <div
-      id="purchase-status-prompts"
-      data-items="<%= @pending_purchase_items.map { |item| { id: item.id, name: item.name } }.to_json %>"
-    ></div>
+    <div id="outfit-leave-guard"
+         data-items="<%= @pending_purchase_items.map { |item| { id: item.id, name: item.name } }.to_json %>"></div>
   <% end %>
 
   <article class="outfit-show-card-minimal">
@@ -39,12 +37,12 @@
 <p class="outfit-show-description mb-3 mx-3">Use Pokeclo AI to see how you would look in this outfit!</p>
 <div class="container d-flex px-3 gap-4">
   <%= link_to "Try on!", try_on_outfit_path(@outfit), class: "main-button" %>
-<% if @outfit.photo.attached?  %>
-  <button type="button" class="main-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Show Me in This Outfit
-  </button>
+  <% if @outfit.photo.attached?  %>
+    <button type="button" class="main-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Show Me in This Outfit
+    </button>
+  <% end %>
 </div>
-<% end %>
 </article>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered"> <div class="modal-content overflow-hidden" style="border-radius: 20px;">
@@ -66,3 +64,28 @@
     </div>
   </div>
 </div>
+
+<% if @pending_purchase_items.any? %>
+  <div class="offcanvas offcanvas-bottom"
+       tabindex="-1"
+       id="outfitLeaveOffcanvas"
+       aria-labelledby="outfitLeaveOffcanvasLabel"
+       style="height: auto; border-top-left-radius: 16px; border-top-right-radius: 16px;">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="outfitLeaveOffcanvasLabel">Bought any of these items?</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <p class="mb-2">Before leaving, you can mark purchased items as bought.</p>
+      <ul class="mb-3 ps-3">
+        <% @pending_purchase_items.each do |item| %>
+          <li><%= item.name %></li>
+        <% end %>
+      </ul>
+      <div class="d-flex gap-2">
+        <button type="button" id="leave-mark-bought" class="main-button">Yes, mark as bought</button>
+        <button type="button" id="leave-without-marking" class="main-button outfit-show-secondary-action">No, leave anyway</button>
+      </div>
+    </div>
+  </div>
+<% end %>

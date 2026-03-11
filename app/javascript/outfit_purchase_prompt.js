@@ -1,58 +1,117 @@
-let promptInFlight = false;
-let lastPromptRunAt = 0;
+import { Turbo } from "@hotwired/turbo-rails";
 
-const promptToMarkBought = async () => {
-  const now = Date.now();
-  if (promptInFlight || now - lastPromptRunAt < 250) return;
+let pendingUrl = null;
+let allowNextVisit = false;
+let markRequestInFlight = false;
+console.log("GUARD LOADED, Offcanvas source:", typeof Offcanvas)
 
-  const promptData = document.getElementById("purchase-status-prompts");
-  if (!promptData) return;
+const parsePendingItems = () => {
+  const guardElement = document.getElementById("outfit-leave-guard");
+  if (!guardElement) return [];
 
-  const rawItems = promptData.dataset.items;
-  if (!rawItems) return;
-
-  let items;
   try {
-    items = JSON.parse(rawItems);
+    const parsed = JSON.parse(guardElement.dataset.items || "[]");
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
-    return;
-  }
-
-  if (!Array.isArray(items) || items.length === 0) return;
-
-  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-  if (!csrfToken) return;
-
-  // Commit only after all guards pass
-  promptInFlight = true;
-  lastPromptRunAt = now;
-
-  try {
-    for (const item of items) {
-      if (!item?.id) continue;
-
-      const itemName = item.name || "this item";
-      const didBuy = window.confirm(`Did you buy "${itemName}"?`);
-      if (!didBuy) continue;
-
-      const response = await fetch(`/items/${item.id}/mark_as_bought`, {
-        method: "PATCH",
-        headers: {
-          "X-CSRF-Token": csrfToken,
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        credentials: "same-origin",
-      });
-
-      if (!response.ok) {
-        console.error(`Failed to mark item ${item.id} as bought: ${response.status}`);
-      }
-    }
-  } finally {
-    promptInFlight = false;
+    return [];
   }
 };
 
-document.addEventListener("turbo:load", promptToMarkBought);
-window.addEventListener("pageshow", promptToMarkBought);
+const currentOffcanvas = () => {
+  const offcanvasElement = document.getElementById("outfitLeaveOffcanvas");
+  if (!offcanvasElement) return null;
+  return window.bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement);
+};
+
+const continueNavigation = () => {
+  if (!pendingUrl) return;
+  const nextUrl = pendingUrl;
+  pendingUrl = null;
+  allowNextVisit = true;
+  Turbo.visit(nextUrl);
+};
+
+const markPendingItemsAsBought = async () => {
+  if (markRequestInFlight) return;
+  markRequestInFlight = true;
+
+  try {
+    const items = parsePendingItems();
+    if (!items.length) {
+      continueNavigation();
+      return;
+    }
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+    if (!csrfToken) {
+      continueNavigation();
+      return;
+    }
+
+    for (const item of items) {
+      if (!item?.id) continue;
+      await fetch(`/items/${item.id}/mark_as_bought`, {
+        method: "PATCH",
+        headers: {
+          "X-CSRF-Token": csrfToken,
+          Accept: "application/json"
+        },
+        credentials: "same-origin"
+      });
+    }
+  } finally {
+    markRequestInFlight = false;
+    continueNavigation();
+  }
+};
+
+document.addEventListener("turbo:before-visit", (event) => {
+  if (allowNextVisit) {
+    allowNextVisit = false;
+    return;
+  }
+
+  const items = parsePendingItems();
+  if (!items.length) return;
+
+  const offcanvas = currentOffcanvas();
+  if (!offcanvas) return;
+
+  event.preventDefault();
+  pendingUrl = event.detail.url;
+  offcanvas.show();
+});
+
+document.addEventListener("click", (event) => {
+  if (event.target.id === "leave-without-marking") {
+    const offcanvas = currentOffcanvas();
+    if (offcanvas) offcanvas.hide();
+    continueNavigation();
+  }
+});
+
+document.addEventListener("click", async (event) => {
+  if (event.target.id !== "leave-mark-bought") return;
+
+  const offcanvas = currentOffcanvas();
+  if (offcanvas) offcanvas.hide();
+  await markPendingItemsAsBought();
+});
+
+document.addEventListener("turbo:click", (event) => {
+  if (allowNextVisit) return;
+
+  const items = parsePendingItems();
+  if (!items.length) return;
+
+  const destination = event.detail?.url;
+  const destinationUrl = destination?.toString?.() || null;
+  if (!destinationUrl || destinationUrl === window.location.href) return;
+
+  const offcanvas = currentOffcanvas();
+  if (!offcanvas) return;
+
+  event.preventDefault();
+  pendingUrl = destinationUrl;
+  offcanvas.show();
+});

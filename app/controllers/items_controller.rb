@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     authorize @item
 
     if @item.save
-      redirect_to items_path(@item)
+      redirect_to item_path(@item)
     else
       render :new, status: :unprocessable_entity
     end
