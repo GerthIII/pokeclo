@@ -1,6 +1,6 @@
 .items-status-tabs {
   border-bottom: 0;
-  background: #dfe4e9;
+  background: #ececec;
   border-radius: 14px;
   padding: 6px;
   gap: 6px;
@@ -25,9 +25,9 @@
 }
 
 .items-status-tabs .nav-link.active {
-  color: #111827;
+  color: var(--pc-accent);
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.09);
 }
 
 .items-status-tabs .nav-link:not(.active) {
@@ -46,12 +46,12 @@
   font-size: 11px;
   line-height: 1.2;
   color: #4b5563;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .items-status-tabs .nav-link.active .items-tab-count {
-  color: #0f172a;
-  background: #e5edff;
+  color: var(--pc-white);
+  background: var(--pc-accent);
 }
 
 .items-tab-hint {

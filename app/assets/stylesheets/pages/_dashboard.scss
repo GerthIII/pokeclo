@@ -33,27 +33,21 @@ $dashboard-surface: rgb(233, 233, 233);
   border-radius: 12px;
   border: none;
 
-  background: linear-gradient(135deg, #7b2ff7 0%, #f107a3 100%);
+  background: var(--pc-accent);
 
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-decoration: none;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-
-  box-shadow:
-    0 4px 20px rgba(180, 30, 200, 0.4),
-    0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 22px rgba(193, 27, 51, 0.34);
 
   transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 
   &:hover {
     transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow:
-      0 6px 28px rgba(180, 30, 200, 0.55),
-      0 2px 10px rgba(0, 0, 0, 0.3);
+    background: var(--pc-accent-strong);
+    box-shadow: 0 12px 26px rgba(193, 27, 51, 0.44);
   }
 
   &:active {
@@ -197,4 +191,6 @@ $dashboard-surface: rgb(233, 233, 233);
 .body-container{
   background: $dashboard-surface;
   border-radius: 16px;
+  border: 1px solid rgba(193, 27, 51, 0.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }

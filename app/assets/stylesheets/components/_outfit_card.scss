@@ -20,10 +20,11 @@
 }
 
 .outfit-item-shell {
-  background: #d8d8d8;
+  background: #f1f1f1;
   border-radius: 18px;
   padding: 10px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
   transition: transform 120ms ease, box-shadow 120ms ease;
   min-height: 150px;
 }
@@ -65,8 +66,8 @@
 }
 
 .outfit-item-cta {
-  background: #ffffff;
-  color: #111111;
+  background: var(--pc-accent);
+  color: var(--pc-white);
   text-align: center;
   font-size: 13px;
   font-weight: 700;

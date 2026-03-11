@@ -3,22 +3,22 @@
 
     <%= link_to dashboard_path, class: "navbar-item #{'active' if current_page?(dashboard_path)}" do %>
       <i class="fa-solid fa-house navbar-icon"></i>
-      <span style="font-size: 10px;" class="navbar-text mt-0 pt-0">Home</span>
+      <span class="navbar-text mt-0 pt-0">Home</span>
     <% end %>
 
-    <%= link_to items_path, class: "navbar-item #{'active' if controller_name == 'closet'}" do %>
+    <%= link_to items_path, class: "navbar-item #{'active' if controller_name == 'items'}" do %>
       <i class="fa-solid fa-shirt navbar-icon"></i>
-      <span style="font-size: 10px;" class="navbar-text mt-0 pt-0">Closet</span>
+      <span class="navbar-text mt-0 pt-0">Closet</span>
     <% end %>
 
-    <div style="p-0 m-0"class="navbar-item navbar-item-camera"
+    <div class="navbar-item navbar-item-camera p-0 m-0"
          data-controller="navbar-camera"
          data-navbar-camera-new-item-url-value="<%= new_item_path %>">
       <label class="navbar-item-label">
         <span class="navbar-camera-pill">
           <i class="fa-solid fa-camera navbar-icon"></i>
         </span>
-        <span style="font-size: 10px;" class="navbar-text mt-0 pt-0"></span>
+        <span class="navbar-text mt-0 pt-0"></span>
         <input type="file"
                accept="image/*"
                capture="camera"
@@ -29,7 +29,7 @@
 
     <%= link_to outfits_path, class: "navbar-item #{'active' if controller_name == 'outfits'}" do %>
       <i class="fa-solid fa-star navbar-icon"></i>
-      <span style="font-size: 10px;" class="navbar-text mt-0 pt-0">Outfits</span>
+      <span class="navbar-text mt-0 pt-0">Outfits</span>
     <% end %>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

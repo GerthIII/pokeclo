@@ -3,17 +3,75 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #222222;
-  color: white;
-  border: none;
+  min-height: 44px;
+  padding: 10px 18px;
   border-radius: 999px;
-  padding: 8px 16px;
-  font-weight: 600;
+  border: 1px solid var(--pc-black);
+  background: var(--pc-black);
+  color: var(--pc-white);
   font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
+}
 
+.main-button:hover {
+  color: var(--pc-white);
+  transform: translateY(-1px);
+}
+
+.main-button:active {
+  transform: translateY(0);
+}
+
+.main-button--cta {
+  background: var(--pc-accent);
+  border-color: var(--pc-accent);
+  box-shadow: 0 10px 20px rgba(193, 27, 51, 0.34);
+}
+
+.main-button--cta:hover {
+  background: var(--pc-accent-strong);
+  border-color: var(--pc-accent-strong);
+}
+
+.main-button--secondary {
+  background: var(--pc-white);
+  color: var(--pc-black);
+  border: 1px solid var(--pc-border);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.main-button--secondary:hover {
+  background: #f2f2f2;
+  color: var(--pc-black);
+}
+
+.btn-primary {
+  background: var(--pc-accent);
+  border-color: var(--pc-accent);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--pc-accent-strong);
+  border-color: var(--pc-accent-strong);
+}
+
+.btn-outline-secondary {
+  color: var(--pc-black);
+  border-color: var(--pc-border);
+}
+
+.btn-outline-secondary:hover {
+  background: var(--pc-black);
+  color: var(--pc-white);
+}
+
+.item-show-actions .main-button {
+  flex: 1 1 180px;
 }
 
 .session-page .form-actions {

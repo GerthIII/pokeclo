@@ -3,8 +3,8 @@
   <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
     <div class="form-inputs">
       <div class="item-form__field mb-3 <%= 'd-none' if params[:from_camera] %>" data-photo-analyze-target="photoButton">
-        <label class="btn btn-secondary btn-lg w-100 py-3">
-          <span class="main-button">📷 Take a Photo</span>
+        <label class="main-button main-button--secondary w-100 py-3">
+          <span>📷 Take a Photo</span>
           <%= f.input_field :photo,
                             as: :file,
                             accept: 'image/*',
@@ -41,8 +41,8 @@
         </div>
       </div>
     </div>
-    <label class="btn-primary btn-lg w-100">
-          <span class="main-button">Retake</span>
+    <label class="main-button main-button--secondary w-100">
+          <span>Retake</span>
           <%= f.input_field :photo,
                             as: :file,
                             accept: 'image/*',
@@ -51,7 +51,7 @@
                             data: { photo_analyze_target: "photo", action: "change->photo-analyze#photoChanged" } %>
         </label>
     <div class="form-actions mt-4">
-      <%= f.button :submit, "Go to Fitting Room", class: "btn-primary btn-lg w-100" %>
+      <%= f.button :submit, "Go to Fitting Room", class: "main-button main-button--cta w-100" %>
     </div>
   <% end %>
 </div>

@@ -25,12 +25,12 @@
         <span class="item-show-pill"><%= @item.slot %></span>
       </div>
       <div class="item-show-actions">
-        <%= link_to "Make an outfit", new_outfit_path(item_id: @item.id), class: "main-button" %>
+        <%= link_to "Make an outfit", new_outfit_path(item_id: @item.id), class: "main-button main-button--cta" %>
         <% if @item.status == 2 %>
           <%= button_to "I bought this item",
                         mark_as_bought_item_path(@item),
                         method: :patch,
-                        class: "main-button",
+                        class: "main-button main-button--secondary",
                         form: { data: { turbo_confirm: "Mark this item as bought?" } } %>
         <% end %>
       </div>
