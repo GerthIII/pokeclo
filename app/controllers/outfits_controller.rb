@@ -7,7 +7,7 @@ class OutfitsController < ApplicationController
     @outfit = Outfit.find(params[:id])
     # authorizes user to crate an item with Pundit
     authorize @outfit
-    @pending_purchase_items = @outfit.items.where(status: 2).select(:id, :name)
+    @pending_purchase_items = @outfit.items.where(status: 2)
   end
 
   def new

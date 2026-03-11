@@ -162,6 +162,77 @@
   border-color: #e63232;
 }
 
+.offcanvas .outfit-leave-items-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.offcanvas .outfit-leave-item-cell {
+  margin: 0;
+}
+
+.offcanvas .outfit-leave-item-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  width: 100%;
+  max-width: 52px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.offcanvas .outfit-leave-item-card input[type="checkbox"] {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  z-index: 1;
+  margin: 0;
+  transform: scale(0.9);
+}
+
+.offcanvas .outfit-leave-item-thumb {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ededed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.offcanvas .outfit-leave-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.outfit-leave-item-placeholder {
+  color: #7a7a7a;
+  font-size: 10px;
+  line-height: 1.1;
+  text-align: center;
+  padding: 4px;
+}
+
+.offcanvas .outfit-leave-item-name {
+  width: 100%;
+  font-size: 9px;
+  color: #1f1f1f;
+  line-height: 1.1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .show-card {
   background: #f4f4f4;
   padding: 24px;

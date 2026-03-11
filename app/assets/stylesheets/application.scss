@@ -37,22 +37,6 @@ main.has-bottom-navbar {
   line-height: 1;
 }
 
-.page-back-button {
-  position: absolute;
-  left: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
-  color: #1b1b1b;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  z-index: 1100;
-}
-
 .profile-menu-button {
   position: absolute;
   right: 12px;

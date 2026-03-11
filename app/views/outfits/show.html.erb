@@ -1,9 +1,4 @@
 <div class="container pt-3 outfit-show-page">
-  <% if @pending_purchase_items.any? %>
-    <div id="outfit-leave-guard"
-         data-items="<%= @pending_purchase_items.map { |item| { id: item.id, name: item.name } }.to_json %>"></div>
-  <% end %>
-
   <article class="outfit-show-card-minimal">
     <div class="outfit-show-grid">
       <% 4.times do |i| %>
@@ -69,6 +64,8 @@
   <div class="offcanvas offcanvas-bottom"
        tabindex="-1"
        id="outfitLeaveOffcanvas"
+       data-controller="outfit-purchase-prompt"
+       data-outfit-purchase-prompt-items-value="<%= @pending_purchase_items.map { |item| { id: item.id, name: item.name } }.to_json %>"
        aria-labelledby="outfitLeaveOffcanvasLabel"
        style="height: auto; border-top-left-radius: 16px; border-top-right-radius: 16px;">
     <div class="offcanvas-header">
@@ -77,14 +74,29 @@
     </div>
     <div class="offcanvas-body">
       <p class="mb-2">Before leaving, you can mark purchased items as bought.</p>
-      <ul class="mb-3 ps-3">
+      <ul class="outfit-leave-items-grid mb-3">
         <% @pending_purchase_items.each do |item| %>
-          <li><%= item.name %></li>
+          <li class="outfit-leave-item-cell">
+            <label class="outfit-leave-item-card">
+              <input type="checkbox"
+                     value="<%= item.id %>"
+                     data-outfit-purchase-prompt-target="itemCheckbox"
+                     checked>
+              <span class="outfit-leave-item-thumb">
+                <% if item.photo.attached? %>
+                  <%= cl_image_tag item.photo.key, width: 44, height: 44, crop: :fill, class: "outfit-leave-item-image" %>
+                <% else %>
+                  <span class="outfit-leave-item-placeholder">No image</span>
+                <% end %>
+              </span>
+              <span class="outfit-leave-item-name"><%= item.name %></span>
+            </label>
+          </li>
         <% end %>
       </ul>
       <div class="d-flex gap-2">
-        <button type="button" id="leave-mark-bought" class="main-button">Yes, mark as bought</button>
-        <button type="button" id="leave-without-marking" class="main-button outfit-show-secondary-action">No, leave anyway</button>
+        <button type="button" id="leave-mark-bought" data-action="outfit-purchase-prompt#leaveAndMarkBought" class="main-button">Mark selected as bought</button>
+        <button type="button" id="leave-without-marking" data-action="outfit-purchase-prompt#leaveWithoutMarking" class="main-button outfit-show-secondary-action">No, leave anyway</button>
       </div>
     </div>
   </div>

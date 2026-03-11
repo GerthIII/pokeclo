@@ -37,12 +37,6 @@
 
     <% unless current_page?(root_path) || devise_controller? %>
       <header class="app-top-header">
-        <% unless current_page?(dashboard_path) %>
-          <%= link_to (request.referer.presence || dashboard_path), class: "page-back-button", aria: { label: "Go back" } do %>
-            <i class="fa-solid fa-arrow-left"></i>
-          <% end %>
-        <% end %>
-
         <h1 class="app-top-title">Pokeclo</h1>
 
         <button class="profile-menu-button"
