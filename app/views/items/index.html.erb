@@ -5,7 +5,7 @@
       <p><strong>My Closet</strong></p>
     </div>
   <div class="container my-1" data-controller="filter-items">
-    <%= link_to "Create an Item", new_item_path, class: "main-button mb-4" %>
+    <%= link_to "Add to your Closet", new_item_path, class: "main-button mb-4" %>
     <p>FIlter by Category</p>
     <div class="container mb-3">
       <select class="form-select" data-action="change->filter-items#filter" data-filter-items-target="select">

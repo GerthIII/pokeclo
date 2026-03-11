@@ -41,7 +41,16 @@
         </div>
       </div>
     </div>
-    <div class="form-actions mt-4 <%= 'd-none' if params[:from_camera] %>" data-photo-analyze-target="submitButton">
+    <label class="btn-primary btn-lg w-100">
+          <span class="main-button">Retake</span>
+          <%= f.input_field :photo,
+                            as: :file,
+                            accept: 'image/*',
+                            capture: 'camera',
+                            class: "d-none",
+                            data: { photo_analyze_target: "photo", action: "change->photo-analyze#photoChanged" } %>
+        </label>
+    <div class="form-actions mt-4">
       <%= f.button :submit, "Add to Closet", class: "btn-primary btn-lg w-100" %>
     </div>
   <% end %>

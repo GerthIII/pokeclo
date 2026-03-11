@@ -8,8 +8,11 @@
       <% end %>
     </div>
 
-    <div class="item-show-content">
-      <p class="item-show-title mb-2"><%= @item.name.capitalize %></p>
+     <div class="d-flex align-items-center ">
+          <p class="item-show-title"><%= @item.name.capitalize %></p>
+          <%= link_to edit_item_path(@item) do %>
+            <%= image_tag "pencil-icon2.png", alt: "Edit", style: "width: 20px; height: 20px; margin-left: 5px;" %>
+          <% end %>
         <% if @item.status == 2 %>
           <%= button_to "I bought this item",
                         mark_as_bought_item_path(@item),
@@ -24,12 +27,11 @@
       </div>
 
       <% if @item.description.present? %>
-        <p class="item-show-description"><%= @item.description %></p>
+        <p class="item-show-description" hidden><%= @item.description %></p>
       <% end %>
 
       <div class="item-show-actions">
-        <%= link_to "Create Outfit", new_outfit_path(item_id: @item.id), class: "main-button" %>
-        <%= link_to "Edit Item", edit_item_path(@item), class: "main-button item-show-secondary-action" %>
+        <%= link_to "Make an outfit", new_outfit_path(item_id: @item.id), class: "main-button" %>
       </div>
     </div>
   </article>

@@ -14,28 +14,6 @@
   transition: all 0.2s ease-in-out;
   text-decoration: none;
 
-
-  .divider {
-    width: 1px;
-    height: 18px;
-    background-color: rgba(255, 255, 255, 0.5);
-    margin-right: 12px;
-  }
-
-  .cta {
-    letter-spacing: 0.5px;
-  }
-
-  &:hover {
-    background-color: #e63232;
-    transform: translateY(-1px);
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(1.1);
-    text-decoration: none;
-  }
 }
 
 .session-page .form-actions {

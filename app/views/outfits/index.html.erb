@@ -5,7 +5,7 @@
         <p><strong>My Outfits</strong></p>
       </div>
       <div class="container my-1">
-        <%= link_to "Create Outfit", new_outfit_path, class: "main-button mb-4" %>
+        <%= link_to "Make an Outfit", new_outfit_path, class: "main-button mb-4" %>
       </div>
       <div class="outfit-items-grid">
         <% @outfits.each do |outfit| %>
@@ -21,15 +21,11 @@
                     </div>
                   <% end %>
                 </div>
-                <div class="outfit-item-cta">View Outfit</div>
               </div>
             <% end %>
           </div>
         <% end %>
       </div>
     </div>
-  </div>
-  <div class="container mt-3">
-    <%= link_to "Back to items", items_path, class: "main-button" %>
   </div>
 </div>
