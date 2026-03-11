@@ -47,7 +47,7 @@ class MessagesController < ApplicationController
   # By choosing black bottoms, we create a "Vertical Column of Color" with the black accents on the shirt.
   # The white panels on the legs mirror the sporty vibe of the Adidas stripes, creating visual harmony.
 
-  # Footwear (White Adizero Cleats): 
+  # Footwear (White Adizero Cleats):
   # The crisp white of the shoes "sandwiches" the outfit, pulling the cream/white from the top down to the feet.
   # This prevents the outfit from feeling "bottom-heavy" with all-black pants.
 
@@ -164,6 +164,7 @@ class MessagesController < ApplicationController
         name: item.name
       }
     end.to_json
+
     candidate_items_scope =
       if @forced_candidate_slots.present?
         Item.where(user_id: @outfit.user_id, slot: @forced_candidate_slots)

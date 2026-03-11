@@ -1,10 +1,11 @@
 .navbar-lewagon {
   position: fixed;
-  bottom: calc(env(safe-area-inset-bottom) + 8px);
+  bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
   min-height: 72px;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+  padding-bottom: env(safe-area-inset-bottom);
   background: white;
   border-top: 1px solid #e3e3e3;
   z-index: 1200;
@@ -21,7 +22,7 @@
   max-width: 25%;
   min-width: 0;
   margin: 0;
-  padding: 8px 4px 6px;
+  padding: 8px 4px 1px;
   border-top: 3px solid transparent;
   display: flex;
   flex-direction: column;
@@ -49,6 +50,10 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
+}
+
+.navbar-item-camera .navbar-item-label {
+  gap: 6px;
 }
 
 .navbar-item-new {
@@ -83,6 +88,23 @@
   line-height: 1;
 }
 
+.navbar-camera-pill {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #2da3ff 0%, #1882f4 100%);
+  box-shadow: 0 6px 14px rgba(24, 130, 244, 0.35);
+  transform: translateY(-6px);
+}
+
+.navbar-item-camera .navbar-icon {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
 .navbar-lewagon .navbar-collapse {
   position: fixed;
   top: calc(72px + env(safe-area-inset-top));
@@ -111,7 +133,8 @@
 }
 
 .navbar-text {
-  font-size: 8px;
+  font-size: 10px;
   text-align: center;
   line-height: 1;
+  margin-top: 2px;
 }

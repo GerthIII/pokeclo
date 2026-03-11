@@ -1,7 +1,9 @@
-<div class="item-form outfit-new-page">
+<div class="item-form outfit-new-page"
+     data-controller="ask-pokeclo"
+     data-ask-pokeclo-auto-ask-value="<%= @auto_ask %>">
   <p class="item-form__title">New Outfit</p>
 
-  <%= simple_form_for @outfit, url: outfits_path, method: :post, html: { multipart: true, class: "item-form__card" } do |f| %>
+  <%= simple_form_for @outfit, url: outfits_path, method: :post, html: { multipart: true, class: "item-form__card", data: { ask_pokeclo_target: "outfitForm" } } do |f| %>
     <%= hidden_field_tag :outfit_id, @outfit.id %>
 
     <div class="form-inputs">
@@ -94,11 +96,7 @@
 
           <div class="outfit-path-actions d-flex gap-4">
             <%= f.submit "Create Outfit", class: "main-button" %>
-           <button class="main-button" type="button" onclick="
-              const el = document.getElementById('pokeclo-advice');
-              el.classList.remove('d-none');
-              setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-            ">
+           <button class="main-button" type="button" data-action="ask-pokeclo#ask">
               PokeClo Advise Me
            </button>
           </div>
@@ -207,7 +205,7 @@
   <% end %>
 
   <% if @outfit.persisted? %>
-    <section id="pokeclo-advice" class="outfit-path-card mt-3 d-none">
+    <section id="pokeclo-advice" class="outfit-path-card mt-3 <%= "d-none" unless @auto_ask %>">
       <p class="outfit-path-title">Need Help with your Outfit?</p>
       <p class="outfit-path-copy">What is the occasion for this outfit?</p>
       <%= render "messages/form", outfit: @outfit, message: @message, return_to: "new" %>

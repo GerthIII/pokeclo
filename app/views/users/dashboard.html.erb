@@ -1,12 +1,11 @@
 <div class="container body-container pt-3">
   <section class="dashboard-section">
     <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
-      <p class="mb-0"><strong>My Items</strong></p>
-      <%= link_to "+ Buying Something New?", new_item_path, class: "main-button" %>
+      <p class="mb-0"><strong>My Tops</strong></p>
     </div>
     <div class="carousel-shell">
       <div class="horizontal-scroll">
-        <% @items.each do |item| %>
+        <% Item.where(slot: "top").each do |item| %>
           <div class="scroll-card item-preview-card">
             <%= link_to item_path(item), class: "item-preview-link" do %>
               <div class="item-preview-cell">
@@ -17,13 +16,62 @@
         <% end %>
       </div>
     </div>
+    <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
+      <p class="mb-0"><strong>My Bottoms</strong></p>
+    </div>
+    <div class="carousel-shell">
+      <div class="horizontal-scroll">
+        <% Item.where(slot: "bottom").each do |item| %>
+          <div class="scroll-card item-preview-card">
+            <%= link_to item_path(item), class: "item-preview-link" do %>
+              <div class="item-preview-cell">
+                <%= cl_image_tag item.photo.key, class: "item-preview-img" if item.photo.attached? %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
+      <p class="mb-0"><strong>My Footwears</strong></p>
+    </div>
+    <div class="carousel-shell">
+      <div class="horizontal-scroll">
+        <% Item.where(slot: "footwear").each do |item| %>
+          <div class="scroll-card item-preview-card">
+            <%= link_to item_path(item), class: "item-preview-link" do %>
+              <div class="item-preview-cell">
+                <%= cl_image_tag item.photo.key, class: "item-preview-img" if item.photo.attached? %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+      <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
+      <p class="mb-0"><strong>My Outers</strong></p>
+    </div>
+    <div class="carousel-shell">
+      <div class="horizontal-scroll">
+        <% Item.where(slot: "outer").each do |item| %>
+          <div class="scroll-card item-preview-card">
+            <%= link_to item_path(item), class: "item-preview-link" do %>
+              <div class="item-preview-cell">
+                <%= cl_image_tag item.photo.key, class: "item-preview-img" if item.photo.attached? %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
   </section>
   <section class="dashboard-section">
     <div class="d-flex justify-content-center mt-1">
       <p><strong>My Outfits</strong></p>
     </div>
     <div class="carousel-shell">
-      <div class="horizontal-scroll my-3">
+      <div class="horizontal-scroll">
         <% @outfits.each do |outfit| %>
           <div class="scroll-card outfit-preview-card">
             <%= link_to outfit_path(outfit), class: "outfit-preview-link" do %>

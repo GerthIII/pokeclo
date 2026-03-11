@@ -381,9 +381,9 @@ file21 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125676
 item21.photo.attach(io: file21, filename: "#{item21.name}.jpg", content_type: "image/jpeg")
 item21.save
 
-file22 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773126060/sgmsqlocr1kbkuakkltd_nd3m9a.jpg")
-item22.photo.attach(io: file22, filename: "#{item22.name}.jpg", content_type: "image/jpeg")
-item22.save
+# file22 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773126060/sgmsqlocr1kbkuakkltd_nd3m9a.jpg")
+# item22.photo.attach(io: file22, filename: "#{item22.name}.jpg", content_type: "image/jpeg")
+# item22.save
 
 file23 = URI.open("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80")
 item23.photo.attach(io: file23, filename: "#{item23.name}.jpg", content_type: "image/jpeg")
