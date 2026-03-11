@@ -20,7 +20,7 @@
         <p class="item-show-description"><%= @item.description %></p>
       <% end %>
 
-      <div class="pencil-icon">
+      <div class="item-show-actions">
         <%= link_to "Make an outfit", new_outfit_path(item_id: @item.id), class: "main-button" %>
        <div class="item-actions">
           <%= link_to edit_item_path(@item), class: "edit-pixel-btn" do %>
