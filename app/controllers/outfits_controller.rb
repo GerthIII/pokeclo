@@ -14,7 +14,7 @@ class OutfitsController < ApplicationController
     load_slot_items
     @auto_ask = params[:auto_ask].present?
 
-     if params[:outfit_id].present?
+    if params[:outfit_id].present?
       @outfit = current_user.outfits.find(params[:outfit_id])
       @messages = @outfit.messages
       @message = Message.new
@@ -24,6 +24,10 @@ class OutfitsController < ApplicationController
       prefill_from_item_param
     else
       @outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
+      if params[:item_id]
+        @item = Item.find(params[:item_id])
+        OutfitItem.create(item: @item, outfit: @outfit)
+      end
       authorize @outfit
       redirect_to new_outfit_path(outfit_id: @outfit.id, item_id: params[:item_id])
       return
