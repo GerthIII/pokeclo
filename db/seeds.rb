@@ -33,7 +33,7 @@ item1 = Item.new(
   slot: "top",
   category: "sports",
   description: "An Adidas x Oasis collaboration t-shirt, characterized by a vintage-inspired ringer style and a clean, off-white or cream color base. The shirt is a classic crewneck with short sleeves, featuring contrasting black ribbed material on the collar and the sleeve cuffs. Running down each shoulder and sleeve are the iconic Adidas three-stripe motifs in bold black. The front of the garment displays two distinct logos: on the right chest (viewer's left) is the traditional black Adidas Trefoil logo, while on the left chest (viewer's right) is a rectangular black patch containing the word oasis in its signature lowercase font. The design blends 1990s Britpop aesthetics with classic athletic heritage, offering a minimalist yet recognizable terrace-wear look.",
-  status: 1
+  status: 2
 )
 
 item2 = Item.new(
@@ -60,7 +60,7 @@ item4 = Item.new(
   slot: "outer",
   category: "sports",
   description: "features a streamlined, functional design with a full-length front zipper. The garment is characterized by its ribbed stand-up collar in a contrasting cream or off-white interior, which adds a subtle pop of color to the deep teal-blue body. For branding, it includes a tonal diamond-shaped patch on the left chest and the SOPH logo printed on the right. The construction utilizes raglan sleeves for increased mobility, while two discreet, vertical zippered pockets are integrated into the side seams for secure storage. With its clean lines and technical aesthetic, this piece bridges the gap between high-performance sportswear and modern urban streetwear.",
-  status: 1
+  status: 2
 )
 
 item5 = Item.new(
@@ -87,7 +87,7 @@ item7 = Item.new(
   slot: "top",
   category: "formal",
   description: "a long-sleeved dress shirt by Zegna, displayed flat against a neutral, light-gray gradient background. The shirt is a deep, muted charcoal or dark navy hue and features a clean, minimalist design with a hidden button placket that creates a seamless vertical line down the center. It is constructed with a structured spread collar and standard button cuffs. A small, dark brand label is visible on the inside of the collar, emphasizing the garment's high-end, tailored aesthetic.",
-  status: 1
+  status: 2
 )
 
 item8 = Item.new(

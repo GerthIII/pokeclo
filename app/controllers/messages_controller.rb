@@ -66,7 +66,7 @@ class MessagesController < ApplicationController
       rescue JSON::ParserError
         Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
       end
-       redirect_to edit_outfit_path(@outfit)
+      redirect_to redirect_path_for_outfit(@outfit)
     else
       render outfits_path, status: :unprocessable_entity
     end
@@ -81,6 +81,48 @@ class MessagesController < ApplicationController
       redirect_to edit_outfit_path(@outfit)
   rescue JSON::ParserError
       redirect_to new_outfit_path(@outfit), alert: "Could not apply suggestions."
+  end
+
+  def change_slot
+    @outfit = Outfit.find(params[:outfit_id])
+    @message = @outfit.messages.find(params[:id])
+    authorize @message, :confirm?
+
+    slot = params[:slot].to_s
+    if slot.blank? || !Outfit::SLOTS.include?(slot)
+      redirect_to edit_outfit_path(@outfit), alert: "Invalid slot."
+      return
+    end
+
+    current_item_id = params[:current_item_id].presence&.to_i
+    candidate_scope = Item.where(user_id: current_user.id, slot: slot)
+    candidate_scope = candidate_scope.where.not(id: current_item_id) if current_item_id.present?
+    if candidate_scope.none?
+      redirect_to edit_outfit_path(@outfit), alert: "No alternative items available for #{slot}."
+      return
+    end
+
+    @forced_candidate_slots = [slot]
+    @excluded_item_ids = [current_item_id].compact
+
+    prompt = "Regenerate this outfit by changing only the #{slot} slot. " \
+             "Treat #{slot} as the only missing slot and keep all other slots exactly as they are. " \
+             "Do not use item_id #{current_item_id} for #{slot}."
+
+    user_message = @outfit.messages.build(role: "user", content: prompt)
+    if user_message.save
+      @message = user_message
+      response = ai_response
+      suggestions = JSON.parse(response.content)
+      @outfit.messages.create!(role: "assistant", content: suggestions.to_json)
+      apply_suggestions_to_outfit!(suggestions)
+      redirect_to redirect_path_for_outfit(@outfit)
+    else
+      redirect_to redirect_path_for_outfit(@outfit), alert: "Could not regenerate this slot."
+    end
+  rescue JSON::ParserError
+    @outfit.messages.create!(role: "assistant", content: "Sorry, try again.")
+    redirect_to redirect_path_for_outfit(@outfit), alert: "Could not parse AI suggestions."
   end
 
   private
@@ -122,7 +164,15 @@ class MessagesController < ApplicationController
         name: item.name
       }
     end.to_json
-    candidates = @outfit.candidate_items_for_missing_slots.map do |item|
+    candidate_items_scope =
+      if @forced_candidate_slots.present?
+        Item.where(user_id: @outfit.user_id, slot: @forced_candidate_slots)
+      else
+        @outfit.candidate_items_for_missing_slots
+      end
+    candidate_items_scope = candidate_items_scope.where.not(id: @excluded_item_ids) if @excluded_item_ids.present?
+
+    candidates = candidate_items_scope.map do |item|
       {
         item_id: item.id,
         category: item.category,
@@ -150,6 +200,15 @@ class MessagesController < ApplicationController
       outfit_item.item = item
       outfit_item.save!
       @outfit.outfit_items.where(slot: slot).where.not(id: outfit_item.id).delete_all
+    end
+  end
+
+  def redirect_path_for_outfit(outfit)
+    return_to = params[:return_to].to_s
+    if return_to == "new"
+      new_outfit_path(outfit_id: outfit.id)
+    else
+      edit_outfit_path(outfit)
     end
   end
 end

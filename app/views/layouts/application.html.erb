@@ -33,10 +33,28 @@
   <body>
     <%= render "shared/flashes" %>
 
-    <% if !current_page?(dashboard_path) && !current_page?(root_path) && !devise_controller? %>
-      <%= link_to (request.referer.presence || dashboard_path), class: "page-back-button", aria: { label: "Go back" } do %>
-        <i class="fa-solid fa-arrow-left"></i>
-      <% end %>
+    <% unless current_page?(root_path) || devise_controller? %>
+      <header class="app-top-header">
+        <% unless current_page?(dashboard_path) %>
+          <%= link_to (request.referer.presence || dashboard_path), class: "page-back-button", aria: { label: "Go back" } do %>
+            <i class="fa-solid fa-arrow-left"></i>
+          <% end %>
+        <% end %>
+
+        <h1 class="app-top-title">Pokeclo</h1>
+
+        <button class="profile-menu-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Open profile menu">
+          <img src="https://res.cloudinary.com/dm1uny938/image/upload/v1773114147/Ryota_Base_dbgxbm.jpg"
+               alt="Profile"
+               class="profile-menu-avatar">
+        </button>
+      </header>
     <% end %>
 
     <main class="<%= "has-bottom-navbar" unless current_page?(root_path) || devise_controller? %>">

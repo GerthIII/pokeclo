@@ -1,28 +1,106 @@
-<div class="item-form outfit-new-page" data-controller="ask-pokeclo" data-ask-pokeclo-auto-ask-value="<%= @auto_ask %>">
-  <h1 class="item-form__title">New Outfit</h1>
+<div class="item-form outfit-new-page">
+  <p class="item-form__title">New Outfit</p>
 
-  <%= simple_form_for @outfit, url: outfits_path, method: :post, html: { multipart: true, class: "item-form__card", data: { ask_pokeclo_target: "outfitForm" } } do |f| %>
+  <%= simple_form_for @outfit, url: outfits_path, method: :post, html: { multipart: true, class: "item-form__card" } do |f| %>
     <%= hidden_field_tag :outfit_id, @outfit.id %>
 
     <div class="form-inputs">
       <div class="form-fields">
-        <div class="item-form__field mb-2">
+        <div class="item-form__field">
           <%= f.input :name, label: "Outfit name", input_html: { class: "item-input", placeholder: "Weekend casual, Office look..." } %>
         </div>
 
         <section class="outfit-path-card">
-          <p class="outfit-path-title">Build it myself</p>
+          <p class="outfit-path-title">Add Item to Your Outfit</p>
           <p class="outfit-path-copy">Select one item per slot.</p>
 
           <div class="slot-grid">
-            <button class="slot-square" data-slot="top" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-sheet">Top</button>
-            <button class="slot-square" data-slot="bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#bottom-sheet">Bottom</button>
-            <button class="slot-square" data-slot="footwear" type="button" data-bs-toggle="offcanvas" data-bs-target="#footwear-sheet">Shoes</button>
-            <button class="slot-square" data-slot="outer" type="button" data-bs-toggle="offcanvas" data-bs-target="#outer-sheet">Outer</button>
+            <div class="slot-cell">
+              <button class="slot-square" data-slot="top" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-sheet">Tap to Add</button>
+              <div class="slot-cell-meta">
+                <% current_top_id = @outfit.top_item_id.to_i %>
+                <% top_is_suggested = @suggested_slot_item_ids["top"] == current_top_id && current_top_id.positive? %>
+                <% if top_is_suggested %>
+                  <span style="font-size: 8px" class="slot-suggested-tag">Suggested by Pokeclo</span>
+                <% end %>
+                <% if @latest_suggestion_message.present? && current_top_id.positive? %>
+                  <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "top", current_item_id: current_top_id, return_to: "new"),
+                    data: { turbo_method: :post },
+                    class: "slot-change-icon",
+                    aria: { label: "Change top suggestion" } do %>
+                    <i class="fa-solid fa-rotate"></i>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="slot-cell">
+              <button class="slot-square" data-slot="bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#bottom-sheet">Tap to Add</button>
+              <div class="slot-cell-meta">
+                <% current_bottom_id = @outfit.bottom_item_id.to_i %>
+                <% bottom_is_suggested = @suggested_slot_item_ids["bottom"] == current_bottom_id && current_bottom_id.positive? %>
+                <% if bottom_is_suggested %>
+                  <span style="font-size: 8px" class="slot-suggested-tag">Suggested by Pokeclo</span>
+                <% end %>
+                <% if @latest_suggestion_message.present? && current_bottom_id.positive? %>
+                  <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "bottom", current_item_id: current_bottom_id, return_to: "new"),
+                    data: { turbo_method: :post },
+                    class: "slot-change-icon",
+                    aria: { label: "Change bottom suggestion" } do %>
+                    <i class="fa-solid fa-rotate"></i>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="slot-cell">
+              <button class="slot-square" data-slot="footwear" type="button" data-bs-toggle="offcanvas" data-bs-target="#footwear-sheet">Tap to Add</button>
+              <div class="slot-cell-meta">
+                <% current_footwear_id = @outfit.footwear_item_id.to_i %>
+                <% footwear_is_suggested = @suggested_slot_item_ids["footwear"] == current_footwear_id && current_footwear_id.positive? %>
+                <% if footwear_is_suggested %>
+                  <span style="font-size: 8px;" class="slot-suggested-tag">Suggested by Pokeclo</span>
+                <% end %>
+                <% if @latest_suggestion_message.present? && current_footwear_id.positive? %>
+                  <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "footwear", current_item_id: current_footwear_id, return_to: "new"),
+                    data: { turbo_method: :post },
+                    class: "slot-change-icon",
+                    aria: { label: "Change footwear suggestion" } do %>
+                    <i class="fa-solid fa-rotate"></i>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="slot-cell">
+              <button class="slot-square" data-slot="outer" type="button" data-bs-toggle="offcanvas" data-bs-target="#outer-sheet">Tap to Add</button>
+              <div class="slot-cell-meta">
+                <% current_outer_id = @outfit.outer_item_id.to_i %>
+                <% outer_is_suggested = @suggested_slot_item_ids["outer"] == current_outer_id && current_outer_id.positive? %>
+                <% if outer_is_suggested %>
+                  <span style="font-size: 8px" class="slot-suggested-tag">Suggested by Pokeclo</span>
+                <% end %>
+                <% if @latest_suggestion_message.present? && current_outer_id.positive? %>
+                  <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "outer", current_item_id: current_outer_id, return_to: "new"),
+                    data: { turbo_method: :post },
+                    class: "slot-change-icon",
+                    aria: { label: "Change outer suggestion" } do %>
+                    <i class="fa-solid fa-rotate"></i>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
           </div>
 
-          <div class="outfit-path-actions">
+          <div class="outfit-path-actions d-flex gap-4">
             <%= f.submit "Create Outfit", class: "main-button" %>
+           <button class="main-button" type="button" onclick="
+              const el = document.getElementById('pokeclo-advice');
+              el.classList.remove('d-none');
+              setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+            ">
+              PokeClo Advise Me
+           </button>
           </div>
         </section>
 
@@ -124,53 +202,17 @@
           </div>
         </div>
 
-        <button
-          type="button"
-          class="ask-ai-fab"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#ask-pokeclo-sheet"
-          aria-controls="ask-pokeclo-sheet"
-          aria-label="Open Ask Pokeclo AI"
-        >
-          <span class="ask-ai-fab__inner">Ask Pokeclo</span>
-        </button>
-
-        <div class="offcanvas offcanvas-bottom ask-pokeclo-sheet" tabindex="-1" id="ask-pokeclo-sheet">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Ask Pokeclo AI</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-          </div>
-          <div class="offcanvas-body">
-            <section class="outfit-path-card">
-              <p class="outfit-path-title">Generate My Outfit</p>
-              <p class="outfit-path-copy">Describe the vibe and let AI fill missing slots.</p>
-
-              <div class="item-form__field mb-2">
-                <%= f.input :description, label: "Style prompt", input_html: { class: "item-input", data: { ask_pokeclo_target: "description" }, placeholder: "Streetwear for rainy weather, neutral tones..." } %>
-              </div>
-
-              <div class="outfit-path-actions">
-                <button type="button" class="main-button" data-action="ask-pokeclo#ask">Generate Outfit</button>
-              </div>
-            </section>
-
-            <% if @outfit.persisted? %>
-              <div class="container my-3 px-0">
-                <%= render "messages/messages", messages: @messages, outfit: @outfit %>
-              </div>
-            <% end %>
-          </div>
-        </div>
       </div>
     </div>
   <% end %>
 
   <% if @outfit.persisted? %>
-    <div class="d-none">
-      <%= simple_form_for [@outfit, @message], html: { data: { ask_pokeclo_target: "form" } } do |msg_form| %>
-        <%= msg_form.input :content, class: "d-none", input_html: { data: { ask_pokeclo_target: "content" } }, label: false, wrapper: false %>
-        <%= msg_form.button :submit, "Send", class: "d-none" %>
-      <% end %>
-    </div>
+    <section id="pokeclo-advice" class="outfit-path-card mt-3 d-none">
+      <p class="outfit-path-title">Need Help with your Outfit?</p>
+      <p class="outfit-path-copy">What is the occasion for this outfit?</p>
+      <%= render "messages/form", outfit: @outfit, message: @message, return_to: "new" %>
+      <div class="container my-3 px-0">
+        <%= render "messages/messages", messages: @messages, outfit: @outfit %>
+      </div>
+    </section>
   <% end %>
-</div>

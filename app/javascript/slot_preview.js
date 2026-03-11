@@ -7,10 +7,13 @@ function applyPreview(input) {
   const slotButton = document.querySelector(`.slot-square[data-slot="${slot}"]`)
   if (!slotButton) return
 
+  if (!image) {
+    clearPreview(input)
+    return
+  }
+
   slotButton.style.backgroundImage = `url('${image}')`
-  slotButton.style.backgroundSize = "cover"
-  slotButton.style.backgroundPosition = "center"
-  slotButton.style.color = "transparent"
+  slotButton.classList.add("slot-square--filled")
 }
 
 function clearPreview(input) {
@@ -21,9 +24,7 @@ function clearPreview(input) {
   if (!slotButton) return
 
   slotButton.style.backgroundImage = ""
-  slotButton.style.backgroundSize = ""
-  slotButton.style.backgroundPosition = ""
-  slotButton.style.color = ""
+  slotButton.classList.remove("slot-square--filled")
 }
 
 function radioFromTarget(target) {

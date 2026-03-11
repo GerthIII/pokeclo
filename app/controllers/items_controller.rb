@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   def index
     @items = policy_scope(Item)
-    @item_filtered = @items.where(params[:slot])
+    @owned_items = @items.where(status: 1)
+    @not_bought_items = @items.where(status: 2)
   end
 
   def new
@@ -44,6 +45,23 @@ class ItemsController < ApplicationController
       redirect_to item_path(@item), notice: "Item updated!"
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def mark_as_bought
+    @item = Item.find(params[:id])
+    authorize @item, :update?
+
+    if @item.update(status: 1)
+      respond_to do |format|
+        format.html { redirect_to item_path(@item), notice: "Item marked as bought!" }
+        format.json { render json: { id: @item.id, status: @item.status }, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to item_path(@item), alert: "Could not update item status." }
+        format.json { render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
 

@@ -1,6 +1,17 @@
 <%= simple_form_for [outfit, message] do |f| %>
-  <div class="d-flex mb-5 d-none">
-    <%= f.input :content, placeholder: "Ask a question", required: true, label: false %>
-    <%= f.button :submit, "Ask AI", class: "main-button ms-4" %>
+  <% if local_assigns[:return_to].present? %>
+    <%= hidden_field_tag :return_to, local_assigns[:return_to] %>
+  <% end %>
+  <div class="ask-pokeclo-inline-form mb-3">
+    <%= f.input :content,
+      as: :text,
+      required: true,
+      label: false,
+      input_html: {
+        class: "item-input ask-pokeclo-input",
+        rows: 3,
+        placeholder: "Type the occasion for this outfit here"
+      } %>
+    <%= f.button :submit, "Ask Pokeclo", class: "main-button ask-pokeclo-submit" %>
   </div>
 <% end %>

@@ -1,4 +1,11 @@
 <div class="container pt-3 outfit-show-page">
+  <% if @pending_purchase_items.any? %>
+    <div
+      id="purchase-status-prompts"
+      data-items="<%= @pending_purchase_items.map { |item| { id: item.id, name: item.name } }.to_json %>"
+    ></div>
+  <% end %>
+
   <article class="outfit-show-card-minimal">
     <div class="outfit-show-grid">
       <% 4.times do |i| %>
@@ -33,7 +40,7 @@
 <div class="container d-flex px-3 gap-4">
   <%= link_to "Try on!", try_on_outfit_path(@outfit), class: "main-button" %>
 <% if @outfit.photo.attached?  %>
-  <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" class="main-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Show Me in This Outfit
   </button>
 </div>

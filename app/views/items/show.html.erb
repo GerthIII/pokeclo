@@ -9,9 +9,16 @@
     </div>
 
     <div class="item-show-content">
-      <p class="item-show-title"><%= @item.name.capitalize %></p>
+      <p class="item-show-title mb-2"><%= @item.name.capitalize %></p>
+        <% if @item.status == 2 %>
+          <%= button_to "I bought this item",
+                        mark_as_bought_item_path(@item),
+                        method: :patch,
+                        class: "main-button",
+                        form: { data: { turbo_confirm: "Mark this item as bought?" } } %>
+        <% end %>
 
-      <div class="item-show-meta">
+      <div class="item-show-meta mt-3">
         <span class="item-show-pill"><%= @item.category %></span>
         <span class="item-show-pill"><%= @item.slot %></span>
       </div>

@@ -127,27 +127,85 @@
 
 .slot-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+  align-items: start;
+}
+
+.slot-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.slot-cell-meta {
+  min-height: 36px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3px;
+}
+
+.slot-suggested-tag {
+  display: inline-block;
+  max-width: 100%;
+  font-size: 10px;        /* fix from 4px */
+  line-height: 1.1;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  padding: 2px 5px;
+  white-space: normal;    /* fix from nowrap — let it wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.slot-change-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  background: #ffffff;
+  text-decoration: none;
+}
+
+.slot-change-icon:hover {
+  border-color: #9ca3af;
+  color: #111827;
 }
 
 .slot-square {
+  width: 100%;
   aspect-ratio: 1 / 1;
+  min-height: 72px;
+  height: auto;
   border-radius: 18px;
   border: 2px solid #ddd;
   background-color: white;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-weight: 600;
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   transition: 0.2s;
+  overflow: hidden;
+}
+
+.slot-square--filled {
+  color: transparent;
 }
 
 .slot-square:hover {
@@ -207,6 +265,19 @@
 
 .ask-pokeclo-sheet .offcanvas-body {
   padding: 0 16px 16px;
+}
+
+.ask-pokeclo-inline-form .message_content {
+  margin-bottom: 10px;
+}
+
+.ask-pokeclo-input {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.ask-pokeclo-submit {
+  width: 100%;
 }
 
 .slot-items-panel {
