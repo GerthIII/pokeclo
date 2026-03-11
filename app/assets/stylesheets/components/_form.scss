@@ -12,10 +12,25 @@
 
 .item-form__card {
   background: #ffffff;
-  border: 1px solid #eee;
+  border: 1px solid #e6e6e6;
   border-radius: 16px;
   padding: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+}
+
+.item-form__preview {
+  margin-bottom: 14px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #ececec;
+  background: #f8f8f8;
+
+  img {
+    width: 100%;
+    max-height: 280px;
+    object-fit: contain;
+    display: block;
+  }
 }
 
 .item-form__field {
@@ -42,8 +57,8 @@
 }
 
 .item-input:focus {
-  border-color: #ff3b3b;
-  box-shadow: 0 0 0 3px rgba(255, 59, 59, 0.18);
+  border-color: var(--pc-accent);
+  box-shadow: 0 0 0 3px rgba(193, 27, 51, 0.18);
   background: #fff;
 }
 
@@ -67,13 +82,13 @@
   font-weight: 800;
   font-size: 14px;
   color: #fff;
-  background: #ff3b3b;
+  background: var(--pc-accent);
   cursor: pointer;
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 .item-btn:hover {
-  filter: brightness(0.95);
+  filter: brightness(0.9);
   transform: translateY(-1px);
 }
 

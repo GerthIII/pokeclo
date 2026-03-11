@@ -1,6 +1,10 @@
-<%= simple_form_for [outfit, message] do |f| %>
+<%= simple_form_for [outfit, message], html: { data: { ask_pokeclo_target: "form", action: "submit->ask-pokeclo#handleSubmit turbo:submit-end->ask-pokeclo#hideSpinner" } } do |f| %>
+  <% submit_label = local_assigns[:submit_label].presence || "Ask Pokeclo" %>
   <% if local_assigns[:return_to].present? %>
     <%= hidden_field_tag :return_to, local_assigns[:return_to] %>
+  <% end %>
+  <% if local_assigns[:source_item_id].present? %>
+    <%= hidden_field_tag :item_id, local_assigns[:source_item_id] %>
   <% end %>
   <div class="ask-pokeclo-inline-form mb-3">
     <%= f.input :content,
@@ -10,8 +14,15 @@
       input_html: {
         class: "item-input ask-pokeclo-input",
         rows: 3,
-        placeholder: "Type the occasion for this outfit here"
+        placeholder: "Type the occasion for this outfit here",
+        data: { ask_pokeclo_target: "content" }
       } %>
-    <%= f.button :submit, "Ask Pokeclo", class: "main-button ask-pokeclo-submit" %>
+    <div class="d-flex justify-content-center">
+      <%= f.button :submit, submit_label, class: "main-button main-button--cta", data: { ask_pokeclo_target: "submitButton" } %>
+    </div>
+    <div data-ask-pokeclo-target="spinner" class="text-center my-3 d-none">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="text-muted mt-2 mb-0">Pokeclo is thinking...</p>
+    </div>
   </div>
 <% end %>

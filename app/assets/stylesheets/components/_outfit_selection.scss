@@ -156,9 +156,9 @@
   max-width: 100%;
   font-size: 10px;        /* fix from 4px */
   line-height: 1.1;
-  color: #2563eb;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
+  color: #111111;
+  background: #ffffff;
+  border: 1px solid #111111;
   border-radius: 999px;
   padding: 2px 5px;
   white-space: normal;    /* fix from nowrap — let it wrap */
@@ -210,7 +210,7 @@
 }
 
 .slot-square:hover {
-  border-color: #222222;
+  border-color: var(--pc-accent);
   transform: translateY(-2px);
 }
 
@@ -232,8 +232,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #13c3c6 0%, #2f65ff 55%, #bb55f6 100%);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  background: var(--pc-accent);
+  box-shadow: 0 10px 24px rgba(193, 27, 51, 0.38);
 }
 
 .ask-ai-fab__inner {
@@ -241,7 +241,7 @@
   height: 100%;
   border-radius: 999px;
   background: #ffffff;
-  color: #2f65ff;
+  color: var(--pc-accent);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -315,8 +315,8 @@
 }
 
 .item-radio:checked + .item-card-choice {
-  border: 2px solid #222222;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  border: 2px solid var(--pc-accent);
+  box-shadow: 0 0 0 2px rgba(193, 27, 51, 0.16);
 }
 
 .item-card-image {

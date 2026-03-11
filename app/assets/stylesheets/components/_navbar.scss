@@ -1,12 +1,14 @@
 .navbar-lewagon {
   position: fixed;
-  bottom: calc(env(safe-area-inset-bottom) + 8px);
+  bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
   min-height: 72px;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
-  background: white;
-  border-top: 1px solid #e3e3e3;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid rgba(193, 27, 51, 0.26);
+  backdrop-filter: blur(10px);
   z-index: 1200;
 }
 
@@ -21,7 +23,7 @@
   max-width: 25%;
   min-width: 0;
   margin: 0;
-  padding: 8px 4px 6px;
+  padding: 8px 4px 1px;
   border-top: 3px solid transparent;
   display: flex;
   flex-direction: column;
@@ -33,7 +35,8 @@
 }
 
 .navbar-item.active {
-  border-top: 3px solid #3f3f3f;
+  border-top: 3px solid var(--pc-accent);
+  color: var(--pc-accent);
 }
 
 .navbar-item-form {
@@ -51,6 +54,10 @@
   gap: 4px;
 }
 
+.navbar-item-camera .navbar-item-label {
+  gap: 6px;
+}
+
 .navbar-item-new {
   overflow: visible;
 }
@@ -60,9 +67,9 @@
   height: 90px;
   margin: 0 auto;
   border-radius: 999px;
-  background: linear-gradient(180deg, #31c4f2 0%, #08aee6 100%);
+  background: var(--pc-accent);
   color: #ffffff;
-  box-shadow: 0 10px 20px rgba(8, 174, 230, 0.35);
+  box-shadow: 0 10px 22px rgba(193, 27, 51, 0.35);
   transform: translateY(-30%);
   gap: 6px;
 }
@@ -83,7 +90,24 @@
   line-height: 1;
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar-camera-pill {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pc-accent);
+  box-shadow: 0 7px 16px rgba(193, 27, 51, 0.34);
+  transform: translateY(-6px);
+}
+
+.navbar-item-camera .navbar-icon {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.profile-menu-collapse {
   position: fixed;
   top: calc(72px + env(safe-area-inset-top));
   right: 12px;
@@ -92,26 +116,29 @@
   background: #ffffff;
   border-radius: 16px;
   padding: 8px 0;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(193, 27, 51, 0.22);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
   z-index: 1300;
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-nav {
+.profile-menu-collapse .navbar-nav {
   width: 100%;
 }
 
-.navbar-lewagon .nav-item {
+.profile-menu-collapse .nav-item {
   width: 100%;
 }
 
-.navbar-lewagon .nav-link {
+.profile-menu-collapse .nav-link {
   display: block;
   padding: 10px 16px;
 }
 
 .navbar-text {
-  font-size: 8px;
+  font-size: 10px;
   text-align: center;
   line-height: 1;
+  margin-top: 2px;
+  font-weight: 600;
 }

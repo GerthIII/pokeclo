@@ -54,10 +54,10 @@
   align-items: center;
   background: #e3e3e3;
   color: #3d3d3d;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 999px;
+  padding: 4px 6px;
+  border-radius: 0px;
   text-transform: capitalize;
 }
 
@@ -73,6 +73,43 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.item-show-bought-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-show-bought-label {
+  margin: 0;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.item-show-check-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+  color: #1f1f1f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.item-show-check-button:hover {
+  background: #1f1f1f;
+  color: #fff;
+  border-color: #1f1f1f;
 }
 
 .item-show-secondary-action {
@@ -83,7 +120,8 @@
 
 .item-show-secondary-action:hover {
   color: #ffffff;
-  border-color: #e63232;
+  border-color: var(--pc-accent);
+  background: var(--pc-accent);
 }
 
 .outfit-show-page {
@@ -159,7 +197,20 @@
 
 .outfit-show-secondary-action:hover {
   color: #ffffff;
-  border-color: #e63232;
+  border-color: var(--pc-accent);
+  background: var(--pc-accent);
+}
+
+.outfit-tryon-image {
+  width: 100%;
+  max-width: 320px;
+  max-height: 70vh;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.outfit-tryon-footer {
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
 }
 
 .offcanvas .outfit-leave-items-grid {
@@ -252,7 +303,7 @@
 
 .show-category {
   display: inline-block;
-  background: #ff3b3b;
+  background: var(--pc-accent);
   color: white;
   padding: 8px 18px;
   border-radius: 30px;

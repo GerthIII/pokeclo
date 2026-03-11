@@ -2,10 +2,10 @@
   <div class="container d-flex justify-content-center">
     <div class="home-title">
       <div class="container">
-        <h1 style="font-size: 48px;">Pokeclo</h1>
+        <h1 class="home-brand-title">Pokeclo</h1>
       </div>
       <div class="container d-flex align-items-center justify-content-center">
-        <%= link_to 'Log In', new_user_session_path, style: "height: 46px; width: 120px;", class: "main-button justify-content-center"%>
+        <%= link_to 'Log In', new_user_session_path, class: "main-button main-button--secondary home-auth-button justify-content-center"%>
       </div>
     </div>
     <hr>
@@ -21,7 +21,7 @@
         気になる服のことを<br>
         ポケクロ
       </strong></p>
-        <%= link_to 'Create an Account', new_user_registration_path, style: "height: 46px; width: 180px;", class: "create-account-button justify-content-center mt-5" %>
+        <%= link_to 'Create an Account', new_user_registration_path, class: "create-account-button justify-content-center mt-5" %>
     </div>
   </div>
   <hr>

@@ -12,9 +12,32 @@
 @import "pages/index";
 @import "outfits";
 
+:root {
+  --pc-black: #101010;
+  --pc-white: #ffffff;
+  --pc-surface: #f6f6f6;
+  --pc-surface-2: #ebebeb;
+  --pc-muted: #666666;
+  --pc-border: #d9d9d9;
+  --pc-accent: #C11B33;
+  --pc-accent-strong: #9f1127;
+}
+
+body {
+  background:
+    radial-gradient(circle at 100% -10%, rgba(193, 27, 51, 0.08), transparent 38%),
+    radial-gradient(circle at -5% 120%, rgba(0, 0, 0, 0.06), transparent 42%),
+    var(--pc-surface);
+  color: var(--pc-black);
+}
+
+a {
+  color: inherit;
+}
+
 main.has-bottom-navbar {
   padding-top: calc(76px + env(safe-area-inset-top));
-  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  padding-bottom: calc(128px + env(safe-area-inset-bottom));
 }
 
 .app-top-header {
@@ -27,7 +50,9 @@ main.has-bottom-navbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #F4F4F4;
+  background: rgba(246, 246, 246, 0.94);
+  border-bottom: 1px solid rgba(193, 27, 51, 0.2);
+  backdrop-filter: blur(8px);
   z-index: 1100;
 }
 
@@ -35,6 +60,7 @@ main.has-bottom-navbar {
   margin: 0;
   font-size: 2rem;
   line-height: 1;
+  letter-spacing: 0.02em;
 }
 
 .profile-menu-button {
@@ -43,10 +69,10 @@ main.has-bottom-navbar {
   width: 40px;
   height: 40px;
   padding: 0;
-  border: 2px solid #fff;
+  border: 2px solid var(--pc-white);
   border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  background: var(--pc-white);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
   overflow: hidden;
   z-index: 1100;
 }
@@ -57,4 +83,13 @@ main.has-bottom-navbar {
   object-fit: cover;
   object-position: center 22%;
   display: block;
+}
+
+/* Keep Bootstrap offcanvas above fixed app header/footer nav */
+.offcanvas-backdrop.show {
+  z-index: 1600;
+}
+
+.offcanvas.show {
+  z-index: 1610;
 }

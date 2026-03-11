@@ -23,4 +23,15 @@ class Outfit < ApplicationRecord
   def candidate_items_for_missing_slots
     Item.where(user_id: user_id, slot: missing_slots)
   end
+
+  # Backfills missing join-slot values using the item's own slot.
+  # Useful for drafts created before slot was persisted on outfit_items.
+  def normalize_outfit_item_slots!
+    outfit_items.includes(:item).where(slot: [nil, ""]).find_each do |outfit_item|
+      item_slot = outfit_item.item&.slot
+      next if item_slot.blank?
+
+      outfit_item.update!(slot: item_slot)
+    end
+  end
 end

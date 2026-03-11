@@ -19,17 +19,18 @@ class OutfitsController < ApplicationController
       @messages = @outfit.messages
       @message = Message.new
       authorize @outfit
+      @outfit.normalize_outfit_item_slots!
       hydrate_slot_item_ids(@outfit)
       build_ai_slot_metadata(@outfit)
       prefill_from_item_param
     else
       @outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
       if params[:item_id]
-        @item = Item.find(params[:item_id])
-        OutfitItem.create(item: @item, outfit: @outfit)
+        @item = current_user.items.find(params[:item_id])
+        OutfitItem.create!(item: @item, outfit: @outfit, slot: @item.slot)
       end
       authorize @outfit
-      redirect_to new_outfit_path(outfit_id: @outfit.id, item_id: params[:item_id])
+      redirect_to new_outfit_path(outfit_id: @outfit.id, item_id: params[:item_id], auto_ask: params[:auto_ask])
       return
     end
 
@@ -77,6 +78,7 @@ class OutfitsController < ApplicationController
     @outfit = current_user.outfits.find(params[:id])
     # authorizes user to crate an item with Pundit
     authorize @outfit
+    @outfit.normalize_outfit_item_slots!
     @auto_ask = params[:auto_ask].present?
     hydrate_slot_item_ids(@outfit)
     load_slot_items
@@ -132,10 +134,13 @@ class OutfitsController < ApplicationController
         items: @outfit.items.map(&:photo)
       )
       @outfit.photo.attach(io: result_image, filename: "#{@outfit.id}.png", content_type: "image/png")
-      redirect_to outfit_path(@outfit), notice: "Virtual try_on complete!"
+      redirect_to outfit_path(@outfit)
     else
-      redirect_to edit_user_registration_path, alert: "Please upload a full-body photo first"
+      redirect_to edit_user_registration_path
     end
+  rescue StandardError => e
+    Rails.logger.error("Try-on generation failed: #{e.class} - #{e.message}")
+    redirect_to outfit_path(@outfit)
   end
 
   private

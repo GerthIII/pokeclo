@@ -1,8 +1,11 @@
 .alert {
   position: fixed;
-  bottom: 0px;
-  right: 0.1px;
-  z-index: 1000;
+  bottom: calc(88px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1400;
+  width: 92vw;
+  max-width: 520px;
 
   display: flex;
   align-items: center;

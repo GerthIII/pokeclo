@@ -1,111 +1,172 @@
-<div class="item-form outfit-new-page">
+<div class="item-form outfit-new-page"
+     data-controller="ask-pokeclo"
+     data-ask-pokeclo-auto-ask-value="<%= @auto_ask %>">
   <p class="item-form__title">Edit Outfit</p>
-  <%= simple_form_for @outfit, url: outfits_path, method: :post, html: { multipart: true, class: "item-form__card" } do |f| %>
+
+  <%= simple_form_for @outfit,
+      url: outfits_path,
+      method: :post,
+      html: {
+        multipart: true,
+        class: "item-form__card",
+        data: { ask_pokeclo_target: "outfitForm" }
+      } do |f| %>
+
     <%= hidden_field_tag :outfit_id, @outfit.id %>
+
     <div class="form-inputs">
       <div class="form-fields">
         <div class="item-form__field">
-          <%= f.input :name, label: "Outfit name", input_html: { class: "item-input", placeholder: "Weekend casual, Office look..." } %>
+          <%= f.input :name,
+              label: "Outfit name",
+              input_html: {
+                class: "item-input",
+                placeholder: "Weekend casual, Office look..."
+              } %>
         </div>
-        <section class="outfit-path-card">
+
+        <div data-ask-pokeclo-target="builderPanel">
+          <section class="outfit-path-card">
           <p class="outfit-path-title">Add Item to Your Outfit</p>
           <p class="outfit-path-copy">Select one item per slot.</p>
+
           <div class="slot-grid">
             <div class="slot-cell">
-              <button class="slot-square" data-slot="top" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-sheet">Tap to Add</button>
+              <button class="slot-square"
+                      data-slot="top"
+                      type="button"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#top-sheet">
+                Tap to Add
+              </button>
+
               <div class="slot-cell-meta">
                 <% current_top_id = @outfit.top_item_id.to_i %>
                 <% top_is_suggested = @suggested_slot_item_ids["top"] == current_top_id && current_top_id.positive? %>
+
                 <% if top_is_suggested %>
                   <span style="font-size: 8px" class="slot-suggested-tag">Suggested by Pokeclo</span>
                 <% end %>
+
                 <% if @latest_suggestion_message.present? && current_top_id.positive? %>
                   <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "top", current_item_id: current_top_id, return_to: "new"),
-                    data: { turbo_method: :post },
-                    class: "slot-change-icon",
-                    aria: { label: "Change top suggestion" } do %>
+                      data: { turbo_method: :post, action: "click->ask-pokeclo#showSpinner" },
+                      class: "slot-change-icon",
+                      aria: { label: "Change top suggestion" } do %>
                     <i class="fa-solid fa-rotate"></i>
                   <% end %>
                 <% end %>
               </div>
             </div>
+
             <div class="slot-cell">
-              <button class="slot-square" data-slot="bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#bottom-sheet">Tap to Add</button>
+              <button class="slot-square"
+                      data-slot="bottom"
+                      type="button"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#bottom-sheet">
+                Tap to Add
+              </button>
+
               <div class="slot-cell-meta">
                 <% current_bottom_id = @outfit.bottom_item_id.to_i %>
                 <% bottom_is_suggested = @suggested_slot_item_ids["bottom"] == current_bottom_id && current_bottom_id.positive? %>
+
                 <% if bottom_is_suggested %>
                   <span style="font-size: 8px" class="slot-suggested-tag">Suggested by Pokeclo</span>
                 <% end %>
+
                 <% if @latest_suggestion_message.present? && current_bottom_id.positive? %>
                   <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "bottom", current_item_id: current_bottom_id, return_to: "new"),
-                    data: { turbo_method: :post },
-                    class: "slot-change-icon",
-                    aria: { label: "Change bottom suggestion" } do %>
+                      data: { turbo_method: :post, action: "click->ask-pokeclo#showSpinner" },
+                      class: "slot-change-icon",
+                      aria: { label: "Change bottom suggestion" } do %>
                     <i class="fa-solid fa-rotate"></i>
                   <% end %>
                 <% end %>
               </div>
             </div>
+
             <div class="slot-cell">
-              <button class="slot-square" data-slot="footwear" type="button" data-bs-toggle="offcanvas" data-bs-target="#footwear-sheet">Tap to Add</button>
+              <button class="slot-square"
+                      data-slot="footwear"
+                      type="button"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#footwear-sheet">
+                Tap to Add
+              </button>
+
               <div class="slot-cell-meta">
                 <% current_footwear_id = @outfit.footwear_item_id.to_i %>
                 <% footwear_is_suggested = @suggested_slot_item_ids["footwear"] == current_footwear_id && current_footwear_id.positive? %>
+
                 <% if footwear_is_suggested %>
                   <span style="font-size: 8px;" class="slot-suggested-tag">Suggested by Pokeclo</span>
                 <% end %>
+
                 <% if @latest_suggestion_message.present? && current_footwear_id.positive? %>
                   <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "footwear", current_item_id: current_footwear_id, return_to: "new"),
-                    data: { turbo_method: :post },
-                    class: "slot-change-icon",
-                    aria: { label: "Change footwear suggestion" } do %>
+                      data: { turbo_method: :post, action: "click->ask-pokeclo#showSpinner" },
+                      class: "slot-change-icon",
+                      aria: { label: "Change footwear suggestion" } do %>
                     <i class="fa-solid fa-rotate"></i>
                   <% end %>
                 <% end %>
               </div>
             </div>
+
             <div class="slot-cell">
-              <button class="slot-square" data-slot="outer" type="button" data-bs-toggle="offcanvas" data-bs-target="#outer-sheet">Tap to Add</button>
+              <button class="slot-square"
+                      data-slot="outer"
+                      type="button"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#outer-sheet">
+                Tap to Add
+              </button>
+
               <div class="slot-cell-meta">
                 <% current_outer_id = @outfit.outer_item_id.to_i %>
                 <% outer_is_suggested = @suggested_slot_item_ids["outer"] == current_outer_id && current_outer_id.positive? %>
+
                 <% if outer_is_suggested %>
                   <span style="font-size: 8px" class="slot-suggested-tag">Suggested by Pokeclo</span>
                 <% end %>
+
                 <% if @latest_suggestion_message.present? && current_outer_id.positive? %>
                   <%= link_to change_slot_outfit_message_path(@outfit, @latest_suggestion_message, slot: "outer", current_item_id: current_outer_id, return_to: "new"),
-                    data: { turbo_method: :post },
-                    class: "slot-change-icon",
-                    aria: { label: "Change outer suggestion" } do %>
+                      data: { turbo_method: :post, action: "click->ask-pokeclo#showSpinner" },
+                      class: "slot-change-icon",
+                      aria: { label: "Change outer suggestion" } do %>
                     <i class="fa-solid fa-rotate"></i>
                   <% end %>
                 <% end %>
               </div>
             </div>
           </div>
+
           <div class="outfit-path-actions d-flex gap-4">
-            <%= f.submit "Update Outfit", class: "main-button" %>
-            <button class="main-button" type="button" onclick="
-              const el = document.getElementById('pokeclo-advice');
-              el.classList.remove('d-none');
-              setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-              ">
-              PokeClo Advise Me
-            </button>
+            <%= f.submit "Save!", class: "main-button main-button--cta" %>
           </div>
-        </section>
+          </section>
+
         <!-- TOP -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="top-sheet">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title">Select a Top</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
           </div>
+
           <div class="offcanvas-body">
             <div class="items-scroll-row">
               <% @tops.each do |item| %>
                 <div class="item-choice-wrapper">
-                  <%= radio_button_tag "outfit[top_item_id]", item.id, @outfit.top_item_id.to_i == item.id, id: "top_item_#{item.id}", class: "item-radio", data: { slot: "top", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+                  <%= radio_button_tag "outfit[top_item_id]",
+                      item.id,
+                      @outfit.top_item_id.to_i == item.id,
+                      id: "top_item_#{item.id}",
+                      class: "item-radio",
+                      data: { slot: "top", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+
                   <label for="top_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>
@@ -117,17 +178,25 @@
             </div>
           </div>
         </div>
+
         <!-- BOTTOM -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="bottom-sheet">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title">Select Bottom</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
           </div>
+
           <div class="offcanvas-body">
             <div class="items-scroll-row">
               <% @bottoms.each do |item| %>
                 <div class="item-choice-wrapper">
-                  <%= radio_button_tag "outfit[bottom_item_id]", item.id, @outfit.bottom_item_id.to_i == item.id, id: "bottom_item_#{item.id}", class: "item-radio", data: { slot: "bottom", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+                  <%= radio_button_tag "outfit[bottom_item_id]",
+                      item.id,
+                      @outfit.bottom_item_id.to_i == item.id,
+                      id: "bottom_item_#{item.id}",
+                      class: "item-radio",
+                      data: { slot: "bottom", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+
                   <label for="bottom_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>
@@ -139,17 +208,25 @@
             </div>
           </div>
         </div>
+
         <!-- FOOTWEAR -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="footwear-sheet">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title">Select Shoes</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
           </div>
+
           <div class="offcanvas-body">
             <div class="items-scroll-row">
               <% @footwear.each do |item| %>
                 <div class="item-choice-wrapper">
-                  <%= radio_button_tag "outfit[footwear_item_id]", item.id, @outfit.footwear_item_id.to_i == item.id, id: "footwear_item_#{item.id}", class: "item-radio", data: { slot: "footwear", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+                  <%= radio_button_tag "outfit[footwear_item_id]",
+                      item.id,
+                      @outfit.footwear_item_id.to_i == item.id,
+                      id: "footwear_item_#{item.id}",
+                      class: "item-radio",
+                      data: { slot: "footwear", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+
                   <label for="footwear_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>
@@ -161,22 +238,25 @@
             </div>
           </div>
         </div>
-        <!-- OUTER -->
+
+          <!-- OUTER -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="outer-sheet">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title">Select Outer</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
           </div>
+
           <div class="offcanvas-body">
             <div class="items-scroll-row">
               <% @outers.each do |item| %>
                 <div class="item-choice-wrapper">
                   <%= radio_button_tag "outfit[outer_item_id]",
-                  item.id,
-                  @outfit.outer_item_id.to_i == item.id,
-                  id: "outer_item_#{item.id}",
-                  class: "item-radio",
-                  data: { slot: "outer", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+                      item.id,
+                      @outfit.outer_item_id.to_i == item.id,
+                      id: "outer_item_#{item.id}",
+                      class: "item-radio",
+                      data: { slot: "outer", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
+
                   <label for="outer_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>
@@ -188,16 +268,34 @@
             </div>
           </div>
         </div>
+        </div>
+
+        <section data-ask-pokeclo-target="builderLoading" class="outfit-path-card text-center d-none">
+          <div class="spinner-border text-primary mt-2" role="status"></div>
+          <p class="text-muted mt-2 mb-0">Creating your outfit with Pokeclo...</p>
+        </section>
+
       </div>
     </div>
   <% end %>
+
   <% if @outfit.persisted? %>
-    <section id="pokeclo-advice" class="outfit-path-card mt-3 d-none">
+    <section id="pokeclo-advice"
+             data-ask-pokeclo-target="advice"
+             class="outfit-path-card mt-3">
       <p class="outfit-path-title">Need Help with your Outfit?</p>
       <p class="outfit-path-copy">What is the occasion for this outfit?</p>
-      <%= render "messages/form", outfit: @outfit, message: @message, return_to: "new" %>
+
+      <%= render "messages/form",
+                 outfit: @outfit,
+                 message: @message,
+                 return_to: "edit",
+                 submit_label: "Ask Pokeclo ",
+                 source_item_id: params[:item_id] %>
+
       <div class="container my-3 px-0">
         <%= render "messages/messages", messages: @messages, outfit: @outfit %>
       </div>
     </section>
   <% end %>
+</div>

@@ -1,22 +1,24 @@
 <nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid navbar-main px-3">
 
-    <%= link_to dashboard_path, class: "navbar-item #{'active' if current_page?(dashboard_path)}" do %>
-      <i class="fa-solid fa-house navbar-icon"></i>
-      <span class="navbar-text">Home</span>
-    <% end %>
+    <%#= link_to dashboard_path, class: "navbar-item #{'active' if current_page?(dashboard_path)}" do %>
+      <!-- <i class="fa-solid fa-house navbar-icon"></i>
+      <span class="navbar-text mt-0 pt-0">Home</span>
+    <%# end %> -->
 
-    <%= link_to items_path, class: "navbar-item #{'active' if controller_name == 'closet'}" do %>
+    <%= link_to items_path, class: "navbar-item #{'active' if controller_name == 'items'}" do %>
       <i class="fa-solid fa-shirt navbar-icon"></i>
-      <span class="navbar-text">Closet</span>
+      <span class="navbar-text mt-0 pt-0">Closet</span>
     <% end %>
 
-    <div class="navbar-item"
+    <div class="navbar-item navbar-item-camera p-0 m-0"
          data-controller="navbar-camera"
          data-navbar-camera-new-item-url-value="<%= new_item_path %>">
       <label class="navbar-item-label">
-        <i class="fa-solid fa-camera navbar-icon"></i>
-        <span class="navbar-text">New Item</span>
+        <span class="navbar-camera-pill">
+          <i class="fa-solid fa-camera navbar-icon"></i>
+        </span>
+        <span class="navbar-text mt-0 pt-0"></span>
         <input type="file"
                accept="image/*"
                capture="camera"
@@ -27,28 +29,8 @@
 
     <%= link_to outfits_path, class: "navbar-item #{'active' if controller_name == 'outfits'}" do %>
       <i class="fa-solid fa-star navbar-icon"></i>
-      <span class="navbar-text">Outfits</span>
+      <span class="navbar-text mt-0 pt-0">Outfits</span>
     <% end %>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Dashboard", dashboard_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Log out", destroy_user_session_path,
-              data: { turbo_method: :delete },
-              class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-            <%= link_to "Sign In", new_user_registration_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
 
   </div>
 </nav>

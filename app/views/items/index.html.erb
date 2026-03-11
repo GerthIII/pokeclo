@@ -5,8 +5,8 @@
       <p><strong>My Closet</strong></p>
     </div>
   <div class="container my-1" data-controller="filter-items">
-    <%= link_to "Add to your Closet", new_item_path, class: "main-button mb-4" %>
-    <p>FIlter by Category</p>
+
+    <p>Filter by Category</p>
     <div class="container mb-3">
       <select class="form-select" data-action="change->filter-items#filter" data-filter-items-target="select">
         <option value="">All</option>
@@ -37,7 +37,7 @@
         <div class="cards-wrapper">
           <% @owned_items.each do |item| %>
             <div class="product-card" data-filter-items-target="card" data-slot="<%= item.slot.downcase %>">
-              <div class="product-image product-image-wrapper" style="object-fit: cover;">
+              <div class="product-image product-image-wrapper">
                 <%= link_to item_path(item) do %>
                   <%= cl_image_tag item.photo.key if item.photo.attached? %>
                   <span class="product-badge rounded-pill bg-primary"><%= item.slot %></span>
@@ -54,7 +54,7 @@
         <div class="cards-wrapper">
           <% @not_bought_items.each do |item| %>
             <div class="product-card" data-filter-items-target="card" data-slot="<%= item.slot.downcase %>">
-              <div class="product-image product-image-wrapper" style="object-fit: cover;">
+              <div class="product-image product-image-wrapper">
                 <%= link_to item_path(item) do %>
                   <%= cl_image_tag item.photo.key if item.photo.attached? %>
                   <span class="product-badge rounded-pill bg-primary"><%= item.slot %></span>

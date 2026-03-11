@@ -1,6 +1,9 @@
 <div class="item-form" data-controller="photo-analyze">
   <p class="item-form__title">What are you trying today?</p>
   <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
+    <div class="item-form__preview d-none" data-photo-analyze-target="preview">
+      <img src="" alt="Uploaded item preview" data-photo-analyze-target="previewImage">
+    </div>
     <div class="form-inputs">
       <div data-photo-analyze-target="spinner" class="text-center my-4 <%= params[:from_camera] ? '' : 'd-none' %>">
         <div class="spinner-border text-primary" role="status"></div>
@@ -30,7 +33,7 @@
       </div>
     </div>
     <div class="form-actions mt-4 <%= 'd-none' if params[:from_camera] %>" data-photo-analyze-target="submitButton">
-      <%= f.button :submit, "Add to Closet", class: "btn btn-primary btn-lg w-100 mb-3" %>
+      <%= f.button :submit, "Add to the Fitting Room", class: "container d-flex justify-content-center main-button main-button--cta mb-3" %>
       <label class="retake-btn d-block text-center text-muted small">
         <i class="fa-solid fa-rotate-left me-1"></i> Retake photo
         <%= f.input_field :photo,
