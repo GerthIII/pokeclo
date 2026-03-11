@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["photo", "name", "description", "category", "slot", "spinner", "fields", "photoButton", "submitButton"]
+  static targets = ["photo", "name", "description", "category", "slot", "spinner", "fields", "submitButton", "preview", "previewImage"]
 
   async connect() {
     if (new URLSearchParams(window.location.search).get("from_camera")) {
@@ -11,6 +11,13 @@ export default class extends Controller {
         await this.analyzeFile(file)
         this.clearPendingPhoto()
       }
+    }
+  }
+
+  disconnect() {
+    if (this.previewObjectUrl) {
+      URL.revokeObjectURL(this.previewObjectUrl)
+      this.previewObjectUrl = null
     }
   }
 
@@ -45,6 +52,7 @@ export default class extends Controller {
       this.showFields()
     } finally {
       this.hideSpinner()
+      this.showPreview(file)
     }
   }
 
@@ -91,7 +99,6 @@ export default class extends Controller {
   showSpinner() {
     this.spinnerTarget.classList.remove("d-none")
     this.fieldsTarget.classList.add("d-none")
-    this.photoButtonTarget.classList.add("d-none")
     this.submitButtonTarget.classList.add("d-none")
   }
 
@@ -101,8 +108,16 @@ export default class extends Controller {
 
   hideSpinner() {
     this.spinnerTarget.classList.add("d-none")
-    this.photoButtonTarget.classList.remove("d-none")
     this.submitButtonTarget.classList.remove("d-none")
+  }
+
+  showPreview(file) {
+    if (!file || !this.hasPreviewTarget || !this.hasPreviewImageTarget) return
+
+    if (this.previewObjectUrl) URL.revokeObjectURL(this.previewObjectUrl)
+    this.previewObjectUrl = URL.createObjectURL(file)
+    this.previewImageTarget.src = this.previewObjectUrl
+    this.previewTarget.classList.remove("d-none")
   }
 
   getPendingPhoto() {

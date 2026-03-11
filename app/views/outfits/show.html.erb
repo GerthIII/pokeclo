@@ -22,7 +22,7 @@
       <% end %>
 
       <div class="outfit-show-actions">
-        <%= link_to "Edit Outfit", edit_outfit_path(@outfit), class: "main-button" %>
+        <%= link_to "Edit Outfit", edit_outfit_path(@outfit), class: "main-button main-button--cta" %>
       </div>
     </div>
   </article>
@@ -30,7 +30,7 @@
 <article class="outfit-show-card-minimal pt-0">
 <p class="outfit-show-description mb-3 mx-3">Use Pokeclo AI to see how you would look in this outfit!</p>
 <div class="container d-flex px-3 gap-4">
-  <%= link_to "Try on!", try_on_outfit_path(@outfit), class: "main-button" %>
+  <%= link_to "Try on!", try_on_outfit_path(@outfit), class: "main-button main-button--cta" %>
   <% if @outfit.photo.attached?  %>
     <button type="button" class="main-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Show Me in This Outfit

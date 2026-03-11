@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static values = { autoAsk: Boolean }
 
-  static targets = ["description", "content", "form","outfitForm"]
+  static targets = ["description", "content", "form", "outfitForm", "advice", "spinner", "submitButton"]
 
   connect() {
     if (this.autoAskValue) {
@@ -20,10 +20,36 @@ export default class extends Controller {
     this.outfitFormTarget.requestSubmit()
   }
 
+  showAdvice(event) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const adviceElement = this.hasAdviceTarget ? this.adviceTarget : document.getElementById("pokeclo-advice")
+    if (!adviceElement) return
+
+    adviceElement.classList.remove("d-none")
+    setTimeout(() => adviceElement.scrollIntoView({ behavior: "smooth", block: "start" }), 50)
+  }
+
   submitMessage() {
     if (!this.hasFormTarget || !this.hasContentTarget) return
     const description = this.hasDescriptionTarget ? this.descriptionTarget.value : ""
-    this.contentTarget.value = description || "Please suggest items for the missing slots in this outfit."
+    this.contentTarget.value = description || "Create an outift for this item I chose"
+    this.showSpinner()
     this.formTarget.requestSubmit()
+  }
+
+  handleSubmit() {
+    this.showSpinner()
+  }
+
+  showSpinner() {
+    if (this.hasSpinnerTarget) this.spinnerTarget.classList.remove("d-none")
+    if (this.hasSubmitButtonTarget) this.submitButtonTarget.disabled = true
+  }
+
+  hideSpinner() {
+    if (this.hasSpinnerTarget) this.spinnerTarget.classList.add("d-none")
+    if (this.hasSubmitButtonTarget) this.submitButtonTarget.disabled = false
   }
 }

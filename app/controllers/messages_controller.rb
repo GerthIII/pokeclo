@@ -206,10 +206,12 @@ class MessagesController < ApplicationController
 
   def redirect_path_for_outfit(outfit)
     return_to = params[:return_to].to_s
+    item_id = params[:item_id].presence
+
     if return_to == "new"
-      new_outfit_path(outfit_id: outfit.id)
+      new_outfit_path(outfit_id: outfit.id, item_id: item_id)
     else
-      edit_outfit_path(outfit)
+      edit_outfit_path(outfit, item_id: item_id)
     end
   end
 end
