@@ -7,6 +7,7 @@ class OutfitsController < ApplicationController
     @outfit = Outfit.find(params[:id])
     # authorizes user to crate an item with Pundit
     authorize @outfit
+    @pending_purchase_items = @outfit.items.where(status: 2)
   end
 
   def new
@@ -19,6 +20,7 @@ class OutfitsController < ApplicationController
       @message = Message.new
       authorize @outfit
       hydrate_slot_item_ids(@outfit)
+      build_ai_slot_metadata(@outfit)
       prefill_from_item_param
     else
       @outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
@@ -76,6 +78,7 @@ class OutfitsController < ApplicationController
     load_slot_items
     @messages = @outfit.messages
     @message = Message.new
+    build_ai_slot_metadata(@outfit)
   end
 
   def update
@@ -183,5 +186,31 @@ class OutfitsController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :profile_photo)
+  end
+
+  def build_ai_slot_metadata(outfit)
+    @latest_suggestion_message = nil
+    @suggested_slot_item_ids = {}
+
+    outfit.messages.where(role: "assistant").order(created_at: :desc).each do |message|
+      parsed = JSON.parse(message.content)
+      next unless parsed.is_a?(Array)
+
+      slot_item_ids = {}
+      parsed.each do |entry|
+        next unless entry.is_a?(Hash)
+        slot = entry["slot"].to_s
+        item_id = entry["item_id"].to_i
+        next if slot.blank? || item_id.zero?
+        slot_item_ids[slot] = item_id
+      end
+      next if slot_item_ids.empty?
+
+      @latest_suggestion_message = message
+      @suggested_slot_item_ids = slot_item_ids
+      break
+    rescue JSON::ParserError
+      next
+    end
   end
 end

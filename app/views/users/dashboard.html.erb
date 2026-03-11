@@ -1,21 +1,8 @@
-<div class="container my-3">
-  <div class="dashboard-header">
-    <h1 class="dashboard-title">Pokeclo</h1>
-    <button class="dashboard-menu-button"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-  </div>
-</div>
 <div class="container body-container pt-3">
   <section class="dashboard-section">
-    <div class="d-flex justify-content-center">
-      <p><strong>My Items</strong></p>
+    <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
+      <p class="mb-0"><strong>My Items</strong></p>
+      <%= link_to "+ Buying Something New?", new_item_path, class: "main-button" %>
     </div>
     <div class="carousel-shell">
       <div class="horizontal-scroll">

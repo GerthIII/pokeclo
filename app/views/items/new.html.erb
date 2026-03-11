@@ -1,5 +1,5 @@
 <div class="item-form" data-controller="photo-analyze">
-  <h1 class="item-form__title">New item</h1>
+  <p class="item-form__title">What are you trying today?</p>
   <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
     <div class="form-inputs">
       <div class="item-form__field mb-3 <%= 'd-none' if params[:from_camera] %>" data-photo-analyze-target="photoButton">

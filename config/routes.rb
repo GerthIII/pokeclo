@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :items do
   post :capture_photo, on: :collection
   post :add_to_outfit, on: :member
+  patch :mark_as_bought, on: :member
   # creates a global action so the photo doesn't need a specific id. AI can see photo before it's saved.
   collection do
     post :analyze_photo
@@ -27,6 +28,7 @@ end
     resources :messages, only: [:new, :create] do
       member do
         post :confirm
+        post :change_slot
       end
     end
     resources :outfit_items, only: [:create, :update]

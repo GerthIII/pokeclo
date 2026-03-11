@@ -24,12 +24,12 @@
               </div>
             </div>
           <% end %>
-          <% all_applied = suggestions.all? { |s| outfit.filled_slots.include?(s['slot']) } %>
-          <% if all_applied %>
-            <span class="badge bg-success mt-2">Applied to Outfit</span>
-          <% else %>
-            <%= button_to "Apply to Outfit", confirm_outfit_message_path(outfit, message), method: :post, class: "btn btn-primary btn-sm mt-2" %>
-          <% end %>
+          <%# all_applied = suggestions.all? { |s| outfit.outfit_items.exists?(slot: s['slot'], item_id: s['item_id']) } %>
+          <%# if all_applied %>
+            <!-- <span class="badge bg-success mt-2">Applied to Outfit</span> -->
+          <%# else %>
+            <%#= button_to "Apply to Outfit", confirm_outfit_message_path(outfit, message), method: :post, class: "btn btn-primary btn-sm mt-2" %>
+          <%# end %>
         <% rescue JSON::ParserError %>
           <%= raw(render_markdown(message.content)) %>
         <% end %>

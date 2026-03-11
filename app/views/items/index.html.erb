@@ -1,6 +1,5 @@
 <div class="container d-flex flex-column align-items-center text-center">
   <div class="container d-flex flex-column align-items-center mt-3">
-    <h1>Pokeclo</h1>
     <div class="container body-container pt-3">
     <div class="container d-flex justify-content-center mt-1">
       <p><strong>My Closet</strong></p>
@@ -17,19 +16,56 @@
         <option value="outer">Outer</option>
       </select>
     </div>
-    <div class="cards-wrapper">
-      <% @items.each do |item| %>
-        <div class="product-card" data-filter-items-target="card" data-slot="<%= item.slot.downcase %>">
-          <div class="product-image product-image-wrapper" style="object-fit: cover;">
-            <%= link_to item_path(item) do %>
-              <%= cl_image_tag item.photo.key if item.photo.attached? %>
-              <span class="product-badge rounded-pill bg-primary"><%= item.slot %></span>
-            <% end %>
-          </div>
-            <p class="product-title"><%= item.name %></p>
-            <p class="product-subtitle"><% truncate(item.description, as: :hidden, length: 60) %></p>
+    <ul class="nav nav-tabs mb-2 items-status-tabs" id="items-status-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="owned-tab" data-bs-toggle="tab" data-bs-target="#owned" type="button" role="tab" aria-controls="owned" aria-selected="true">
+          <span>My closet</span>
+          <span class="items-tab-count"><%= @owned_items.size %></span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="not-bought-tab" data-bs-toggle="tab" data-bs-target="#not-bought" type="button" role="tab" aria-controls="not-bought" aria-selected="false">
+          <span>Wishlist</span>
+          <span class="items-tab-count"><%= @not_bought_items.size %></span>
+        </button>
+      </li>
+    </ul>
+    <p class="items-tab-hint">Tap a tab to switch lists.</p>
+
+    <div class="tab-content" id="items-status-content">
+      <div class="tab-pane fade show active" id="owned" role="tabpanel" aria-labelledby="owned-tab">
+        <div class="cards-wrapper">
+          <% @owned_items.each do |item| %>
+            <div class="product-card" data-filter-items-target="card" data-slot="<%= item.slot.downcase %>">
+              <div class="product-image product-image-wrapper" style="object-fit: cover;">
+                <%= link_to item_path(item) do %>
+                  <%= cl_image_tag item.photo.key if item.photo.attached? %>
+                  <span class="product-badge rounded-pill bg-primary"><%= item.slot %></span>
+                <% end %>
+              </div>
+              <p class="product-title"><%= item.name %></p>
+              <p class="product-subtitle"><%= truncate(item.description, length: 60) %></p>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+
+      <div class="tab-pane fade" id="not-bought" role="tabpanel" aria-labelledby="not-bought-tab">
+        <div class="cards-wrapper">
+          <% @not_bought_items.each do |item| %>
+            <div class="product-card" data-filter-items-target="card" data-slot="<%= item.slot.downcase %>">
+              <div class="product-image product-image-wrapper" style="object-fit: cover;">
+                <%= link_to item_path(item) do %>
+                  <%= cl_image_tag item.photo.key if item.photo.attached? %>
+                  <span class="product-badge rounded-pill bg-primary"><%= item.slot %></span>
+                <% end %>
+              </div>
+              <p class="product-title"><%= item.name %></p>
+              <p class="product-subtitle"><%= truncate(item.description, length: 60) %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
  </div>

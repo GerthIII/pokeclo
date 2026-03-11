@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   has_many :outfit_items, dependent: :destroy
   has_many :outfits, through: :outfit_items
   has_one_attached :photo
+  before_validation :set_default_status, on: :create
 
   validates :category, presence: true
   validates :description, presence: true
@@ -11,4 +12,10 @@ class Item < ApplicationRecord
   SLOT = ['outer', 'top', 'bottom', 'footwear']
   CATEGORY = ['sports', 'casual', 'formal', 'outdoor']
   # validates :status, presence: true
+
+  private
+
+  def set_default_status
+    self.status ||= 2
+  end
 end
