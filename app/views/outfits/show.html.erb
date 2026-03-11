@@ -23,7 +23,6 @@
 
       <div class="outfit-show-actions">
         <%= link_to "Edit Outfit", edit_outfit_path(@outfit), class: "main-button" %>
-        <%= link_to "All Outfits", outfits_path, class: "main-button outfit-show-secondary-action" %>
       </div>
     </div>
   </article>
@@ -45,7 +44,6 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Your image</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
       <div class="modal-body p-0"> <% if @outfit.photo.attached? %>
           <%= cl_image_tag @outfit.photo.key,
                            class: "img-fluid w-100",
