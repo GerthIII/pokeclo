@@ -27,15 +27,22 @@
     </div>
   </article>
 </div>
-<article class="outfit-show-card-minimal pt-0">
+<article class="outfit-show-card-minimal pt-0" data-controller="try-on-loading">
 <p class="outfit-show-description mb-3 mx-3">Use Pokeclo AI to see how you would look in this outfit!</p>
-<div class="container d-flex px-3 gap-4">
-  <%= link_to "Try on!", try_on_outfit_path(@outfit), class: "main-button main-button--cta" %>
+<div class="container d-flex px-3 gap-4" data-try-on-loading-target="actions">
+  <%= link_to "Try on!",
+              try_on_outfit_path(@outfit),
+              class: "main-button main-button--cta",
+              data: { action: "click->try-on-loading#start", try_on_loading_target: "button", skip_purchase_prompt: true } %>
   <% if @outfit.photo.attached?  %>
     <button type="button" class="main-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Show Me in This Outfit
     </button>
   <% end %>
+</div>
+<div class="container text-center d-none" data-try-on-loading-target="loading">
+  <div class="spinner-border text-primary mt-2" role="status"></div>
+  <p class="text-muted mt-2 mb-0">Pokeclo is generating your image...</p>
 </div>
 </article>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -44,15 +51,15 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Your image</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body p-0"> <% if @outfit.photo.attached? %>
+      <div class="modal-body p-3 text-center"> <% if @outfit.photo.attached? %>
           <%= cl_image_tag @outfit.photo.key,
-                           class: "img-fluid w-100",
+                           class: "outfit-tryon-image",
                            style: "aspect-ratio: 2 / 3; object-fit: cover; display: block;" %>
         <% end %>
       </div>
 
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary w-100 rounded-pill" data-bs-dismiss="modal">Back</button>
+      <div class="modal-footer border-0 outfit-tryon-footer p-5">
+        <button type="button" class="btn btn-secondary w-100 rounded-pill mb-5" data-bs-dismiss="modal">Back</button>
       </div>
     </div>
   </div>

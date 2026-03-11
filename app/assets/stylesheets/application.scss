@@ -37,7 +37,7 @@ a {
 
 main.has-bottom-navbar {
   padding-top: calc(76px + env(safe-area-inset-top));
-  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  padding-bottom: calc(128px + env(safe-area-inset-bottom));
 }
 
 .app-top-header {
@@ -83,4 +83,13 @@ main.has-bottom-navbar {
   object-fit: cover;
   object-position: center 22%;
   display: block;
+}
+
+/* Keep Bootstrap offcanvas above fixed app header/footer nav */
+.offcanvas-backdrop.show {
+  z-index: 1600;
+}
+
+.offcanvas.show {
+  z-index: 1610;
 }

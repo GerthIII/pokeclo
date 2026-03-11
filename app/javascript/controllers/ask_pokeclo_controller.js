@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static values = { autoAsk: Boolean }
 
-  static targets = ["description", "content", "form", "outfitForm", "advice", "spinner", "submitButton"]
+  static targets = ["description", "content", "form", "outfitForm", "advice", "spinner", "submitButton", "builderPanel", "builderLoading"]
 
   connect() {
     if (this.autoAskValue) {
@@ -46,10 +46,14 @@ export default class extends Controller {
   showSpinner() {
     if (this.hasSpinnerTarget) this.spinnerTarget.classList.remove("d-none")
     if (this.hasSubmitButtonTarget) this.submitButtonTarget.disabled = true
+    if (this.hasBuilderPanelTarget) this.builderPanelTarget.classList.add("d-none")
+    if (this.hasBuilderLoadingTarget) this.builderLoadingTarget.classList.remove("d-none")
   }
 
   hideSpinner() {
     if (this.hasSpinnerTarget) this.spinnerTarget.classList.add("d-none")
     if (this.hasSubmitButtonTarget) this.submitButtonTarget.disabled = false
+    if (this.hasBuilderPanelTarget) this.builderPanelTarget.classList.remove("d-none")
+    if (this.hasBuilderLoadingTarget) this.builderLoadingTarget.classList.add("d-none")
   }
 }

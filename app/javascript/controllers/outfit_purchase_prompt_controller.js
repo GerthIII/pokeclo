@@ -107,6 +107,7 @@ export default class extends Controller {
     }
 
     if (!this.pendingItems().length) return;
+    if (this.shouldSkipPrompt(event.detail.url)) return;
     if (this.pendingUrl && event.detail.url?.toString?.() === this.pendingUrl) {
       event.preventDefault();
       return;
@@ -136,6 +137,7 @@ export default class extends Controller {
 
     const destinationUrl = link.href;
     if (!destinationUrl || destinationUrl === window.location.href) return;
+    if (this.shouldSkipPrompt(destinationUrl) || link.dataset.skipPurchasePrompt === "true") return;
 
     const offcanvas = this.currentOffcanvas();
     if (!offcanvas) return;
@@ -153,6 +155,7 @@ export default class extends Controller {
     const destination = event.detail?.url;
     const destinationUrl = destination?.toString?.() || null;
     if (!destinationUrl || destinationUrl === window.location.href) return;
+    if (this.shouldSkipPrompt(destinationUrl)) return;
 
     const offcanvas = this.currentOffcanvas();
     if (!offcanvas) return;
@@ -160,5 +163,23 @@ export default class extends Controller {
     event.preventDefault();
     this.pendingUrl = destinationUrl;
     offcanvas.show();
+  }
+
+  shouldSkipPrompt(urlLike) {
+    const url = this.normalizeUrl(urlLike);
+    if (!url) return false;
+
+    // Don't block try-on navigation with the purchase offcanvas prompt.
+    return /\/outfits\/[^/]+\/try_on$/.test(url.pathname);
+  }
+
+  normalizeUrl(urlLike) {
+    if (!urlLike) return null;
+
+    try {
+      return urlLike instanceof URL ? urlLike : new URL(urlLike.toString(), window.location.origin);
+    } catch (_error) {
+      return null;
+    }
   }
 }

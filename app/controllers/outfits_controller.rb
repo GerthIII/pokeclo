@@ -134,10 +134,13 @@ class OutfitsController < ApplicationController
         items: @outfit.items.map(&:photo)
       )
       @outfit.photo.attach(io: result_image, filename: "#{@outfit.id}.png", content_type: "image/png")
-      redirect_to outfit_path(@outfit), notice: "Virtual try_on complete!"
+      redirect_to outfit_path(@outfit)
     else
-      redirect_to edit_user_registration_path, alert: "Please upload a full-body photo first"
+      redirect_to edit_user_registration_path
     end
+  rescue StandardError => e
+    Rails.logger.error("Try-on generation failed: #{e.class} - #{e.message}")
+    redirect_to outfit_path(@outfit)
   end
 
   private

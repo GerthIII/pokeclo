@@ -107,7 +107,7 @@
   font-size: 1rem;
 }
 
-.navbar-lewagon .navbar-collapse {
+.profile-menu-collapse {
   position: fixed;
   top: calc(72px + env(safe-area-inset-top));
   right: 12px;
@@ -122,15 +122,15 @@
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-nav {
+.profile-menu-collapse .navbar-nav {
   width: 100%;
 }
 
-.navbar-lewagon .nav-item {
+.profile-menu-collapse .nav-item {
   width: 100%;
 }
 
-.navbar-lewagon .nav-link {
+.profile-menu-collapse .nav-link {
   display: block;
   padding: 10px 16px;
 }

@@ -201,6 +201,18 @@
   background: var(--pc-accent);
 }
 
+.outfit-tryon-image {
+  width: 100%;
+  max-width: 320px;
+  max-height: 70vh;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.outfit-tryon-footer {
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+}
+
 .offcanvas .outfit-leave-items-grid {
   margin: 0;
   padding: 0;
