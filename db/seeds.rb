@@ -21,6 +21,7 @@ ryota = User.create!(
   email: "ryota@gmail.com",
   password: "123123"
 )
+
 ryota.profile_photo.attach(
   io: URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773114147/Ryota_Base_dbgxbm.jpg"),
   filename: "ryota_profile.jpg",
@@ -353,7 +354,7 @@ item14.photo.attach(io: file14, filename: "#{item14.name}.png", content_type: "i
 item14.save
 
 file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.jpg")
-item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")  
+item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
 item15.save
 
 file16 = URI.open("https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80")

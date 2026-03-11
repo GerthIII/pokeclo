@@ -6,9 +6,9 @@
       <span class="navbar-text">Home</span>
     <% end %>
 
-    <%= link_to items_path, class: "navbar-item #{'active' if controller_name == 'items'}" do %>
+    <%= link_to items_path, class: "navbar-item #{'active' if controller_name == 'closet'}" do %>
       <i class="fa-solid fa-shirt navbar-icon"></i>
-      <span class="navbar-text">Items</span>
+      <span class="navbar-text">Closet</span>
     <% end %>
 
     <%= form_with(model: Item, url: capture_photo_items_path, local: true, class: "navbar-item navbar-item-form", method: :post) do |f| %>
