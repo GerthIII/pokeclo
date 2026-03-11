@@ -7,25 +7,23 @@
         <div class="item-show-image-placeholder">No image</div>
       <% end %>
     </div>
-
-    <div class="item-show-content">
-      <p class="item-show-title"><%= @item.name.capitalize %></p>
-
+      <div class="d-flex align-items-center ">
+          <p class="item-show-title"><%= @item.name.capitalize %></p>
+          <%= link_to edit_item_path(@item) do %>
+            <%= image_tag "pencil-icon2.png", alt: "Edit", style: "width: 20px; height: 20px; margin-left: 5px;" %>
+          <% end %>
+      </div>
       <div class="item-show-meta">
         <span class="item-show-pill"><%= @item.category %></span>
         <span class="item-show-pill"><%= @item.slot %></span>
       </div>
 
       <% if @item.description.present? %>
-        <p class="item-show-description"><%= @item.description %></p>
+        <p class="item-show-description" hidden><%= @item.description %></p>
       <% end %>
 
       <div class="item-show-actions">
         <%= link_to "Make an outfit", new_outfit_path(item_id: @item.id), class: "main-button" %>
-       <div class="item-actions">
-          <%= link_to edit_item_path(@item), class: "edit-pixel-btn" do %>
-            <%= image_tag "pencil-icon.png", alt: "Edit" %>
-          <% end %>
 
       </div>
     </div>
