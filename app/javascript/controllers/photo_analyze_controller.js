@@ -1,12 +1,26 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["photo", "name", "description", "category", "slot", "spinner", "fields"]
+  static targets = ["photo", "name", "description", "category", "slot", "spinner", "fields", "photoButton", "submitButton"]
+
+  async connect() {
+    if (new URLSearchParams(window.location.search).get("from_camera")) {
+      const file = await this.getPendingPhoto()
+      if (file) {
+        this.injectFileIntoInput(file)
+        await this.analyzeFile(file)
+        this.clearPendingPhoto()
+      }
+    }
+  }
 
   async photoChanged() {
     const file = this.photoTarget.files[0]
     if (!file) return
+    await this.analyzeFile(file)
+  }
 
+  async analyzeFile(file) {
     this.showSpinner()
 
     const formData = new FormData()
@@ -31,6 +45,16 @@ export default class extends Controller {
       this.showFields()
     } finally {
       this.hideSpinner()
+    }
+  }
+
+  injectFileIntoInput(file) {
+    try {
+      const dt = new DataTransfer()
+      dt.items.add(file)
+      this.photoTarget.files = dt.files
+    } catch (e) {
+      console.warn("Could not inject file into input:", e)
     }
   }
 
@@ -67,6 +91,8 @@ export default class extends Controller {
   showSpinner() {
     this.spinnerTarget.classList.remove("d-none")
     this.fieldsTarget.classList.add("d-none")
+    this.photoButtonTarget.classList.add("d-none")
+    this.submitButtonTarget.classList.add("d-none")
   }
 
   showFields() {
@@ -75,5 +101,33 @@ export default class extends Controller {
 
   hideSpinner() {
     this.spinnerTarget.classList.add("d-none")
+    this.photoButtonTarget.classList.remove("d-none")
+    this.submitButtonTarget.classList.remove("d-none")
+  }
+
+  getPendingPhoto() {
+    return new Promise((resolve) => {
+      const request = indexedDB.open("pokeclo", 1)
+      request.onupgradeneeded = (e) => {
+        e.target.result.createObjectStore("pending_photos")
+      }
+      request.onsuccess = (e) => {
+        const db = e.target.result
+        const tx = db.transaction("pending_photos", "readonly")
+        const req = tx.objectStore("pending_photos").get("latest")
+        req.onsuccess = () => resolve(req.result || null)
+        req.onerror = () => resolve(null)
+      }
+      request.onerror = () => resolve(null)
+    })
+  }
+
+  clearPendingPhoto() {
+    const request = indexedDB.open("pokeclo", 1)
+    request.onsuccess = (e) => {
+      const db = e.target.result
+      const tx = db.transaction("pending_photos", "readwrite")
+      tx.objectStore("pending_photos").delete("latest")
+    }
   }
 }

@@ -1,6 +1,6 @@
 .navbar-lewagon {
   position: fixed;
-  bottom: 0;
+  bottom: calc(env(safe-area-inset-bottom) + 8px);
   left: 0;
   width: 100%;
   min-height: 72px;

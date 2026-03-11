@@ -104,6 +104,7 @@
   border: 1px solid #ececec;
   border-radius: 18px;
   padding: 14px;
+  overflow: hidden;
 }
 
 .outfit-path-title {
@@ -126,21 +127,28 @@
 
 .slot-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+  width: 100%;
 }
 
 .slot-square {
+  width: 100%;
+  min-width: 0;
   aspect-ratio: 1 / 1;
   border-radius: 18px;
   border: 2px solid #ddd;
   background-color: white;
+  box-sizing: border-box;
+  padding: 0 4px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
 
   background-size: cover;
   background-position: center;
