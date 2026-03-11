@@ -79,4 +79,4 @@ end
 
 gem "cloudinary"
 gem "pundit"
-gem "ruby_llm", "~> 1.11.0"
+gem "ruby_llm", "~> 1.13.2"
