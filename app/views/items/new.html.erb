@@ -2,11 +2,23 @@
   <h1 class="item-form__title">New item</h1>
   <%= simple_form_for @item, html: { class: "item-form__card" } do |f| %>
     <div class="form-inputs">
-      <div data-photo-analyze-target="spinner" class="text-center my-4 d-none">
+      <div class="item-form__field mb-3 <%= 'd-none' if params[:from_camera] %>" data-photo-analyze-target="photoButton">
+        <label class="btn btn-secondary btn-lg w-100 py-3">
+          <span class="main-button">📷 Take a Photo</span>
+          <%= f.input_field :photo,
+                            as: :file,
+                            accept: 'image/*',
+                            capture: 'camera',
+                            class: "d-none",
+                            data: { photo_analyze_target: "photo", action: "change->photo-analyze#photoChanged" } %>
+        </label>
+        <small class="text-muted d-block text-center mt-1">Tap to open your camera</small>
+      </div>
+      <div data-photo-analyze-target="spinner" class="text-center my-4 <%= params[:from_camera] ? '' : 'd-none' %>">
         <div class="spinner-border text-primary" role="status"></div>
         <p class="text-muted mt-2">Analyzing your item...</p>
       </div>
-      <div data-photo-analyze-target="fields">
+      <div data-photo-analyze-target="fields" class="<%= 'd-none' if params[:from_camera] %>">
         <div class="item-form__field mb-3">
           <%= f.input :name, label: "Name",
                         placeholder: "e.g., Vintage Levi's Jacket",

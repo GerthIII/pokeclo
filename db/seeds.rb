@@ -221,7 +221,7 @@ item22 = Item.new(
   name: "Black Levi's Jeans",
   slot: "bottom",
   category: "casual",
-  description: "A flat-lay arrangement of three pairs of Levi's jeans in different washes — a washed light blue, a dark raw indigo, and a clean solid black — fanned out against a dark background. The black pair at the front showcases the classic five-pocket construction with contrasting orange topstitching, copper rivets at the stress points, a Levi's red tab on the right back pocket, and a black-finished Two Horse leather patch at the rear waistband. A versatile and timeless wardrobe foundation built for everyday wear.",
+  description: "A clean solid black pair of Levi's Jeans — fanned out against a dark background and showcases the classic five-pocket construction with contrasting orange topstitching, copper rivets at the stress points, a Levi's red tab on the right back pocket, and a black-finished Two Horse leather patch at the rear waistband. A versatile and timeless wardrobe foundation built for everyday wear.",
   status: 1
 )
 
