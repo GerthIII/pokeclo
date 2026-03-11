@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["photo", "name", "description", "category", "slot", "spinner", "fields", "photoButton", "submitButton"]
+  static targets = ["photo", "name", "description", "category", "slot", "spinner", "fields", "submitButton"]
 
   async connect() {
     if (new URLSearchParams(window.location.search).get("from_camera")) {
@@ -91,7 +91,6 @@ export default class extends Controller {
   showSpinner() {
     this.spinnerTarget.classList.remove("d-none")
     this.fieldsTarget.classList.add("d-none")
-    this.photoButtonTarget.classList.add("d-none")
     this.submitButtonTarget.classList.add("d-none")
   }
 
@@ -101,7 +100,6 @@ export default class extends Controller {
 
   hideSpinner() {
     this.spinnerTarget.classList.add("d-none")
-    this.photoButtonTarget.classList.remove("d-none")
     this.submitButtonTarget.classList.remove("d-none")
   }
 

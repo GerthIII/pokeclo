@@ -1,19 +1,15 @@
 <div class="item-form outfit-new-page">
   <p class="item-form__title">Edit Outfit</p>
-
   <%= simple_form_for @outfit, url: outfits_path, method: :post, html: { multipart: true, class: "item-form__card" } do |f| %>
     <%= hidden_field_tag :outfit_id, @outfit.id %>
-
     <div class="form-inputs">
       <div class="form-fields">
         <div class="item-form__field">
           <%= f.input :name, label: "Outfit name", input_html: { class: "item-input", placeholder: "Weekend casual, Office look..." } %>
         </div>
-
         <section class="outfit-path-card">
           <p class="outfit-path-title">Add Item to Your Outfit</p>
           <p class="outfit-path-copy">Select one item per slot.</p>
-
           <div class="slot-grid">
             <div class="slot-cell">
               <button class="slot-square" data-slot="top" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-sheet">Tap to Add</button>
@@ -33,7 +29,6 @@
                 <% end %>
               </div>
             </div>
-
             <div class="slot-cell">
               <button class="slot-square" data-slot="bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#bottom-sheet">Tap to Add</button>
               <div class="slot-cell-meta">
@@ -52,7 +47,6 @@
                 <% end %>
               </div>
             </div>
-
             <div class="slot-cell">
               <button class="slot-square" data-slot="footwear" type="button" data-bs-toggle="offcanvas" data-bs-target="#footwear-sheet">Tap to Add</button>
               <div class="slot-cell-meta">
@@ -71,7 +65,6 @@
                 <% end %>
               </div>
             </div>
-
             <div class="slot-cell">
               <button class="slot-square" data-slot="outer" type="button" data-bs-toggle="offcanvas" data-bs-target="#outer-sheet">Tap to Add</button>
               <div class="slot-cell-meta">
@@ -91,19 +84,17 @@
               </div>
             </div>
           </div>
-
           <div class="outfit-path-actions d-flex gap-4">
-            <%= f.submit "Create Outfit", class: "main-button" %>
-           <button class="main-button" type="button" onclick="
+            <%= f.submit "Update Outfit", class: "main-button" %>
+            <button class="main-button" type="button" onclick="
               const el = document.getElementById('pokeclo-advice');
               el.classList.remove('d-none');
               setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-            ">
+              ">
               PokeClo Advise Me
-           </button>
+            </button>
           </div>
         </section>
-
         <!-- TOP -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="top-sheet">
           <div class="offcanvas-header">
@@ -126,7 +117,6 @@
             </div>
           </div>
         </div>
-
         <!-- BOTTOM -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="bottom-sheet">
           <div class="offcanvas-header">
@@ -149,7 +139,6 @@
             </div>
           </div>
         </div>
-
         <!-- FOOTWEAR -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="footwear-sheet">
           <div class="offcanvas-header">
@@ -172,7 +161,6 @@
             </div>
           </div>
         </div>
-
         <!-- OUTER -->
         <div class="offcanvas offcanvas-bottom slot-sheet" tabindex="-1" id="outer-sheet">
           <div class="offcanvas-header">
@@ -189,7 +177,6 @@
                   id: "outer_item_#{item.id}",
                   class: "item-radio",
                   data: { slot: "outer", image: item.photo.attached? ? cl_image_path(item.photo.key) : "" } %>
-
                   <label for="outer_item_<%= item.id %>" class="item-card-choice">
                     <% if item.photo.attached? %>
                       <%= cl_image_tag item.photo.key, class: "item-card-image" %>
@@ -201,11 +188,9 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   <% end %>
-
   <% if @outfit.persisted? %>
     <section id="pokeclo-advice" class="outfit-path-card mt-3 d-none">
       <p class="outfit-path-title">Need Help with your Outfit?</p>
