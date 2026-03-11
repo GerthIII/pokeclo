@@ -2,6 +2,7 @@
   font-family: $body-font;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background-color: #222222;
   color: white;
   border: none;
@@ -35,4 +36,13 @@
     transform: scale(1.1);
     text-decoration: none;
   }
+}
+
+.session-page .form-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.session-page .main-button {
+  min-width: 140px;
 }

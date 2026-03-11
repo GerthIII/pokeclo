@@ -11,17 +11,19 @@
       <span class="navbar-text">Items</span>
     <% end %>
 
-    <%= form_with(model: Item, url: capture_photo_items_path, local: true, class: "navbar-item navbar-item-form navbar-item-new", method: :post) do |f| %>
-      <label class="navbar-item-label navbar-new-item-button">
-        <i class="fa-solid fa-camera navbar-icon navbar-new-item-icon"></i>
-        <span class="navbar-text navbar-new-item-text">New Item</span>
-        <%= f.file_field :photo,
-          accept: "image/*",
-          capture: "camera",
-          class: "d-none",
-          onchange: "this.form.submit();" %>
+    <div class="navbar-item"
+         data-controller="navbar-camera"
+         data-navbar-camera-new-item-url-value="<%= new_item_path %>">
+      <label class="navbar-item-label">
+        <i class="fa-solid fa-camera navbar-icon"></i>
+        <span class="navbar-text">New Item</span>
+        <input type="file"
+               accept="image/*"
+               capture="camera"
+               class="d-none"
+               data-action="change->navbar-camera#photoSelected">
       </label>
-    <% end %>
+    </div>
 
     <%= link_to outfits_path, class: "navbar-item #{'active' if controller_name == 'outfits'}" do %>
       <i class="fa-solid fa-star navbar-icon"></i>
