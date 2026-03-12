@@ -138,7 +138,10 @@ class OutfitsController < ApplicationController
     else
       redirect_to edit_user_registration_path
     end
-  rescue StandardError => e
+  rescue
+    attempts += 1
+    retry if attempts < 3
+    StandardError => e
     Rails.logger.error("Try-on generation failed: #{e.class} - #{e.message}")
     redirect_to outfit_path(@outfit)
   end

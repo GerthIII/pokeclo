@@ -81,6 +81,9 @@ class MessagesController < ApplicationController
           role: "assistant",
           content: "Sorry, try again."
         )
+        
+        attempts += 1
+        retry if attempts < 3
       end
 
       redirect_to redirect_path_for_outfit(@outfit)

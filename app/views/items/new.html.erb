@@ -30,10 +30,28 @@
                         prompt: "Select slot",
                         input_html: { class: "item-input", data: { photo_analyze_target: "slot" } } %>
         </div>
+        <div class="form-check form-switch mb-3">
+          <%= f.check_box :status, { class: "form-check-input" },
+            1,
+            2 %>
+            <label class="form-check-label">Mark as bought</label>
+        </div>
       </div>
     </div>
-    <div class="form-actions mt-4 <%= 'd-none' if params[:from_camera] %>" data-photo-analyze-target="submitButton">
-      <%= f.button :submit, "Add to the Fitting Room", class: "container d-flex justify-content-center main-button main-button--cta mb-3" %>
+
+    <div class="form-actions mt-4 gap-3 <%= 'd-none' if params[:from_camera] %>" data-photo-analyze-target="submitButton">
+      <div class="container d-flex gap-3 justify-content-center">
+      <!-- these two button below will send different params to the items controller, if the params if closet it saves and redirects to the Item Show
+      if the params is closet it will save and redirect to the outfit create-->
+        <%= f.button :submit, "Add to my Closet",
+        class: "container d-flex justify-content-center main-button main-button--cta2 mb-3",
+        name: "commit_action",
+        value: "Add to Closet" %>
+        <%= f.button :submit, "Create an Outfit",
+        class: "container d-flex justify-content-center main-button main-button--cta mb-3",
+        name: "commit_action",
+        value: "Create Outfit"%>
+      </div>
       <label class="retake-btn d-block text-center text-muted small">
         <i class="fa-solid fa-rotate-left me-1"></i> Retake photo
         <%= f.input_field :photo,
