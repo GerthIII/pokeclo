@@ -12,15 +12,16 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params.except(:photo))
+    # @item = Item.new(item_params.except(:photo))
+    @item = Item.new(item_params)
     @item.user = current_user
     # authorizes user to crate an item with Pundit
     authorize @item
 
-    if params[:item][:photo].present?
-      # processed = BackgroundRemoverService.call(params[:item][:photo])
-      @item.photo.attach(params[:item][:photo])
-    end
+    # if params[:item][:photo].present?
+    #   # processed = BackgroundRemoverService.call(params[:item][:photo])
+    #   @item.photo.attach(params[:item][:photo])
+    # end
 
     if @item.save
       redirect_to item_path(@item)
