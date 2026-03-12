@@ -56,16 +56,36 @@ class MessagesController < ApplicationController
     @message = @outfit.messages.build(message_params)
     authorize @message
     @message.role = "user"
+
     if @message.save
       response = ai_response
+
       begin
         suggestions = JSON.parse(response.content)
-        @outfit.messages.build(role: 'assistant', content: suggestions.to_json)
-        @outfit.save
+
+        # 古いAI結果削除
+        @outfit.messages.where(role: "assistant").destroy_all
+
+        # 新しいAI結果保存
+        @outfit.messages.create!(
+          role: "assistant",
+          content: suggestions.to_json
+        )
+
         apply_suggestions_to_outfit!(suggestions)
       rescue JSON::ParserError
-        Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
+        @outfit.messages.where(role: "assistant").destroy_all
+
+        Message.create!(
+          outfit: @outfit,
+          role: "assistant",
+          content: "Sorry, try again."
+        )
+        
+        attempts += 1
+        retry if attempts < 3
       end
+
       redirect_to redirect_path_for_outfit(@outfit)
     else
       render outfits_path, status: :unprocessable_entity
@@ -78,9 +98,9 @@ class MessagesController < ApplicationController
     authorize @message
     suggestions = JSON.parse(@message.content)
     apply_suggestions_to_outfit!(suggestions)
-      redirect_to edit_outfit_path(@outfit)
+    redirect_to edit_outfit_path(@outfit)
   rescue JSON::ParserError
-      redirect_to new_outfit_path(@outfit), alert: "Could not apply suggestions."
+    redirect_to new_outfit_path(@outfit), alert: "Could not apply suggestions."
   end
 
   def change_slot
@@ -142,10 +162,10 @@ class MessagesController < ApplicationController
               json_content['style_advice'].presence || msg.content
             when Array
               json_content
-                .map { |entry| entry.is_a?(Hash) ? entry['style_comment'].presence || entry['item_name'] : nil }
-                .compact
-                .join("\n")
-                .presence || msg.content
+            .map { |entry| entry.is_a?(Hash) ? entry['style_comment'].presence || entry['item_name'] : nil }
+            .compact
+            .join("\n")
+            .presence || msg.content
             else
               msg.content
             end
