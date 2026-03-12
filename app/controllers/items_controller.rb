@@ -63,21 +63,20 @@ class ItemsController < ApplicationController
 
     if @item.update(status: 1)
       if ActiveModel::Type::Boolean.new.cast(params[:create_outfit_with_ai])
-        outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
+        outfit = Outfit.create!(user: current_user, status: "draft", name: "Add a Name To Your Outfit")
         authorize outfit
         outfit.outfit_items.create!(item: @item, slot: @item.slot)
-        redirect_to edit_outfit_path(outfit, auto_ask: true),
-                    notice: "Item marked as bought! Creating outfit suggestions..."
+        redirect_to edit_outfit_path(outfit, auto_ask: true)
         return
       end
 
       respond_to do |format|
-        format.html { redirect_to item_path(@item), notice: "Item marked as bought!" }
+        format.html { redirect_to item_path(@item) }
         format.json { render json: { id: @item.id, status: @item.status }, status: :ok }
       end
     else
       respond_to do |format|
-        format.html { redirect_to item_path(@item), alert: "Could not update item status." }
+        format.html { redirect_to item_path(@item) }
         format.json { render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity }
       end
     end

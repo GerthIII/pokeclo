@@ -14,22 +14,26 @@
       <% end %>
     </div>
 
-    <div class="outfit-show-content">
+    <div class="outfit-show-content d-flex justify-content-between">
       <p class="outfit-show-title"><%= @outfit.name.capitalize.presence || "Untitled Outfit" %></p>
 
-      <% if @outfit.description.present? %>
-        <p class="outfit-show-description"><%= @outfit.description %></p>
-      <% end %>
-
-      <div class="outfit-show-actions">
-        <%= link_to "Edit Outfit", edit_outfit_path(@outfit), class: "main-button main-button--cta" %>
-      </div>
+    <div class="d-flex justify-content-end mb-1">
+      <%= link_to 'edit', edit_outfit_path(@outfit, show_name: 1),
+      class: "btn btn-dark btn-sm rounded-pill fw-bold text-lowercase",
+      style: "font-size: 14px;
+              letter-spacing: 0.5px;
+              margin-right: 0px;
+              padding: 2px 15px;      /* 上下を2px、左右を15pxにして細長く */
+              line-height: 1.2;       /* 文字の高さを抑える */
+              display: inline-flex;   /* 中央揃えしやすくする */
+              align-items: center;" %>
+    </div>
     </div>
   </article>
 </div>
 <article class="outfit-show-card-minimal pt-0" data-controller="try-on-loading">
 <p class="outfit-show-description mb-3 mx-3">Use Pokeclo AI to see how you would look in this outfit!</p>
-<div class="container d-flex px-3 gap-4" data-try-on-loading-target="actions">
+<div class="container d-flex px-3 gap-4 justify-content-between" data-try-on-loading-target="actions">
   <%= link_to "Try on!",
               try_on_outfit_path(@outfit),
               class: "main-button main-button--cta",

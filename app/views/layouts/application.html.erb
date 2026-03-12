@@ -29,7 +29,7 @@
     <%= render "shared/flashes" %>
     <% unless current_page?(root_path) || devise_controller? %>
       <header class="app-top-header">
-        <h1 class="app-top-title">Pokeclo</h1>
+        <h1 class="app-top-title"> <%= link_to "Pokeclo", dashboard_path %></h1>
         <button class="profile-menu-button"
                 type="button"
                 data-bs-toggle="collapse"

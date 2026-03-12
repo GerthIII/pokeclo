@@ -81,9 +81,9 @@ class MessagesController < ApplicationController
           role: "assistant",
           content: "Sorry, try again."
         )
-        
+
         attempts += 1
-        retry if attempts < 3
+        retry if attempts < 5
       end
 
       redirect_to redirect_path_for_outfit(@outfit)
@@ -100,7 +100,7 @@ class MessagesController < ApplicationController
     apply_suggestions_to_outfit!(suggestions)
     redirect_to edit_outfit_path(@outfit)
   rescue JSON::ParserError
-    redirect_to new_outfit_path(@outfit), alert: "Could not apply suggestions."
+    redirect_to new_outfit_path(@outfit)
   end
 
   def change_slot
@@ -110,7 +110,7 @@ class MessagesController < ApplicationController
 
     slot = params[:slot].to_s
     if slot.blank? || !Outfit::SLOTS.include?(slot)
-      redirect_to edit_outfit_path(@outfit), alert: "Invalid slot."
+      redirect_to edit_outfit_path(@outfit)
       return
     end
 
@@ -118,7 +118,7 @@ class MessagesController < ApplicationController
     candidate_scope = Item.where(user_id: current_user.id, slot: slot)
     candidate_scope = candidate_scope.where.not(id: current_item_id) if current_item_id.present?
     if candidate_scope.none?
-      redirect_to edit_outfit_path(@outfit), alert: "No alternative items available for #{slot}."
+      redirect_to edit_outfit_path(@outfit)
       return
     end
 
@@ -138,11 +138,11 @@ class MessagesController < ApplicationController
       apply_suggestions_to_outfit!(suggestions)
       redirect_to redirect_path_for_outfit(@outfit)
     else
-      redirect_to redirect_path_for_outfit(@outfit), alert: "Could not regenerate this slot."
+      redirect_to redirect_path_for_outfit(@outfit)
     end
   rescue JSON::ParserError
     @outfit.messages.create!(role: "assistant", content: "Sorry, try again.")
-    redirect_to redirect_path_for_outfit(@outfit), alert: "Could not parse AI suggestions."
+    redirect_to redirect_path_for_outfit(@outfit)
   end
 
   private
