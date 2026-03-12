@@ -61,7 +61,7 @@ class MessagesController < ApplicationController
       response = ai_response
 
       begin
-        suggestions = JSON.parse(response.content)
+        suggestions = JSON.parse(response.content.gsub(/```json\n|```/, ''))
 
         # 古いAI結果削除
         @outfit.messages.where(role: "assistant").destroy_all
