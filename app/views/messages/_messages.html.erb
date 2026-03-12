@@ -1,4 +1,5 @@
-<% messages.each do |message| %>
+<% messages.where(role: "assistant").last(1).each do |message| %>
+  <% next if message.role == "user" %>
   <% if message.role == "user" %>
     <div class="d-flex justify-content-end mb-2">
       <div class="bg-white px-3 pb-0 pt-3 rounded-pill">
