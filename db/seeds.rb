@@ -288,38 +288,39 @@ item29 = Item.new(
   status: 1
 )
 
-# item30 = Item.new(
-#   user: glen,
-#   name: "Black Cap-Toe Derby",
-#   slot: "footwear",
-#   category: "formal",
-#   description: "An extreme close-up of a black leather cap-toe derby shoe, showcasing the craftsmanship in fine detail. The shoe features a pebbled tumbled-grain leather upper transitioning into a smooth, polished cap-toe extension at the toe box, an open lacing system with flat black laces threaded through four pairs of silver-tone metal eyelets, and a thick black rubber outsole. The bold texture contrast between the grainy upper and the smooth cap-toe gives this practical, long-lasting formal shoe a modern, slightly rugged character.",
-#   status: 1
-# )
+# Outers
 
-file1 = URI.open("https://c.imgz.jp/265/98748265/98748265b_1_d_500.jpg")
-item1.photo.attach(io: file1, filename: "#{item1.name}.png", content_type: "image/png")
-item1.save
+# Tops
 
-file2 = URI.open("https://c.imgz.jp/014/104681014/104681014_8_d_500.jpg")
-item2.photo.attach(io: file2, filename: "#{item2.name}.png", content_type: "image/png")
-item2.save
+# Bottoms
 
-file3 = URI.open("https://c.imgz.jp/763/104136763/104136763b_1_d_500.jpg")
-item3.photo.attach(io: file3, filename: "#{item3.name}.png", content_type: "image/png")
-item3.save
+# Footwear
 
-file4 = URI.open("https://c.imgz.jp/662/101761662/101761662b_34_d_500.jpg")
-item4.photo.attach(io: file4, filename: "#{item4.name}.png", content_type: "image/png")
-item4.save
 
-file5 = URI.open("https://www.theobsessor.com/content/images/2024/01/goods_422992_sub14-1.jpg")
-item5.photo.attach(io: file5, filename: "#{item5.name}.png", content_type: "image/png")
-item5.save
 
-file6 = URI.open("https://static.lodenfrey.com/out/pictures/master/product/1/00700255-025_1.jpg")
-item6.photo.attach(io: file6, filename: "#{item6.name}.png", content_type: "image/png")
-item6.save
+# file1 = URI.open("https://c.imgz.jp/265/98748265/98748265b_1_d_500.jpg")
+# item1.photo.attach(io: file1, filename: "#{item1.name}.png", content_type: "image/png")
+# item1.save
+
+# file2 = URI.open("https://c.imgz.jp/014/104681014/104681014_8_d_500.jpg")
+# item2.photo.attach(io: file2, filename: "#{item2.name}.png", content_type: "image/png")
+# item2.save
+
+# file3 = URI.open("https://c.imgz.jp/763/104136763/104136763b_1_d_500.jpg")
+# item3.photo.attach(io: file3, filename: "#{item3.name}.png", content_type: "image/png")
+# item3.save
+
+# file4 = URI.open("https://c.imgz.jp/662/101761662/101761662b_34_d_500.jpg")
+# item4.photo.attach(io: file4, filename: "#{item4.name}.png", content_type: "image/png")
+# item4.save
+
+# file5 = URI.open("https://www.theobsessor.com/content/images/2024/01/goods_422992_sub14-1.jpg")
+# item5.photo.attach(io: file5, filename: "#{item5.name}.png", content_type: "image/png")
+# item5.save
+
+# file6 = URI.open("https://static.lodenfrey.com/out/pictures/master/product/1/00700255-025_1.jpg")
+# item6.photo.attach(io: file6, filename: "#{item6.name}.png", content_type: "image/png")
+# item6.save
 
 file7 = URI.open("https://productimage.zegna.com/is/image/zegna/601954A6-9MCZRM--F?wid=2250&hei=3000")
 item7.photo.attach(io: file7, filename: "#{item7.name}.png", content_type: "image/png")
@@ -341,9 +342,10 @@ file11 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272038
 item11.photo.attach(io: file11, filename: "#{item11.name}.png", content_type: "image/png")
 item11.save
 
-file12 = URI.open("https://www.bombayshirts.com/cdn/shop/files/Aurelia_800x.jpg?v=1727442801")
-item12.photo.attach(io: file12, filename: "#{item12.name}.png", content_type: "image/png")
-item12.save
+# Glen-Check Pants w/ model in photo 
+# file12 = URI.open("https://www.bombayshirts.com/cdn/shop/files/Aurelia_800x.jpg?v=1727442801")
+# item12.photo.attach(io: file12, filename: "#{item12.name}.png", content_type: "image/png")
+# item12.save
 
 file13 = URI.open("https://images.asics.com/is/image/asics/1183C429_100_SB_FR_GLB?qlt=80&wid=350&hei=300&bgc=255,255,255&resMode=bisharp")
 item13.photo.attach(io: file13, filename: "#{item13.name}.png", content_type: "image/png")
@@ -353,9 +355,9 @@ file14 = URI.open("https://www.zoomshoes.in/cdn/shop/files/28_2.jpg?v=1688447991
 item14.photo.attach(io: file14, filename: "#{item14.name}.png", content_type: "image/png")
 item14.save
 
-file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.jpg")
-item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
-item15.save
+# file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.jpg")
+# item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
+# item15.save
 
 file16 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271022/logo_tee_gvnhtr.png")
 item16.photo.attach(io: file16, filename: "#{item16.name}.jpg", content_type: "image/jpeg")
@@ -377,9 +379,9 @@ file20 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272044
 item20.photo.attach(io: file20, filename: "#{item20.name}.jpg", content_type: "image/jpeg")
 item20.save
 
-file21 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125676/740_NAV_FRT_jh855b.jpg")
-item21.photo.attach(io: file21, filename: "#{item21.name}.jpg", content_type: "image/jpeg")
-item21.save
+# file21 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125676/740_NAV_FRT_jh855b.jpg")
+# item21.photo.attach(io: file21, filename: "#{item21.name}.jpg", content_type: "image/jpeg")
+# item21.save
 
 # file22 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773126060/sgmsqlocr1kbkuakkltd_nd3m9a.jpg")
 # item22.photo.attach(io: file22, filename: "#{item22.name}.jpg", content_type: "image/jpeg")
@@ -387,7 +389,7 @@ item21.save
 
 file23 = URI.open("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80")
 item23.photo.attach(io: file23, filename: "#{item23.name}.jpg", content_type: "image/jpeg")
-item23.save
+item23.save # Remove bg
 
 file24 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273631/13-2-jacket-transparent_j4lvxk.png")
 item24.photo.attach(io: file24, filename: "#{item24.name}.jpg", content_type: "image/jpeg")
@@ -397,61 +399,21 @@ file25 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273901
 item25.photo.attach(io: file25, filename: "#{item25.name}.jpg", content_type: "image/jpeg")
 item25.save
 
-file26 = URI.open("https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80")
-item26.photo.attach(io: file26, filename: "#{item26.name}.jpg", content_type: "image/jpeg")
-item26.save
+# file26 = URI.open("https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80")
+# item26.photo.attach(io: file26, filename: "#{item26.name}.jpg", content_type: "image/jpeg")
+# item26.save
 
-file27 = URI.open("https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80")
-item27.photo.attach(io: file27, filename: "#{item27.name}.jpg", content_type: "image/jpeg")
-item27.save
+# file27 = URI.open("https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80")
+# item27.photo.attach(io: file27, filename: "#{item27.name}.jpg", content_type: "image/jpeg")
+# item27.save
 
-file28 = URI.open("https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80")
-item28.photo.attach(io: file28, filename: "#{item28.name}.jpg", content_type: "image/jpeg")
-item28.save
+# file28 = URI.open("https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80")
+# item28.photo.attach(io: file28, filename: "#{item28.name}.jpg", content_type: "image/jpeg")
+# item28.save
 
 file29 = URI.open("https://www.zoomshoes.in/cdn/shop/products/8_1_926d35d2-3c0f-4370-9927-f59b03a6efe5.jpg?v=1682153369")
 item29.photo.attach(io: file29, filename: "#{item29.name}.jpg", content_type: "image/jpeg")
 item29.save
 
-
-# outfit = Outfit.create!(
-#   user: glen,
-#   name: "festival outfit",
-#   description: "When you're at a festival and wanna stay cool while showing your furusato pride.",
-#   status: 1
-# )
-
-# OutfitItem.create!(
-#   item_id: item5.id,
-#   outfit_id: outfit.id,
-#   slot: item2.slot
-# )
-
-# OutfitItem.create!(
-#   item_id: item10.id,
-#   outfit_id: outfit.id,
-#   slot: item10.slot
-# )
-
-# OutfitItem.create!(
-#   item_id: item15.id,
-#   outfit_id: outfit.id,
-#   slot: item15.slot
-# )
-
-# OutfitItem.create!(
-#   item_id: item4.id,
-#   outfit_id: outfit.id,
-#   slot: item4.slot
-# )
-# Message.create!(
-#   outfit_id: outfit.id,
-#   role: "user",
-#   content: "Please create me an outfit that I can wear to the fire festival"
-# )
-
-# this comment is just to make an edit
-
 puts "#{User.count} users created"
 puts "#{Item.count} items created"
-# puts "#{Outfit.count} outfits  created"

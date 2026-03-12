@@ -24,7 +24,7 @@ class BackgroundRemoverService
 
     ActionDispatch::Http::UploadedFile.new(
       tempfile: output,
-      filename: "#{File.basename(photo.original_filename, ".*")}_no_bg.png",
+      filename: "#{File.basename(photo.original_filename, '.*')}_no_bg.png",
       type: "image/png"
     )
   rescue => e
