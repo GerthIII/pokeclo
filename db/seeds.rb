@@ -15,21 +15,21 @@ Outfit.destroy_all
 Item.destroy_all
 User.destroy_all
 
-#updated ryota to have easier login
-ryota = User.create!(
-  name: "Ryota Hayakawa",
-  email: "ryota@gmail.com",
+#updated glen to have easier login
+glen = User.create!(
+  name: "Glen Gerth",
+  email: "glen@gmail.com",
   password: "123123"
 )
 
-ryota.profile_photo.attach(
-  io: URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773114147/Ryota_Base_dbgxbm.jpg"),
-  filename: "ryota_profile.jpg",
+glen.profile_photo.attach(
+  io: URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773274251/Glen_m6f8bt.jpg"),
+  filename: "Glen.jpeg",
   content_type: "image/jpeg"
 )
 
 item1 = Item.new(
-  user: ryota,
+  user: glen,
   name: "sports shirt",
   slot: "top",
   category: "sports",
@@ -38,7 +38,7 @@ item1 = Item.new(
 )
 
 item2 = Item.new(
-  user: ryota,
+  user: glen,
   name: "sports pants",
   slot: "bottom",
   category: "sports",
@@ -47,7 +47,7 @@ item2 = Item.new(
 )
 
 item3 = Item.new(
-  user: ryota,
+  user: glen,
   name: "sports shoes",
   slot: "footwear",
   category: "sports",
@@ -56,7 +56,7 @@ item3 = Item.new(
 )
 
 item4 = Item.new(
-  user: ryota,
+  user: glen,
   name: "sports jacket",
   slot: "outer",
   category: "sports",
@@ -65,7 +65,7 @@ item4 = Item.new(
 )
 
 item5 = Item.new(
-  user: ryota,
+  user: glen,
   name: "casual t-shirt",
   slot: "top",
   category: "casual",
@@ -74,7 +74,7 @@ item5 = Item.new(
 )
 
 item6 = Item.new(
-  user: ryota,
+  user: glen,
   name: "polo t-shirt",
   slot: "top",
   category: "casual",
@@ -83,7 +83,7 @@ item6 = Item.new(
 )
 
 item7 = Item.new(
-  user: ryota,
+  user: glen,
   name: "formal shirt",
   slot: "top",
   category: "formal",
@@ -92,7 +92,7 @@ item7 = Item.new(
 )
 
 item8 = Item.new(
-  user: ryota,
+  user: glen,
   name: "formal shirt",
   slot: "top",
   category: "formal",
@@ -101,7 +101,7 @@ item8 = Item.new(
 )
 
 item9 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Jeans",
   slot: "bottom",
   category: "casual",
@@ -110,34 +110,34 @@ item9 = Item.new(
 )
 
 item10 = Item.new(
-  user: ryota,
-  name: "Linen Pants",
+  user: glen,
+  name: "Dark Wash Denim Jeans",
   slot: "bottom",
   category: "casual",
-  description: "a pair of light-colored, relaxed-fit trousers worn by a model, conveying a breezy and casual aesthetic. These pants appear to be made from a textured, lightweight fabric like linen, characterized by a soft grey or oatmeal heathered tone. A notable design element is the comfortable, elasticized waistband featuring a single-button closure and a hidden drawstring or zip fly. The trousers have a straight-leg cut that tapers slightly toward the hem, which is finished with a subtle cuff, making them an ideal choice for warm-weather styling.",
+  description: "a pair of dark wash denim jeans laid flat against a neutral gray background. The jeans feature a classic five-pocket design with visible orange contrast stitching and metallic rivets at the stress points. The fabric has a deep indigo hue with subtle fading along the thighs, suggesting a slightly broken-in look while maintaining a clean, structured aesthetic.",
   status: 1
 )
 
 item11 = Item.new(
-  user: ryota,
-  name: "Social Pants",
+  user: glen,
+  name: "Jet-Black Trousers",
   slot: "bottom",
-  category: "social",
-  description: "a refined example of classic menswear, featuring a charcoal grey or deep anthracite hue with a subtle, high-quality wool texture. They are designed with a tailored, slim-straight fit that includes a sharp permanent crease running down the center of each leg for a crisp, professional silhouette. Notably, the waistband is a belt-loop-free design, utilizing sophisticated side adjusters with metal buckles to provide a clean, streamlined look around the hips. The styling is further elevated by an extended button-tab closure at the waist and discreet slanted side pockets, making them an ideal choice for a modern business or smart casual wardrobe.",
+  category: "casual",
+  description: "a pair of sleek, jet-black trousers presented against a solid light-gray backdrop. The pants feature a modern, slim-tapered cut with a smooth fabric finish that gives them a versatile, semi-formal appearance. Details like the clean waistband and structured seams suggest a polished design suitable for both professional settings and elevated casual wear.",
   status: 1
 )
 
 item12 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Social Pants",
   slot: "bottom",
-  category: "social",
+  category: "casual",
   description: "These trousers feature a classic Glen check pattern in shades of light grey with subtle yellow or tan over-checking, offering a sophisticated, vintage-inspired aesthetic. The design is defined by a high-rise waistband that lacks belt loops, opting instead for buckled side adjusters and a long, clean extended button-tab closure for a bespoke look. Adding to the traditional silhouette are prominent double pleats at the front, which create a more voluminous, comfortable drape through the thigh before tapering down to a sharp, permanent center crease.",
   status: 1
 )
 
 item13 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Casual Shoes",
   slot: "footwear",
   category: "casual",
@@ -146,7 +146,7 @@ item13 = Item.new(
 )
 
 item14 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Formal Shoes",
   slot: "footwear",
   category: "formal",
@@ -155,7 +155,7 @@ item14 = Item.new(
 )
 
 item15 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Casual Loafer",
   slot: "footwear",
   category: "casual",
@@ -163,34 +163,34 @@ item15 = Item.new(
   status: 1
 )
 item16 = Item.new(
-  user: ryota,
+  user: glen,
   name: "White Basic Tee",
   slot: "top",
   category: "casual",
-  description: "A clean, minimalist white crew-neck t-shirt photographed on a male model against a blurred background of shelves with terracotta potted plants. The shirt is a classic short-sleeved cut in bright, crisp white cotton with no branding or graphic, featuring a ribbed crew neckline and a comfortable, slightly relaxed fit. The quintessential wardrobe staple — a blank canvas that complements virtually any bottom or outerwear layer.",
+  description: "a minimalist graphic design centered on a black rectangular background. At the top, a stylized circular emblem contains an abstract, red wing-like shape that curves upward, suggesting movement or flight. Below the emblem, the word cloak is written in a clean, white sans-serif font, creating a sharp contrast that draws the eye toward the center of the frame.",
   status: 1
 )
 
 item17 = Item.new(
-  user: ryota,
-  name: "White Crewneck Sweatshirt",
+  user: glen,
+  name: "White Long-Sleeve Shirt",
   slot: "top",
   category: "casual",
-  description: "A classic white fleece crewneck sweatshirt presented in a flat-lay arrangement on a light grey surface, styled alongside a pair of grey jeans and white canvas low-top sneakers. The sweatshirt features a relaxed boxy fit, a thick ribbed crew neckline, matching ribbed cuffs and a wide ribbed hem band, and a soft brushed interior for warmth. The blank, unbranded design makes it a versatile layering piece suited to streetwear and relaxed weekend dressing.",
+  description: "A crisp, white long-sleeved shirt laid flat against a minimalist gray background. The garment features a classic crew neck and ribbed cuffs, suggesting a comfortable, high-quality cotton or jersey blend. Its clean lines and bright, neutral tone make it a versatile staple piece, perfect for layering or wearing on its own for a minimalist look.",
   status: 1
 )
 
 item18 = Item.new(
-  user: ryota,
-  name: "Rust Bomber Jacket",
+  user: glen,
+  name: "Black Utility Jacket",
   slot: "outer",
   category: "casual",
-  description: "A warm rust or burnt sienna-colored nylon bomber jacket suspended from a simple white plastic hanger against a neutral grey wall. The jacket follows the classic MA-1 silhouette with a full-length front zipper, ribbed elastic collar, cuffs, and waistband in a matching tonal finish. A secondary zipper pocket is stitched onto the left sleeve, and there are two discreet welt pockets set into the lower front. The smooth, slightly lustrous fabric gives the jacket an elevated streetwear sensibility.",
+  description: "a black, zip-up utility jacket with a structured, technical aesthetic displayed against a neutral background. The design includes two prominent chest pockets with flap closures and a sharp, pointed collar that lends it a refined yet functional look. Its matte finish and clean silhouette suggest a versatile outerwear piece that bridges the gap between rugged workwear and modern streetwear.",
   status: 1
 )
 
 item19 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Black Quilted Puffer Jacket",
   slot: "outer",
   category: "casual",
@@ -199,16 +199,16 @@ item19 = Item.new(
 )
 
 item20 = Item.new(
-  user: ryota,
-  name: "Tan Casual Blazer",
-  slot: "outer",
-  category: "social",
-  description: "A tailored tan or khaki single-breasted sport coat captured in a styled flat-lay alongside a light blue floral-print dress shirt, dark navy selvedge jeans, and dark brown brogue wingtip oxfords. The blazer features a notch lapel, two-button front closure, a breast pocket finished with a blue and white gingham pocket square, and functional sleeve buttons. The structured shoulder and clean drape make this ideal for social outings or elevated everyday smart-casual wear.",
+  user: glen,
+  name: "Black Long-Sleeved Shirt",
+  slot: "top",
+  category: "casual",
+  description: "a solid black long-sleeved shirt laid flat against a light gray backdrop. The garment is designed with a classic crew neckline and fitted cuffs, offering a sleek and cohesive monochromatic appearance. Its deep, uniform color and simple construction make it an essential foundational piece for a modern, understated wardrobe.",
   status: 1
 )
 
 item21 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Navy Wool Overcoat",
   slot: "outer",
   category: "formal",
@@ -216,17 +216,17 @@ item21 = Item.new(
   status: 1
 )
 
-item22 = Item.new(
-  user: ryota,
-  name: "Black Levi's Jeans",
-  slot: "bottom",
-  category: "casual",
-  description: "A clean solid black pair of Levi's Jeans — fanned out against a dark background and showcases the classic five-pocket construction with contrasting orange topstitching, copper rivets at the stress points, a Levi's red tab on the right back pocket, and a black-finished Two Horse leather patch at the rear waistband. A versatile and timeless wardrobe foundation built for everyday wear.",
-  status: 1
-)
+# item22 = Item.new(
+#   user: glen,
+#   name: "Black Levi's Jeans",
+#   slot: "bottom",
+#   category: "casual",
+#   description: "A clean solid black pair of Levi's Jeans — fanned out against a dark background and showcases the classic five-pocket construction with contrasting orange topstitching, copper rivets at the stress points, a Levi's red tab on the right back pocket, and a black-finished Two Horse leather patch at the rear waistband. A versatile and timeless wardrobe foundation built for everyday wear.",
+#   status: 1
+# )
 
 item23 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Dark Indigo Raw Denim",
   slot: "bottom",
   category: "casual",
@@ -235,25 +235,25 @@ item23 = Item.new(
 )
 
 item24 = Item.new(
-  user: ryota,
-  name: "Black Pleated Chinos",
-  slot: "bottom",
-  category: "social",
-  description: "A pair of slim-cut black pleated chino trousers worn by a male model standing against a deep emerald-green studio background. The trousers feature a single forward pleat at each leg, a clean flat front panel, a standard waistband with multiple belt loops, and a tapered leg that narrows toward the ankle for a refined silhouette. The solid black fabric has a slight sheen suggesting a cotton-twill blend, bridging the gap between smart casual and relaxed social dressing.",
+  user: glen,
+  name: "Light Jean Jacket",
+  slot: "outer",
+  category: "casual",
+  description: "a classic light-wash denim jacket, which would be perfect for casual, layered outfits. It is made of sturdy, textured cotton denim in a soft, faded blue tone that gives it a well-worn, vintage look. The jacket has traditional styling with chest flap pockets that secure with shank buttons, along with a row of buttons down the front. The collar is a point collar, and the jacket is finished with prominent, contrast stitching along the seams for a timeless, rugged appearance.",
   status: 1
 )
 
 item25 = Item.new(
-  user: ryota,
-  name: "Brown Corduroy Trousers",
-  slot: "bottom",
+  user: glen,
+  name: "Black Leather Jacket",
+  slot: "outer",
   category: "casual",
-  description: "A pair of deep espresso-brown fine-wale corduroy trousers worn by a male model against a neutral grey studio background. The trousers are cut in a relaxed straight fit with a high-rise waistband, single-button closure, a flat front enhanced by the corduroy's vertical ridges, and discreet slanted side pockets. The rich, warm brown tone is highlighted by the way the fine ribs catch the light, lending tactile depth to an otherwise clean, unfussy silhouette. Styled here with a blue dress shirt and dark suede boat shoes.",
+  description: "classic black leather biker jacket serves as a bold fashion staple, featuring a sleek, semi-matte finish and a structured silhouette. The design is heavily detailed with polished silver hardware, including an asymmetrical front zipper, wide notched lapels with metallic snaps, and shoulder epaulets. Functional elements like the multiple zippered pockets and a small snap-flap coin pocket add both texture and utility to the piece. Finally, the look is anchored by a thick, integrated belt at the hem with a chunky metal buckle, reinforcing its iconic and rebellious aesthetic.",
   status: 1
 )
 
 item26 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Nike Air Force 1 x Carhartt",
   slot: "footwear",
   category: "casual",
@@ -262,7 +262,7 @@ item26 = Item.new(
 )
 
 item27 = Item.new(
-  user: ryota,
+  user: glen,
   name: "New Balance 247 Olive",
   slot: "footwear",
   category: "sports",
@@ -271,7 +271,7 @@ item27 = Item.new(
 )
 
 item28 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Cognac Leather Derbies",
   slot: "footwear",
   category: "formal",
@@ -280,7 +280,7 @@ item28 = Item.new(
 )
 
 item29 = Item.new(
-  user: ryota,
+  user: glen,
   name: "Black Chelsea Boots",
   slot: "footwear",
   category: "social",
@@ -288,14 +288,14 @@ item29 = Item.new(
   status: 1
 )
 
-item30 = Item.new(
-  user: ryota,
-  name: "Black Cap-Toe Derby",
-  slot: "footwear",
-  category: "formal",
-  description: "An extreme close-up of a black leather cap-toe derby shoe, showcasing the craftsmanship in fine detail. The shoe features a pebbled tumbled-grain leather upper transitioning into a smooth, polished cap-toe extension at the toe box, an open lacing system with flat black laces threaded through four pairs of silver-tone metal eyelets, and a thick black rubber outsole. The bold texture contrast between the grainy upper and the smooth cap-toe gives this practical, long-lasting formal shoe a modern, slightly rugged character.",
-  status: 1
-)
+# item30 = Item.new(
+#   user: glen,
+#   name: "Black Cap-Toe Derby",
+#   slot: "footwear",
+#   category: "formal",
+#   description: "An extreme close-up of a black leather cap-toe derby shoe, showcasing the craftsmanship in fine detail. The shoe features a pebbled tumbled-grain leather upper transitioning into a smooth, polished cap-toe extension at the toe box, an open lacing system with flat black laces threaded through four pairs of silver-tone metal eyelets, and a thick black rubber outsole. The bold texture contrast between the grainy upper and the smooth cap-toe gives this practical, long-lasting formal shoe a modern, slightly rugged character.",
+#   status: 1
+# )
 
 file1 = URI.open("https://c.imgz.jp/265/98748265/98748265b_1_d_500.jpg")
 item1.photo.attach(io: file1, filename: "#{item1.name}.png", content_type: "image/png")
@@ -333,11 +333,11 @@ file9 = URI.open("https://www.westportbigandtall.com/cdn/shop/products/37147_STB
 item9.photo.attach(io: file9, filename: "#{item9.name}.png", content_type: "image/png")
 item9.save
 
-file10 = URI.open("https://n.nordstrommedia.com/it/1ccfdd95-8aa5-441f-87e8-3f880894145e.jpeg?h=368&w=240&dpr=2")
+file10 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271998/dark_blue_jeans_s14grc.png")
 item10.photo.attach(io: file10, filename: "#{item10.name}.png", content_type: "image/png")
 item10.save
 
-file11 = URI.open("https://cdn2.propercloth.com/pic_tccp/e5c4ad2fca14816702e193a8d16fa92e_size6.jpg")
+file11 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272038/black_pants_swmr7l.png")
 item11.photo.attach(io: file11, filename: "#{item11.name}.png", content_type: "image/png")
 item11.save
 
@@ -357,15 +357,15 @@ file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.j
 item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
 item15.save
 
-file16 = URI.open("https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80")
+file16 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271022/logo_tee_gvnhtr.png")
 item16.photo.attach(io: file16, filename: "#{item16.name}.jpg", content_type: "image/jpeg")
 item16.save
 
-file17 = URI.open("https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80")
+file17 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272024/white_longsleeve_vlzrbv.png")
 item17.photo.attach(io: file17, filename: "#{item17.name}.jpg", content_type: "image/jpeg")
 item17.save
 
-file18 = URI.open("https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80")
+file18 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272012/Black_Jacket_h2a9sr.png")
 item18.photo.attach(io: file18, filename: "#{item18.name}.jpg", content_type: "image/jpeg")
 item18.save
 
@@ -373,7 +373,7 @@ file19 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125970
 item19.photo.attach(io: file19, filename: "#{item19.name}.jpg", content_type: "image/jpeg")
 item19.save
 
-file20 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125820/71qNDKpZglL._AC_UY1000__mudsvu.jpg")
+file20 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272044/black_longsleeve_b0fzwb.png")
 item20.photo.attach(io: file20, filename: "#{item20.name}.jpg", content_type: "image/jpeg")
 item20.save
 
@@ -389,11 +389,11 @@ file23 = URI.open("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?
 item23.photo.attach(io: file23, filename: "#{item23.name}.jpg", content_type: "image/jpeg")
 item23.save
 
-file24 = URI.open("https://www.zoomshoes.in/cdn/shop/files/L-50_BROWN_2.jpg?v=1726898204")
+file24 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273631/13-2-jacket-transparent_j4lvxk.png")
 item24.photo.attach(io: file24, filename: "#{item24.name}.jpg", content_type: "image/jpeg")
 item24.save
 
-file25 = URI.open("https://www.zoomshoes.in/cdn/shop/files/2641BLACK_1.jpg?v=1721818550")
+file25 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273901/classic-black-leather-jacket-timeless-fashion-staple_191095-78120_qi2utq.avif")
 item25.photo.attach(io: file25, filename: "#{item25.name}.jpg", content_type: "image/jpeg")
 item25.save
 
@@ -413,41 +413,37 @@ file29 = URI.open("https://www.zoomshoes.in/cdn/shop/products/8_1_926d35d2-3c0f-
 item29.photo.attach(io: file29, filename: "#{item29.name}.jpg", content_type: "image/jpeg")
 item29.save
 
-file30 = URI.open("https://www.zoomshoes.in/cdn/shop/files/D047BLACK_1.jpg?v=1732610876")
-item30.photo.attach(io: file30, filename: "#{item30.name}.jpg", content_type: "image/jpeg")
-item30.save
 
+# outfit = Outfit.create!(
+#   user: glen,
+#   name: "festival outfit",
+#   description: "When you're at a festival and wanna stay cool while showing your furusato pride.",
+#   status: 1
+# )
 
-outfit = Outfit.create!(
-  user: ryota,
-  name: "festival outfit",
-  description: "When you're at a festival and wanna stay cool while showing your furusato pride.",
-  status: 1
-)
+# OutfitItem.create!(
+#   item_id: item5.id,
+#   outfit_id: outfit.id,
+#   slot: item2.slot
+# )
 
-OutfitItem.create!(
-  item_id: item5.id,
-  outfit_id: outfit.id,
-  slot: item2.slot
-)
+# OutfitItem.create!(
+#   item_id: item10.id,
+#   outfit_id: outfit.id,
+#   slot: item10.slot
+# )
 
-OutfitItem.create!(
-  item_id: item10.id,
-  outfit_id: outfit.id,
-  slot: item10.slot
-)
+# OutfitItem.create!(
+#   item_id: item15.id,
+#   outfit_id: outfit.id,
+#   slot: item15.slot
+# )
 
-OutfitItem.create!(
-  item_id: item15.id,
-  outfit_id: outfit.id,
-  slot: item15.slot
-)
-
-OutfitItem.create!(
-  item_id: item4.id,
-  outfit_id: outfit.id,
-  slot: item4.slot
-)
+# OutfitItem.create!(
+#   item_id: item4.id,
+#   outfit_id: outfit.id,
+#   slot: item4.slot
+# )
 # Message.create!(
 #   outfit_id: outfit.id,
 #   role: "user",
@@ -458,4 +454,4 @@ OutfitItem.create!(
 
 puts "#{User.count} users created"
 puts "#{Item.count} items created"
-puts "#{Outfit.count} outfits  created"
+# puts "#{Outfit.count} outfits  created"

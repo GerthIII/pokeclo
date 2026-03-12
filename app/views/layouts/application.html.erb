@@ -8,37 +8,28 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="application-name" content="Pokeclo">
     <meta name="mobile-web-app-capable" content="yes">
-
-      <%# 以前の <link rel="manifest" ...> は消して、以下に書き換えてください %>
+    <%# 以前の <link rel="manifest" ...> は消して、以下に書き換えてください %>
     <%= tag.link rel: "manifest", href: pwa_manifest_path %>
-
     <%# apple-touch-icon も images 直下にある名前に合わせます %>
     <link rel="apple-touch-icon" href="<%= asset_path 'apple-touch-icon.png' %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
     <%= render "shared/flashes" %>
-
     <% unless current_page?(root_path) || devise_controller? %>
       <header class="app-top-header">
         <h1 class="app-top-title">Pokeclo</h1>
-
         <button class="profile-menu-button"
                 type="button"
                 data-bs-toggle="collapse"
@@ -46,11 +37,10 @@
                 aria-controls="navbarSupportedContent"
                 aria-expanded="false"
                 aria-label="Open profile menu">
-          <img src="https://res.cloudinary.com/dm1uny938/image/upload/v1773114147/Ryota_Base_dbgxbm.jpg"
+          <img src="https://res.cloudinary.com/dm1uny938/image/upload/v1773274251/Glen_m6f8bt.jpg"
                alt="Profile"
                class="profile-menu-avatar">
         </button>
-
         <div class="collapse profile-menu-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto">
             <% if user_signed_in? %>
@@ -72,11 +62,9 @@
         </div>
       </header>
     <% end %>
-
     <main class="<%= "has-bottom-navbar" unless current_page?(root_path) || devise_controller? %>">
       <%= yield %>
     </main>
-
     <% unless current_page?(root_path) || devise_controller? %>
       <%= render "shared/navbar", class: "footer" %>
     <% end %>
