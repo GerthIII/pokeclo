@@ -64,6 +64,8 @@ class MessagesController < ApplicationController
         @outfit.save
         apply_suggestions_to_outfit!(suggestions)
       rescue JSON::ParserError
+        attempts += 1
+        retry if attempts < 3
         Message.create(outfit: @outfit, content: "Sorry, try again.", role: "assistant")
       end
       redirect_to redirect_path_for_outfit(@outfit)

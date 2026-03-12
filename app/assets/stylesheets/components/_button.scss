@@ -32,6 +32,12 @@
   box-shadow: 0 10px 20px rgba(193, 27, 51, 0.34);
 }
 
+.main-button--cta2 {
+  background: rgb(75, 75, 75);
+  border-color:  rgb(75, 75, 75);
+  box-shadow: 0 10px 20px rgba(75, 75, 75, 0.34);
+}
+
 .main-button--cta:hover {
   background: var(--pc-accent-strong);
   border-color: var(--pc-accent-strong);

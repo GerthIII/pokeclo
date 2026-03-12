@@ -24,7 +24,11 @@ class ItemsController < ApplicationController
     # end
 
     if @item.save
-      redirect_to item_path(@item)
+      if params[:commit_action] == "Create Outfit"
+        redirect_to new_outfit_path(item_id: @item.id, auto_ask: true)
+      else
+        redirect_to item_path(@item)
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -48,7 +52,7 @@ class ItemsController < ApplicationController
     authorize @item
 
     if @item.update(item_params)
-      redirect_to item_path(@item), notice: "Item updated!"
+      redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -104,9 +108,9 @@ class ItemsController < ApplicationController
 
     if outfit.present?
       outfit.jackets.attach(item.photo.blob)
-      redirect_to edit_outfit_path(outfit), notice: "Added to outfit!"
+      redirect_to edit_outfit_path(outfit)
     else
-      redirect_to new_outfit_path, alert: "Create an outfit first!"
+      redirect_to new_outfit_path
     end
   end
 
@@ -124,6 +128,6 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :photo, :category, :slot)
+    params.require(:item).permit(:name, :description, :photo, :category, :slot, :status, :commit_action)
   end
 end
