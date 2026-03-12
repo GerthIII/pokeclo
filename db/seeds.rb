@@ -15,7 +15,6 @@ Outfit.destroy_all
 Item.destroy_all
 User.destroy_all
 
-#updated glen to have easier login
 glen = User.create!(
   name: "Glen Gerth",
   email: "glen@gmail.com",
@@ -28,159 +27,11 @@ glen.profile_photo.attach(
   content_type: "image/jpeg"
 )
 
+# ITEMS
+
+# Outers
+
 item1 = Item.new(
-  user: glen,
-  name: "sports shirt",
-  slot: "top",
-  category: "sports",
-  description: "An Adidas x Oasis collaboration t-shirt, characterized by a vintage-inspired ringer style and a clean, off-white or cream color base. The shirt is a classic crewneck with short sleeves, featuring contrasting black ribbed material on the collar and the sleeve cuffs. Running down each shoulder and sleeve are the iconic Adidas three-stripe motifs in bold black. The front of the garment displays two distinct logos: on the right chest (viewer's left) is the traditional black Adidas Trefoil logo, while on the left chest (viewer's right) is a rectangular black patch containing the word oasis in its signature lowercase font. The design blends 1990s Britpop aesthetics with classic athletic heritage, offering a minimalist yet recognizable terrace-wear look.",
-  status: 2
-)
-
-item2 = Item.new(
-  user: glen,
-  name: "sports pants",
-  slot: "bottom",
-  category: "sports",
-  description: "The second image displays a pair of black sporty joggers or track pants by the brand Hummel, featuring a relaxed, slightly tapered fit with elasticated ankle cuffs. The design is characterized by a prominent white chevron-style color-block panel that wraps around the lower legs, creating a bold geometric contrast. A small white Hummel bumblebee logo is embroidered on the upper left thigh, and the waistband appears to be elasticated for comfort, suggesting a functional yet stylish piece of activewear.",
-  status: 1
-)
-
-item3 = Item.new(
-  user: glen,
-  name: "sports shoes",
-  slot: "footwear",
-  category: "sports",
-  description: "a technical Adidas athletic cleat, specifically designed for high-performance sports like baseball. It features a sleek white mesh upper for breathability, textured with a diamond-pattern overlay, and the three-stripe motif in a faded black pixelated print. The sole unit utilizes Lightstrike Pro cushioning for responsiveness and is equipped with metal spikes for maximum traction on turf or dirt.",
-  status: 1
-)
-
-item4 = Item.new(
-  user: glen,
-  name: "sports jacket",
-  slot: "outer",
-  category: "sports",
-  description: "features a streamlined, functional design with a full-length front zipper. The garment is characterized by its ribbed stand-up collar in a contrasting cream or off-white interior, which adds a subtle pop of color to the deep teal-blue body. For branding, it includes a tonal diamond-shaped patch on the left chest and the SOPH logo printed on the right. The construction utilizes raglan sleeves for increased mobility, while two discreet, vertical zippered pockets are integrated into the side seams for secure storage. With its clean lines and technical aesthetic, this piece bridges the gap between high-performance sportswear and modern urban streetwear.",
-  status: 2
-)
-
-item5 = Item.new(
-  user: glen,
-  name: "casual t-shirt",
-  slot: "top",
-  category: "casual",
-  description: "a clean, studio-style product shot of a short-sleeved, crewneck T-shirt from the Uniqlo U collection. The shirt is a deep, earthy olive-brown or dark taupe color and is displayed flat against a neutral light-gray background. It features a classic, slightly relaxed fit with a thick, ribbed neckline and structured sleeves. In the upper-left corner, the Uniqlo logo is paired with the U branding, indicating it is part of the line designed by Christophe Lemaire.",
-  status: 1
-)
-
-item6 = Item.new(
-  user: glen,
-  name: "polo t-shirt",
-  slot: "top",
-  category: "casual",
-  description: "a classic navy blue short-sleeved polo shirt by Polo Ralph Lauren, set against a solid white background. The garment is made from a textured pique cotton fabric and features a two-button placket with white buttons, a ribbed collar, and matching ribbed armbands. A small, vibrant red embroidered pony logo is positioned on the left chest, providing a sharp contrast to the dark blue material. Inside the neckline, the brand's signature blue and gold label is visible, identifying the piece as part of their Custom Slim Fit line.",
-  status: 1
-)
-
-item7 = Item.new(
-  user: glen,
-  name: "formal shirt",
-  slot: "top",
-  category: "formal",
-  description: "a long-sleeved dress shirt by Zegna, displayed flat against a neutral, light-gray gradient background. The shirt is a deep, muted charcoal or dark navy hue and features a clean, minimalist design with a hidden button placket that creates a seamless vertical line down the center. It is constructed with a structured spread collar and standard button cuffs. A small, dark brand label is visible on the inside of the collar, emphasizing the garment's high-end, tailored aesthetic.",
-  status: 2
-)
-
-item8 = Item.new(
-  user: glen,
-  name: "formal shirt",
-  slot: "top",
-  category: "formal",
-  description: "a high-quality, long-sleeved button-down shirt from the luxury Italian fashion house ZEGNA, presented against a clean, neutral gray background. The shirt is a light off-white or cream color, crafted from a textured fabric—likely linen or a linen-silk blend—which gives it a sophisticated yet relaxed quiet luxury aesthetic. It features a sharp spread collar, a classic front placket with subtly shimmering buttons, and a straight hemline designed to be worn either tucked or untucked. The overall composition is minimalist and elegant, highlighting the fine craftsmanship and natural drape of the garment.",
-  status: 1
-)
-
-item9 = Item.new(
-  user: glen,
-  name: "Jeans",
-  slot: "bottom",
-  category: "casual",
-  description: "a pair of classic Levi Strauss & Co. blue jeans, presented in a folded flat-lay position against a clean white background. The denim has a medium-to-dark blue wash with subtle fading and vertical grain texture, suggesting a comfortable, broken-in feel. Key brand identifiers are visible, including the iconic tan Two Horse leather patch on the rear waistband and the signature Arcuate stitching on the back pocket. The construction details include contrasting orange topstitching, copper-tone rivets on the front coin and hip pockets, and a sturdy belt loop system, all characteristic of traditional American workwear-inspired style.",
-  status: 1
-)
-
-item10 = Item.new(
-  user: glen,
-  name: "Dark Wash Denim Jeans",
-  slot: "bottom",
-  category: "casual",
-  description: "a pair of dark wash denim jeans laid flat against a neutral gray background. The jeans feature a classic five-pocket design with visible orange contrast stitching and metallic rivets at the stress points. The fabric has a deep indigo hue with subtle fading along the thighs, suggesting a slightly broken-in look while maintaining a clean, structured aesthetic.",
-  status: 1
-)
-
-item11 = Item.new(
-  user: glen,
-  name: "Jet-Black Trousers",
-  slot: "bottom",
-  category: "casual",
-  description: "a pair of sleek, jet-black trousers presented against a solid light-gray backdrop. The pants feature a modern, slim-tapered cut with a smooth fabric finish that gives them a versatile, semi-formal appearance. Details like the clean waistband and structured seams suggest a polished design suitable for both professional settings and elevated casual wear.",
-  status: 1
-)
-
-item12 = Item.new(
-  user: glen,
-  name: "Social Pants",
-  slot: "bottom",
-  category: "casual",
-  description: "These trousers feature a classic Glen check pattern in shades of light grey with subtle yellow or tan over-checking, offering a sophisticated, vintage-inspired aesthetic. The design is defined by a high-rise waistband that lacks belt loops, opting instead for buckled side adjusters and a long, clean extended button-tab closure for a bespoke look. Adding to the traditional silhouette are prominent double pleats at the front, which create a more voluminous, comfortable drape through the thigh before tapering down to a sharp, permanent center crease.",
-  status: 1
-)
-
-item13 = Item.new(
-  user: glen,
-  name: "Casual Shoes",
-  slot: "footwear",
-  category: "casual",
-  description: "low-top, athletic sneakers featuring a classic white leather upper contrasted by bold black decorative stripes on the sides. The design includes a traditional lace-up closure with white laces and a distinctive gum-colored rubber outsole that provides a vintage, indoor-sport aesthetic. For branding, a black and white Onitsuka Tiger logo is visible on the tongue, while the heel counter is finished with a black leather overlay. The overall silhouette is slim and streamlined, characteristic of heritage racing or training footwear.",
-  status: 1
-)
-
-item14 = Item.new(
-  user: glen,
-  name: "Formal Shoes",
-  slot: "footwear",
-  category: "formal",
-  description: "a classic, polished black leather derby shoe, blending traditional formal elements with subtle modern detailing. The shoe features an open-lacing system, which gives it a slightly more versatile profile than a standard Oxford, and is crafted from a smooth, matte-finish leather. A distinctive touch is the brogue-style perforation—specifically a decorative medallion on the rounded toe and a delicate wing pattern along the side—adding a layer of sophistication without being overly ornate. With its slim black sole, low heel, and thin waxed laces, this shoe is a refined choice for business-professional attire or semi-formal occasions.",
-  status: 1
-)
-
-item15 = Item.new(
-  user: glen,
-  name: "Casual Loafer",
-  slot: "footwear",
-  category: "casual",
-  description: "these Zegna penny loafers are crafted in a rich, warm tan suede that offers a soft, matte texture. The design features a classic moc-toe construction with visible tonal stitching that defines the apron, while a traditional leather saddle strap with a signature slit rests across the vamp. The interior is lined with a smooth, lighter-colored leather and showcases the ZEGNA logo embossed on the footbed. With their streamlined silhouette and lack of structured hardware, these shoes represent a sophisticated quiet luxury aesthetic, making them ideal for elevated casual or summer-business ensembles.",
-  status: 1
-)
-item16 = Item.new(
-  user: glen,
-  name: "White Basic Tee",
-  slot: "top",
-  category: "casual",
-  description: "a minimalist graphic design centered on a black rectangular background. At the top, a stylized circular emblem contains an abstract, red wing-like shape that curves upward, suggesting movement or flight. Below the emblem, the word cloak is written in a clean, white sans-serif font, creating a sharp contrast that draws the eye toward the center of the frame.",
-  status: 1
-)
-
-item17 = Item.new(
-  user: glen,
-  name: "White Long-Sleeve Shirt",
-  slot: "top",
-  category: "casual",
-  description: "A crisp, white long-sleeved shirt laid flat against a minimalist gray background. The garment features a classic crew neck and ribbed cuffs, suggesting a comfortable, high-quality cotton or jersey blend. Its clean lines and bright, neutral tone make it a versatile staple piece, perfect for layering or wearing on its own for a minimalist look.",
-  status: 1
-)
-
-item18 = Item.new(
   user: glen,
   name: "Black Utility Jacket",
   slot: "outer",
@@ -189,7 +40,7 @@ item18 = Item.new(
   status: 1
 )
 
-item19 = Item.new(
+item2 = Item.new(
   user: glen,
   name: "Black Quilted Puffer Jacket",
   slot: "outer",
@@ -198,43 +49,7 @@ item19 = Item.new(
   status: 1
 )
 
-item20 = Item.new(
-  user: glen,
-  name: "Black Long-Sleeved Shirt",
-  slot: "top",
-  category: "casual",
-  description: "a solid black long-sleeved shirt laid flat against a light gray backdrop. The garment is designed with a classic crew neckline and fitted cuffs, offering a sleek and cohesive monochromatic appearance. Its deep, uniform color and simple construction make it an essential foundational piece for a modern, understated wardrobe.",
-  status: 1
-)
-
-item21 = Item.new(
-  user: glen,
-  name: "Navy Wool Overcoat",
-  slot: "outer",
-  category: "formal",
-  description: "A selection of heavy-weight wool and fleece outerwear displayed on ring hangers outside an artisan boutique. The centerpiece is a deep navy blue wool fleece coat featuring a thick oversized ribbed collar, a single-breasted button closure, and a long silhouette that falls past the hip. Flanking it are heathered grey and deep orange-red counterparts, all sharing the same plush, substantial fabric that promises exceptional warmth and an understated, heritage-tinged formality.",
-  status: 1
-)
-
-# item22 = Item.new(
-#   user: glen,
-#   name: "Black Levi's Jeans",
-#   slot: "bottom",
-#   category: "casual",
-#   description: "A clean solid black pair of Levi's Jeans — fanned out against a dark background and showcases the classic five-pocket construction with contrasting orange topstitching, copper rivets at the stress points, a Levi's red tab on the right back pocket, and a black-finished Two Horse leather patch at the rear waistband. A versatile and timeless wardrobe foundation built for everyday wear.",
-#   status: 1
-# )
-
-item23 = Item.new(
-  user: glen,
-  name: "Dark Indigo Raw Denim",
-  slot: "bottom",
-  category: "casual",
-  description: "A pair of Acne Studios dark indigo raw selvedge denim jeans presented in a flat-lay product shot on a white, slightly wrinkled linen surface. The jeans are characterized by a very deep, almost charcoal-navy wash that retains the rigid, stiff quality of unwashed denim. Key details include copper rivets at the pocket corners, a minimalist Acne Studios leather tab at the rear waistband, a slightly tapered straight-leg silhouette, and a low-rise waist. These jeans reward wear and develop personalized fades over time.",
-  status: 1
-)
-
-item24 = Item.new(
+item3 = Item.new(
   user: glen,
   name: "Light Jean Jacket",
   slot: "outer",
@@ -243,7 +58,7 @@ item24 = Item.new(
   status: 1
 )
 
-item25 = Item.new(
+item4 = Item.new(
   user: glen,
   name: "Black Leather Jacket",
   slot: "outer",
@@ -252,34 +67,182 @@ item25 = Item.new(
   status: 1
 )
 
-item26 = Item.new(
+file1 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272012/Black_Jacket_h2a9sr.png")
+item1.photo.attach(io: file1, filename: "#{item1.name}.jpg", content_type: "image/jpeg")
+item1.save # Black Utility Jacket
+
+file2 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125970/61XUeKFhUqL._AC_UY1000__eaguoh.jpg")
+item2.photo.attach(io: file2, filename: "#{item2.name}.jpg", content_type: "image/jpeg")
+item2.save # Black Quilted Puffer Jacket
+
+file3 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273631/13-2-jacket-transparent_j4lvxk.png")
+item3.photo.attach(io: file3, filename: "#{item3.name}.jpg", content_type: "image/jpeg")
+item3.save # Light Jean Jacket
+
+file4 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273901/classic-black-leather-jacket-timeless-fashion-staple_191095-78120_qi2utq.avif")
+item4.photo.attach(io: file4, filename: "#{item4.name}.jpg", content_type: "image/jpeg")
+item4.save # Black Leather Jacket
+
+# Tops
+
+item5 = Item.new(
   user: glen,
-  name: "Nike Air Force 1 x Carhartt",
+  name: "formal shirt",
+  slot: "top",
+  category: "formal",
+  description: "a long-sleeved dress shirt by Zegna, displayed flat against a neutral, light-gray gradient background. The shirt is a deep, muted charcoal or dark navy hue and features a clean, minimalist design with a hidden button placket that creates a seamless vertical line down the center. It is constructed with a structured spread collar and standard button cuffs. A small, dark brand label is visible on the inside of the collar, emphasizing the garment's high-end, tailored aesthetic.",
+  status: 2
+)
+
+item6 = Item.new(
+  user: glen,
+  name: "formal shirt",
+  slot: "top",
+  category: "formal",
+  description: "a high-quality, long-sleeved button-down shirt from the luxury Italian fashion house ZEGNA, presented against a clean, neutral gray background. The shirt is a light off-white or cream color, crafted from a textured fabric—likely linen or a linen-silk blend—which gives it a sophisticated yet relaxed quiet luxury aesthetic. It features a sharp spread collar, a classic front placket with subtly shimmering buttons, and a straight hemline designed to be worn either tucked or untucked. The overall composition is minimalist and elegant, highlighting the fine craftsmanship and natural drape of the garment.",
+  status: 1
+)
+
+item7 = Item.new(
+  user: glen,
+  name: "White Basic Tee",
+  slot: "top",
+  category: "casual",
+  description: "a minimalist graphic design centered on a black rectangular background. At the top, a stylized circular emblem contains an abstract, red wing-like shape that curves upward, suggesting movement or flight. Below the emblem, the word cloak is written in a clean, white sans-serif font, creating a sharp contrast that draws the eye toward the center of the frame.",
+  status: 1
+)
+
+item8 = Item.new(
+  user: glen,
+  name: "White Long-Sleeve Shirt",
+  slot: "top",
+  category: "casual",
+  description: "A crisp, white long-sleeved shirt laid flat against a minimalist gray background. The garment features a classic crew neck and ribbed cuffs, suggesting a comfortable, high-quality cotton or jersey blend. Its clean lines and bright, neutral tone make it a versatile staple piece, perfect for layering or wearing on its own for a minimalist look.",
+  status: 1
+)
+
+item9 = Item.new(
+  user: glen,
+  name: "Black Long-Sleeved Shirt",
+  slot: "top",
+  category: "casual",
+  description: "a solid black long-sleeved shirt laid flat against a light gray backdrop. The garment is designed with a classic crew neckline and fitted cuffs, offering a sleek and cohesive monochromatic appearance. Its deep, uniform color and simple construction make it an essential foundational piece for a modern, understated wardrobe.",
+  status: 1
+)
+
+file5 = URI.open("https://productimage.zegna.com/is/image/zegna/601954A6-9MCZRM--F?wid=2250&hei=3000")
+item5.photo.attach(io: file5, filename: "#{item5.name}.png", content_type: "image/png")
+item5.save # Formal Shirt (dark)
+
+file6 = URI.open("https://productimage.zegna.com/is/image/zegna/UCX31A6-SRO3-043-F?wid=2250&hei=3000")
+item6.photo.attach(io: file6, filename: "#{item6.name}.png", content_type: "image/png")
+item6.save # Formal Shirt (white)
+
+file7 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271022/logo_tee_gvnhtr.png")
+item7.photo.attach(io: file7, filename: "#{item7.name}.jpg", content_type: "image/jpeg")
+item7.save # White Basic Tee
+
+file8 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272024/white_longsleeve_vlzrbv.png")
+item8.photo.attach(io: file8, filename: "#{item8.name}.jpg", content_type: "image/jpeg")
+item8.save # White Long-Sleeve Shirt
+
+file9 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272044/black_longsleeve_b0fzwb.png")
+item9.photo.attach(io: file9, filename: "#{item9.name}.jpg", content_type: "image/jpeg")
+item9.save # Black Long-Sleeved Shirt
+
+# Bottoms
+
+item10 = Item.new(
+  user: glen,
+  name: "Jeans",
+  slot: "bottom",
+  category: "casual",
+  description: "a pair of classic Levi Strauss & Co. blue jeans, presented in a folded flat-lay position against a clean white background. The denim has a medium-to-dark blue wash with subtle fading and vertical grain texture, suggesting a comfortable, broken-in feel. Key brand identifiers are visible, including the iconic tan Two Horse leather patch on the rear waistband and the signature Arcuate stitching on the back pocket. The construction details include contrasting orange topstitching, copper-tone rivets on the front coin and hip pockets, and a sturdy belt loop system, all characteristic of traditional American workwear-inspired style.",
+  status: 1
+)
+
+item11 = Item.new(
+  user: glen,
+  name: "Dark Wash Denim Jeans",
+  slot: "bottom",
+  category: "casual",
+  description: "a pair of dark wash denim jeans laid flat against a neutral gray background. The jeans feature a classic five-pocket design with visible orange contrast stitching and metallic rivets at the stress points. The fabric has a deep indigo hue with subtle fading along the thighs, suggesting a slightly broken-in look while maintaining a clean, structured aesthetic.",
+  status: 1
+)
+
+item12 = Item.new(
+  user: glen,
+  name: "Jet-Black Trousers",
+  slot: "bottom",
+  category: "casual",
+  description: "a pair of sleek, jet-black trousers presented against a solid light-gray backdrop. The pants feature a modern, slim-tapered cut with a smooth fabric finish that gives them a versatile, semi-formal appearance. Details like the clean waistband and structured seams suggest a polished design suitable for both professional settings and elevated casual wear.",
+  status: 1
+)
+
+item13 = Item.new(
+  user: glen,
+  name: "Dark Indigo Raw Denim",
+  slot: "bottom",
+  category: "casual",
+  description: "A pair of Acne Studios dark indigo raw selvedge denim jeans presented in a flat-lay product shot on a white, slightly wrinkled linen surface. The jeans are characterized by a very deep, almost charcoal-navy wash that retains the rigid, stiff quality of unwashed denim. Key details include copper rivets at the pocket corners, a minimalist Acne Studios leather tab at the rear waistband, a slightly tapered straight-leg silhouette, and a low-rise waist. These jeans reward wear and develop personalized fades over time.",
+  status: 1
+)
+
+file10 = URI.open("https://www.westportbigandtall.com/cdn/shop/products/37147_STBL_Z_1000x.jpg?v=1769696217")
+item10.photo.attach(io: file10, filename: "#{item10.name}.png", content_type: "image/png")
+item10.save # Jeans
+
+file11 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271998/dark_blue_jeans_s14grc.png")
+item11.photo.attach(io: file11, filename: "#{item11.name}.png", content_type: "image/png")
+item11.save # Dark Wash Denim Jeans
+
+file12 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272038/black_pants_swmr7l.png")
+item12.photo.attach(io: file12, filename: "#{item12.name}.png", content_type: "image/png")
+item12.save # Jet-Black Trousers
+
+file13 = URI.open("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80")
+item13.photo.attach(io: file13, filename: "#{item13.name}.jpg", content_type: "image/jpeg")
+item13.save # Dark Indigo Raw Denim
+
+# Footwear
+
+item14 = Item.new(
+  user: glen,
+  name: "Casual Shoes",
   slot: "footwear",
   category: "casual",
-  description: "A Nike Air Force 1 Low from the collaborative capsule with Carhartt WIP, photographed on a draped background of golden corduroy fabric. The sneaker features a tan/brown canvas upper referencing Carhartt's iconic duck canvas workwear, a tonal brown Swoosh, a Carhartt WIP logo woven patch at the heel tab with orange interior lining, bronze-tone eyelets, and a white Air unit midsole with a lightly gum-tinted outsole. A limited-edition collision of workwear heritage and sneaker culture.",
+  description: "low-top, athletic sneakers featuring a classic white leather upper contrasted by bold black decorative stripes on the sides. The design includes a traditional lace-up closure with white laces and a distinctive gum-colored rubber outsole that provides a vintage, indoor-sport aesthetic. For branding, a black and white Onitsuka Tiger logo is visible on the tongue, while the heel counter is finished with a black leather overlay. The overall silhouette is slim and streamlined, characteristic of heritage racing or training footwear.",
   status: 1
 )
 
-item27 = Item.new(
+item15 = Item.new(
   user: glen,
-  name: "New Balance 247 Olive",
-  slot: "footwear",
-  category: "sports",
-  description: "A New Balance 247 athletic sneaker in an olive green or army surplus colorway, photographed floating against a blurred brick wall background. The upper combines a breathable mesh base with smooth synthetic leather overlays, dominated by a bold embossed black N logo on the lateral side panel. The shoe rides on a white RevLite foam midsole for cushioned everyday comfort, finished with a black rubber outsole for grip. Its modern, streamlined silhouette and muted military-inspired color make it a versatile sports-casual option.",
-  status: 1
-)
-
-item28 = Item.new(
-  user: glen,
-  name: "Cognac Leather Derbies",
+  name: "Formal Shoes",
   slot: "footwear",
   category: "formal",
-  description: "A close-up studio shot of a pair of warm cognac or tan-brown leather derby shoes, showcasing texture and craftsmanship in fine detail. The shoes feature an open lacing system with matching tan leather laces, a cap-toe construction in smooth calfskin contrasting with a pebbled grain leather vamp, a low block heel, and a structured silhouette with a rounded-almond toe. The rich chestnut coloring and fine detailing make these shoes an elegant yet approachable option for business-casual and formal occasions.",
+  description: "a classic, polished black leather derby shoe, blending traditional formal elements with subtle modern detailing. The shoe features an open-lacing system, which gives it a slightly more versatile profile than a standard Oxford, and is crafted from a smooth, matte-finish leather. A distinctive touch is the brogue-style perforation—specifically a decorative medallion on the rounded toe and a delicate wing pattern along the side—adding a layer of sophistication without being overly ornate. With its slim black sole, low heel, and thin waxed laces, this shoe is a refined choice for business-professional attire or semi-formal occasions.",
   status: 1
 )
 
-item29 = Item.new(
+item16 = Item.new(
+  user: glen,
+  name: "Black Timberland Boots",
+  slot: "footwear",
+  category: "casual",
+  description: "classic 6-inch waterproof boots from Timberland, presented in a sleek, all-black nubuck leather finish. The design features a high-top silhouette with a padded leather collar for ankle comfort and a tonal lace-up closure with metallic eyelets. A rugged, lugged rubber outsole provides substantial traction, while the iconic tree logo is subtly embossed on the lateral heel and tongue. This monochromatic aesthetic offers a versatile, urban edge to a traditionally utilitarian work boot.",
+  status: 1
+)
+
+item17 = Item.new(
+  user: glen,
+  name: "Black Converse Allstars",
+  slot: "footwear",
+  category: "casual",
+  description: "classic Converse Chuck Taylor All Star high-tops, featuring a sleek triple black colorway that covers everything from the canvas upper to the rubber foxing. The design maintains its iconic silhouette while incorporating tonal elements, including black laces and a darkened version of the signature circular ankle patch. Silver-toned metal eyelets provide a subtle contrast against the dark fabric, leading up to a pull tab at the heel for easier entry. With their vulcanized rubber sole and timeless aesthetic, these sneakers offer a versatile, edgy alternative to the standard white-soled version.",
+  status: 1
+)
+
+item18 = Item.new(
   user: glen,
   name: "Black Chelsea Boots",
   slot: "footwear",
@@ -288,132 +251,25 @@ item29 = Item.new(
   status: 1
 )
 
-# Outers
-
-# Tops
-
-# Bottoms
-
-# Footwear
-
-
-
-# file1 = URI.open("https://c.imgz.jp/265/98748265/98748265b_1_d_500.jpg")
-# item1.photo.attach(io: file1, filename: "#{item1.name}.png", content_type: "image/png")
-# item1.save
-
-# file2 = URI.open("https://c.imgz.jp/014/104681014/104681014_8_d_500.jpg")
-# item2.photo.attach(io: file2, filename: "#{item2.name}.png", content_type: "image/png")
-# item2.save
-
-# file3 = URI.open("https://c.imgz.jp/763/104136763/104136763b_1_d_500.jpg")
-# item3.photo.attach(io: file3, filename: "#{item3.name}.png", content_type: "image/png")
-# item3.save
-
-# file4 = URI.open("https://c.imgz.jp/662/101761662/101761662b_34_d_500.jpg")
-# item4.photo.attach(io: file4, filename: "#{item4.name}.png", content_type: "image/png")
-# item4.save
-
-# file5 = URI.open("https://www.theobsessor.com/content/images/2024/01/goods_422992_sub14-1.jpg")
-# item5.photo.attach(io: file5, filename: "#{item5.name}.png", content_type: "image/png")
-# item5.save
-
-# file6 = URI.open("https://static.lodenfrey.com/out/pictures/master/product/1/00700255-025_1.jpg")
-# item6.photo.attach(io: file6, filename: "#{item6.name}.png", content_type: "image/png")
-# item6.save
-
-file7 = URI.open("https://productimage.zegna.com/is/image/zegna/601954A6-9MCZRM--F?wid=2250&hei=3000")
-item7.photo.attach(io: file7, filename: "#{item7.name}.png", content_type: "image/png")
-item7.save
-
-file8 = URI.open("https://productimage.zegna.com/is/image/zegna/UCX31A6-SRO3-043-F?wid=2250&hei=3000")
-item8.photo.attach(io: file8, filename: "#{item8.name}.png", content_type: "image/png")
-item8.save
-
-file9 = URI.open("https://www.westportbigandtall.com/cdn/shop/products/37147_STBL_Z_1000x.jpg?v=1769696217")
-item9.photo.attach(io: file9, filename: "#{item9.name}.png", content_type: "image/png")
-item9.save
-
-file10 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271998/dark_blue_jeans_s14grc.png")
-item10.photo.attach(io: file10, filename: "#{item10.name}.png", content_type: "image/png")
-item10.save
-
-file11 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272038/black_pants_swmr7l.png")
-item11.photo.attach(io: file11, filename: "#{item11.name}.png", content_type: "image/png")
-item11.save
-
-# Glen-Check Pants w/ model in photo 
-# file12 = URI.open("https://www.bombayshirts.com/cdn/shop/files/Aurelia_800x.jpg?v=1727442801")
-# item12.photo.attach(io: file12, filename: "#{item12.name}.png", content_type: "image/png")
-# item12.save
-
-file13 = URI.open("https://images.asics.com/is/image/asics/1183C429_100_SB_FR_GLB?qlt=80&wid=350&hei=300&bgc=255,255,255&resMode=bisharp")
-item13.photo.attach(io: file13, filename: "#{item13.name}.png", content_type: "image/png")
-item13.save
-
-file14 = URI.open("https://www.zoomshoes.in/cdn/shop/files/28_2.jpg?v=1688447991&width=1200")
+file14 = URI.open("https://images.asics.com/is/image/asics/1183C429_100_SB_FR_GLB?qlt=80&wid=350&hei=300&bgc=255,255,255&resMode=bisharp")
 item14.photo.attach(io: file14, filename: "#{item14.name}.png", content_type: "image/png")
-item14.save
+item14.save # Casual Shoes
 
-# file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.jpg")
-# item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
-# item15.save
+file15 = URI.open("https://www.zoomshoes.in/cdn/shop/files/28_2.jpg?v=1688447991&width=1200")
+item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
+item15.save # Formal Shoes
 
-file16 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271022/logo_tee_gvnhtr.png")
-item16.photo.attach(io: file16, filename: "#{item16.name}.jpg", content_type: "image/jpeg")
-item16.save
+file16 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773291306/black_tims_kstfjp.jpg")
+item16.photo.attach(io: file16, filename: "#{item16.name}.png", content_type: "image/png")
+item16.save # Black Timberland Boots
 
-file17 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272024/white_longsleeve_vlzrbv.png")
-item17.photo.attach(io: file17, filename: "#{item17.name}.jpg", content_type: "image/jpeg")
-item17.save
+file17 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773291303/black_converse_allstars_gdni6p.jpg")
+item17.photo.attach(io: file17, filename: "#{item17.name}.png", content_type: "image/png")
+item17.save # Black Converse Allstars
 
-file18 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272012/Black_Jacket_h2a9sr.png")
+file18 = URI.open("https://www.zoomshoes.in/cdn/shop/products/8_1_926d35d2-3c0f-4370-9927-f59b03a6efe5.jpg?v=1682153369")
 item18.photo.attach(io: file18, filename: "#{item18.name}.jpg", content_type: "image/jpeg")
-item18.save
-
-file19 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125970/61XUeKFhUqL._AC_UY1000__eaguoh.jpg")
-item19.photo.attach(io: file19, filename: "#{item19.name}.jpg", content_type: "image/jpeg")
-item19.save
-
-file20 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272044/black_longsleeve_b0fzwb.png")
-item20.photo.attach(io: file20, filename: "#{item20.name}.jpg", content_type: "image/jpeg")
-item20.save
-
-# file21 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773125676/740_NAV_FRT_jh855b.jpg")
-# item21.photo.attach(io: file21, filename: "#{item21.name}.jpg", content_type: "image/jpeg")
-# item21.save
-
-# file22 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773126060/sgmsqlocr1kbkuakkltd_nd3m9a.jpg")
-# item22.photo.attach(io: file22, filename: "#{item22.name}.jpg", content_type: "image/jpeg")
-# item22.save
-
-file23 = URI.open("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80")
-item23.photo.attach(io: file23, filename: "#{item23.name}.jpg", content_type: "image/jpeg")
-item23.save # Remove bg
-
-file24 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273631/13-2-jacket-transparent_j4lvxk.png")
-item24.photo.attach(io: file24, filename: "#{item24.name}.jpg", content_type: "image/jpeg")
-item24.save
-
-file25 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273901/classic-black-leather-jacket-timeless-fashion-staple_191095-78120_qi2utq.avif")
-item25.photo.attach(io: file25, filename: "#{item25.name}.jpg", content_type: "image/jpeg")
-item25.save
-
-# file26 = URI.open("https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80")
-# item26.photo.attach(io: file26, filename: "#{item26.name}.jpg", content_type: "image/jpeg")
-# item26.save
-
-# file27 = URI.open("https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80")
-# item27.photo.attach(io: file27, filename: "#{item27.name}.jpg", content_type: "image/jpeg")
-# item27.save
-
-# file28 = URI.open("https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80")
-# item28.photo.attach(io: file28, filename: "#{item28.name}.jpg", content_type: "image/jpeg")
-# item28.save
-
-file29 = URI.open("https://www.zoomshoes.in/cdn/shop/products/8_1_926d35d2-3c0f-4370-9927-f59b03a6efe5.jpg?v=1682153369")
-item29.photo.attach(io: file29, filename: "#{item29.name}.jpg", content_type: "image/jpeg")
-item29.save
+item18.save # Black Chelsea Boots
 
 puts "#{User.count} users created"
 puts "#{Item.count} items created"
