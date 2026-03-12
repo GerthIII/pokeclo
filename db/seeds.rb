@@ -127,14 +127,14 @@ item11 = Item.new(
   status: 1
 )
 
-item12 = Item.new(
-  user: glen,
-  name: "Social Pants",
-  slot: "bottom",
-  category: "casual",
-  description: "These trousers feature a classic Glen check pattern in shades of light grey with subtle yellow or tan over-checking, offering a sophisticated, vintage-inspired aesthetic. The design is defined by a high-rise waistband that lacks belt loops, opting instead for buckled side adjusters and a long, clean extended button-tab closure for a bespoke look. Adding to the traditional silhouette are prominent double pleats at the front, which create a more voluminous, comfortable drape through the thigh before tapering down to a sharp, permanent center crease.",
-  status: 1
-)
+# item12 = Item.new(
+#   user: glen,
+#   name: "Social Pants",
+#   slot: "bottom",
+#   category: "casual",
+#   description: "These trousers feature a classic Glen check pattern in shades of light grey with subtle yellow or tan over-checking, offering a sophisticated, vintage-inspired aesthetic. The design is defined by a high-rise waistband that lacks belt loops, opting instead for buckled side adjusters and a long, clean extended button-tab closure for a bespoke look. Adding to the traditional silhouette are prominent double pleats at the front, which create a more voluminous, comfortable drape through the thigh before tapering down to a sharp, permanent center crease.",
+#   status: 1
+# )
 
 item13 = Item.new(
   user: glen,
@@ -145,23 +145,23 @@ item13 = Item.new(
   status: 1
 )
 
-item14 = Item.new(
-  user: glen,
-  name: "Formal Shoes",
-  slot: "footwear",
-  category: "formal",
-  description: "a classic, polished black leather derby shoe, blending traditional formal elements with subtle modern detailing. The shoe features an open-lacing system, which gives it a slightly more versatile profile than a standard Oxford, and is crafted from a smooth, matte-finish leather. A distinctive touch is the brogue-style perforation—specifically a decorative medallion on the rounded toe and a delicate wing pattern along the side—adding a layer of sophistication without being overly ornate. With its slim black sole, low heel, and thin waxed laces, this shoe is a refined choice for business-professional attire or semi-formal occasions.",
-  status: 1
-)
+# item14 = Item.new(
+#   user: glen,
+#   name: "Formal Shoes",
+#   slot: "footwear",
+#   category: "formal",
+#   description: "a classic, polished black leather derby shoe, blending traditional formal elements with subtle modern detailing. The shoe features an open-lacing system, which gives it a slightly more versatile profile than a standard Oxford, and is crafted from a smooth, matte-finish leather. A distinctive touch is the brogue-style perforation—specifically a decorative medallion on the rounded toe and a delicate wing pattern along the side—adding a layer of sophistication without being overly ornate. With its slim black sole, low heel, and thin waxed laces, this shoe is a refined choice for business-professional attire or semi-formal occasions.",
+#   status: 1
+# )
 
-item15 = Item.new(
-  user: glen,
-  name: "Casual Loafer",
-  slot: "footwear",
-  category: "casual",
-  description: "these Zegna penny loafers are crafted in a rich, warm tan suede that offers a soft, matte texture. The design features a classic moc-toe construction with visible tonal stitching that defines the apron, while a traditional leather saddle strap with a signature slit rests across the vamp. The interior is lined with a smooth, lighter-colored leather and showcases the ZEGNA logo embossed on the footbed. With their streamlined silhouette and lack of structured hardware, these shoes represent a sophisticated quiet luxury aesthetic, making them ideal for elevated casual or summer-business ensembles.",
-  status: 1
-)
+# item15 = Item.new(
+#   user: glen,
+#   name: "Casual Loafer",
+#   slot: "footwear",
+#   category: "casual",
+#   description: "these Zegna penny loafers are crafted in a rich, warm tan suede that offers a soft, matte texture. The design features a classic moc-toe construction with visible tonal stitching that defines the apron, while a traditional leather saddle strap with a signature slit rests across the vamp. The interior is lined with a smooth, lighter-colored leather and showcases the ZEGNA logo embossed on the footbed. With their streamlined silhouette and lack of structured hardware, these shoes represent a sophisticated quiet luxury aesthetic, making them ideal for elevated casual or summer-business ensembles.",
+#   status: 1
+# )
 item16 = Item.new(
   user: glen,
   name: "White Basic Tee",
@@ -252,41 +252,41 @@ item25 = Item.new(
   status: 1
 )
 
-item26 = Item.new(
-  user: glen,
-  name: "Nike Air Force 1 x Carhartt",
-  slot: "footwear",
-  category: "casual",
-  description: "A Nike Air Force 1 Low from the collaborative capsule with Carhartt WIP, photographed on a draped background of golden corduroy fabric. The sneaker features a tan/brown canvas upper referencing Carhartt's iconic duck canvas workwear, a tonal brown Swoosh, a Carhartt WIP logo woven patch at the heel tab with orange interior lining, bronze-tone eyelets, and a white Air unit midsole with a lightly gum-tinted outsole. A limited-edition collision of workwear heritage and sneaker culture.",
-  status: 1
-)
+# # item26 = Item.new(
+# #   user: glen,
+# #   name: "Nike Air Force 1 x Carhartt",
+# #   slot: "footwear",
+# #   category: "casual",
+# #   description: "A Nike Air Force 1 Low from the collaborative capsule with Carhartt WIP, photographed on a draped background of golden corduroy fabric. The sneaker features a tan/brown canvas upper referencing Carhartt's iconic duck canvas workwear, a tonal brown Swoosh, a Carhartt WIP logo woven patch at the heel tab with orange interior lining, bronze-tone eyelets, and a white Air unit midsole with a lightly gum-tinted outsole. A limited-edition collision of workwear heritage and sneaker culture.",
+# #   status: 1
+# # )
 
-item27 = Item.new(
-  user: glen,
-  name: "New Balance 247 Olive",
-  slot: "footwear",
-  category: "sports",
-  description: "A New Balance 247 athletic sneaker in an olive green or army surplus colorway, photographed floating against a blurred brick wall background. The upper combines a breathable mesh base with smooth synthetic leather overlays, dominated by a bold embossed black N logo on the lateral side panel. The shoe rides on a white RevLite foam midsole for cushioned everyday comfort, finished with a black rubber outsole for grip. Its modern, streamlined silhouette and muted military-inspired color make it a versatile sports-casual option.",
-  status: 1
-)
+# item27 = Item.new(
+#   user: glen,
+#   name: "New Balance 247 Olive",
+#   slot: "footwear",
+#   category: "sports",
+#   description: "A New Balance 247 athletic sneaker in an olive green or army surplus colorway, photographed floating against a blurred brick wall background. The upper combines a breathable mesh base with smooth synthetic leather overlays, dominated by a bold embossed black N logo on the lateral side panel. The shoe rides on a white RevLite foam midsole for cushioned everyday comfort, finished with a black rubber outsole for grip. Its modern, streamlined silhouette and muted military-inspired color make it a versatile sports-casual option.",
+#   status: 1
+# )
 
-item28 = Item.new(
-  user: glen,
-  name: "Cognac Leather Derbies",
-  slot: "footwear",
-  category: "formal",
-  description: "A close-up studio shot of a pair of warm cognac or tan-brown leather derby shoes, showcasing texture and craftsmanship in fine detail. The shoes feature an open lacing system with matching tan leather laces, a cap-toe construction in smooth calfskin contrasting with a pebbled grain leather vamp, a low block heel, and a structured silhouette with a rounded-almond toe. The rich chestnut coloring and fine detailing make these shoes an elegant yet approachable option for business-casual and formal occasions.",
-  status: 1
-)
+# item28 = Item.new(
+#   user: glen,
+#   name: "Cognac Leather Derbies",
+#   slot: "footwear",
+#   category: "formal",
+#   description: "A close-up studio shot of a pair of warm cognac or tan-brown leather derby shoes, showcasing texture and craftsmanship in fine detail. The shoes feature an open lacing system with matching tan leather laces, a cap-toe construction in smooth calfskin contrasting with a pebbled grain leather vamp, a low block heel, and a structured silhouette with a rounded-almond toe. The rich chestnut coloring and fine detailing make these shoes an elegant yet approachable option for business-casual and formal occasions.",
+#   status: 1
+# )
 
-item29 = Item.new(
-  user: glen,
-  name: "Black Chelsea Boots",
-  slot: "footwear",
-  category: "social",
-  description: "A pair of sleek black leather Chelsea boots photographed in a clean three-quarter studio shot against a white background. The boots are crafted from smooth, subtly pebbled full-grain black leather with a slightly matte finish. True to the Chelsea silhouette, they feature a single elasticated gusset on the side for easy on-and-off, a rear loop pull tab in coordinating black, a rounded almond toe, and a low stacked block heel. A powder-blue suede lining is visible at the collar, providing a refined contrast detail. A wardrobe essential that transitions from smart casual to semi-formal settings.",
-  status: 1
-)
+# item29 = Item.new(
+#   user: glen,
+#   name: "Black Chelsea Boots",
+#   slot: "footwear",
+#   category: "social",
+#   description: "A pair of sleek black leather Chelsea boots photographed in a clean three-quarter studio shot against a white background. The boots are crafted from smooth, subtly pebbled full-grain black leather with a slightly matte finish. True to the Chelsea silhouette, they feature a single elasticated gusset on the side for easy on-and-off, a rear loop pull tab in coordinating black, a rounded almond toe, and a low stacked block heel. A powder-blue suede lining is visible at the collar, providing a refined contrast detail. A wardrobe essential that transitions from smart casual to semi-formal settings.",
+#   status: 1
+# )
 
 # item30 = Item.new(
 #   user: glen,
@@ -341,21 +341,21 @@ file11 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272038
 item11.photo.attach(io: file11, filename: "#{item11.name}.png", content_type: "image/png")
 item11.save
 
-file12 = URI.open("https://www.bombayshirts.com/cdn/shop/files/Aurelia_800x.jpg?v=1727442801")
-item12.photo.attach(io: file12, filename: "#{item12.name}.png", content_type: "image/png")
-item12.save
+# file12 = URI.open("https://www.bombayshirts.com/cdn/shop/files/Aurelia_800x.jpg?v=1727442801")
+# item12.photo.attach(io: file12, filename: "#{item12.name}.png", content_type: "image/png")
+# item12.save
 
 file13 = URI.open("https://images.asics.com/is/image/asics/1183C429_100_SB_FR_GLB?qlt=80&wid=350&hei=300&bgc=255,255,255&resMode=bisharp")
 item13.photo.attach(io: file13, filename: "#{item13.name}.png", content_type: "image/png")
 item13.save
 
-file14 = URI.open("https://www.zoomshoes.in/cdn/shop/files/28_2.jpg?v=1688447991&width=1200")
-item14.photo.attach(io: file14, filename: "#{item14.name}.png", content_type: "image/png")
-item14.save
+# file14 = URI.open("https://www.zoomshoes.in/cdn/shop/files/28_2.jpg?v=1688447991&width=1200")
+# item14.photo.attach(io: file14, filename: "#{item14.name}.png", content_type: "image/png")
+# item14.save
 
-file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.jpg")
-item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
-item15.save
+# file15 = URI.open("https://me.zegna.com/media/catalog/product/3/3/33638817-3_1.jpg")
+# item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
+# item15.save
 
 file16 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271022/logo_tee_gvnhtr.png")
 item16.photo.attach(io: file16, filename: "#{item16.name}.jpg", content_type: "image/jpeg")
@@ -397,21 +397,21 @@ file25 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273901
 item25.photo.attach(io: file25, filename: "#{item25.name}.jpg", content_type: "image/jpeg")
 item25.save
 
-file26 = URI.open("https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80")
-item26.photo.attach(io: file26, filename: "#{item26.name}.jpg", content_type: "image/jpeg")
-item26.save
+# file26 = URI.open("https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80")
+# item26.photo.attach(io: file26, filename: "#{item26.name}.jpg", content_type: "image/jpeg")
+# item26.save
 
-file27 = URI.open("https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80")
-item27.photo.attach(io: file27, filename: "#{item27.name}.jpg", content_type: "image/jpeg")
-item27.save
+# file27 = URI.open("https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80")
+# item27.photo.attach(io: file27, filename: "#{item27.name}.jpg", content_type: "image/jpeg")
+# item27.save
 
-file28 = URI.open("https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80")
-item28.photo.attach(io: file28, filename: "#{item28.name}.jpg", content_type: "image/jpeg")
-item28.save
+# file28 = URI.open("https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=800&q=80")
+# item28.photo.attach(io: file28, filename: "#{item28.name}.jpg", content_type: "image/jpeg")
+# item28.save
 
-file29 = URI.open("https://www.zoomshoes.in/cdn/shop/products/8_1_926d35d2-3c0f-4370-9927-f59b03a6efe5.jpg?v=1682153369")
-item29.photo.attach(io: file29, filename: "#{item29.name}.jpg", content_type: "image/jpeg")
-item29.save
+# file29 = URI.open("https://www.zoomshoes.in/cdn/shop/products/8_1_926d35d2-3c0f-4370-9927-f59b03a6efe5.jpg?v=1682153369")
+# item29.photo.attach(io: file29, filename: "#{item29.name}.jpg", content_type: "image/jpeg")
+# item29.save
 
 
 # outfit = Outfit.create!(
