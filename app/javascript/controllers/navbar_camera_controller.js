@@ -10,7 +10,9 @@ export default class extends Controller {
     window.location.href = this.newItemUrlValue + "?from_camera=true"
   }
 
-  storePendingPhoto(file) {
+  async storePendingPhoto(file) {
+    const buffer = await file.arrayBuffer()
+    const record = { buffer, name: file.name, type: file.type }
     return new Promise((resolve, reject) => {
       const request = indexedDB.open("pokeclo", 1)
       request.onupgradeneeded = (e) => {
@@ -19,7 +21,7 @@ export default class extends Controller {
       request.onsuccess = (e) => {
         const db = e.target.result
         const tx = db.transaction("pending_photos", "readwrite")
-        tx.objectStore("pending_photos").put(file, "latest")
+        tx.objectStore("pending_photos").put(record, "latest")
         tx.oncomplete = resolve
         tx.onerror = reject
       }

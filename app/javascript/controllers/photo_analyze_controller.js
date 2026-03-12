@@ -130,7 +130,14 @@ export default class extends Controller {
         const db = e.target.result
         const tx = db.transaction("pending_photos", "readonly")
         const req = tx.objectStore("pending_photos").get("latest")
-        req.onsuccess = () => resolve(req.result || null)
+        req.onsuccess = () => {
+          const record = req.result
+          if (!record) return resolve(null)
+          const file = record instanceof File
+            ? record
+            : new File([record.buffer], record.name, { type: record.type })
+          resolve(file)
+        }
         req.onerror = () => resolve(null)
       }
       request.onerror = () => resolve(null)
