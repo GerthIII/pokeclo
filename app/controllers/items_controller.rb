@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     # this will authorize all of the items to be seen
-  authorize @item
+    authorize @item
   end
 
   def edit
@@ -63,7 +63,8 @@ class ItemsController < ApplicationController
         outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
         authorize outfit
         outfit.outfit_items.create!(item: @item, slot: @item.slot)
-        redirect_to edit_outfit_path(outfit, auto_ask: true), notice: "Item marked as bought! Creating outfit suggestions..."
+        redirect_to edit_outfit_path(outfit, auto_ask: true),
+                    notice: "Item marked as bought! Creating outfit suggestions..."
         return
       end
 
