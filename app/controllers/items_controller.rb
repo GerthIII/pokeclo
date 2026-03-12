@@ -93,7 +93,7 @@ class ItemsController < ApplicationController
       slot: result["slot"]
     )
     authorize item
-    item.photo.attach(params[:item][:photo])
+    item.photo.attach(photo)
     redirect_to edit_item_path(item)
   end
 
