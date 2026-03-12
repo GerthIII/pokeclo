@@ -12,16 +12,15 @@ class ItemsController < ApplicationController
   end
 
   def create
-    # @item = Item.new(item_params.except(:photo))
-    @item = Item.new(item_params)
+    @item = Item.new(item_params.except(:photo))
     @item.user = current_user
     # authorizes user to crate an item with Pundit
     authorize @item
 
-    # if params[:item][:photo].present?
-    #   # processed = BackgroundRemoverService.call(params[:item][:photo])
-    #   @item.photo.attach(params[:item][:photo])
-    # end
+    if params[:item][:photo].present?
+      processed = BackgroundRemoverService.call(params[:item][:photo])
+      @item.photo.attach(processed)
+    end
 
     if @item.save
       if params[:commit_action] == "Create Outfit"
@@ -85,8 +84,7 @@ class ItemsController < ApplicationController
   end
 
   def capture_photo
-    # photo = BackgroundRemoverService.call(params[:item][:photo])
-    photo = params[:item][:photo]
+    photo = BackgroundRemoverService.call(params[:item][:photo])
     result = ItemAnalyzerService.call(photo)
     item = current_user.items.create(
       name: result["name"],
@@ -117,8 +115,7 @@ class ItemsController < ApplicationController
   # This action analyzes the photo provided during new item creation.
   def analyze_photo
     authorize Item
-    # photo = BackgroundRemoverService.call(params[:photo])
-    photo = params[:photo]
+    photo = BackgroundRemoverService.call(params[:photo])
     result = ItemAnalyzerService.call(photo)
     render json: result
   rescue StandardError => e
