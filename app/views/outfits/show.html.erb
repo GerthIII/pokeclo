@@ -18,8 +18,7 @@
       <p class="outfit-show-title"><%= @outfit.name.capitalize.presence || "Untitled Outfit" %></p>
 
     <div class="d-flex justify-content-end mb-1">
-      <%= link_to 'edit', edit_outfit_path(@outfit),
-      data: { action: "click->edit-outfit#show"}
+      <%= link_to 'edit', edit_outfit_path(@outfit, show_name: 1),
       class: "btn btn-dark btn-sm rounded-pill fw-bold text-lowercase",
       style: "font-size: 14px;
               letter-spacing: 0.5px;

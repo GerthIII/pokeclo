@@ -24,7 +24,7 @@ class OutfitsController < ApplicationController
       build_ai_slot_metadata(@outfit)
       prefill_from_item_param
     else
-      @outfit = Outfit.create!(user: current_user, status: "draft", name: "Draft")
+      @outfit = Outfit.create!(user: current_user, status: "draft", name: "Add a Name To Your Outfit")
       if params[:item_id]
         @item = current_user.items.find(params[:item_id])
         OutfitItem.create!(item: @item, outfit: @outfit, slot: @item.slot)
@@ -65,7 +65,7 @@ class OutfitsController < ApplicationController
       elsif params[:redirect_to_edit]
         redirect_to edit_outfit_path(@outfit)
       else
-        redirect_to outfit_path(@outfit), notice: "Outfit created!"
+        redirect_to outfit_path(@outfit)
       end
     else
       @messages = @outfit.messages
@@ -107,7 +107,7 @@ class OutfitsController < ApplicationController
       elsif params[:redirect_to_edit]
         redirect_to edit_outfit_path(@outfit)
       else
-        redirect_to outfit_path(@outfit), notice: "Outfit updated!"
+        redirect_to outfit_path(@outfit)
       end
     else
       @messages = @outfit.messages

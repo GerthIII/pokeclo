@@ -15,8 +15,8 @@
     <%= hidden_field_tag :outfit_id, @outfit.id %>
 
     <div class="form-inputs">
-      <div class="form-fields">
-        <div class="item-form__field d-none">
+      <div class="form-fields" data-controller="edit-outfit">
+        <div class="item-form__field <%= 'd-none' unless params[:show_name].present? %>" data-edit-outfit-target="field">
           <%= f.input :name,
               label: "Outfit name",
               input_html: {
