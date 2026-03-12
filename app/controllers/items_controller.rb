@@ -21,6 +21,7 @@ class ItemsController < ApplicationController
       processed = BackgroundRemoverService.call(params[:item][:photo])
       @item.photo.attach(processed)
     end
+
     if @item.save
       if params[:commit_action] == "Create Outfit"
         redirect_to new_outfit_path(item_id: @item.id, auto_ask: true)
