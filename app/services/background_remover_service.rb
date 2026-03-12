@@ -29,6 +29,7 @@ class BackgroundRemoverService
     )
   rescue => e
     Rails.logger.error("BackgroundRemoverService failed: #{e.message}")
+    photo.rewind
     photo
   end
 end
