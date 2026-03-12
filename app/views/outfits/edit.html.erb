@@ -1,7 +1,7 @@
 <div class="item-form outfit-new-page"
      data-controller="ask-pokeclo"
      data-ask-pokeclo-auto-ask-value="<%= @auto_ask %>">
-  <p class="item-form__title">Edit Outfit</p>
+  <p class="item-form__title">Fitting Room</p>
 
   <%= simple_form_for @outfit,
       url: outfits_path,
@@ -16,7 +16,7 @@
 
     <div class="form-inputs">
       <div class="form-fields">
-        <div class="item-form__field">
+        <div class="item-form__field d-none">
           <%= f.input :name,
               label: "Outfit name",
               input_html: {
@@ -290,7 +290,7 @@
                  outfit: @outfit,
                  message: @message,
                  return_to: "edit",
-                 submit_label: "Ask Pokeclo ",
+                 submit_label: "Ask Pokeclo",
                  source_item_id: params[:item_id] %>
 
       <div class="container my-3 px-0">
