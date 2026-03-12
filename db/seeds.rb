@@ -79,7 +79,7 @@ file3 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273631/
 item3.photo.attach(io: file3, filename: "#{item3.name}.jpg", content_type: "image/jpeg")
 item3.save # Light Jean Jacket
 
-file4 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773273901/classic-black-leather-jacket-timeless-fashion-staple_191095-78120_qi2utq.avif")
+file4 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773312988/classic-black-leather-jacket-timeless-fashion-staple_191095-78120-Photoroom_mqq66l.png")
 item4.photo.attach(io: file4, filename: "#{item4.name}.jpg", content_type: "image/jpeg")
 item4.save # Black Leather Jacket
 
@@ -87,28 +87,28 @@ item4.save # Black Leather Jacket
 
 item5 = Item.new(
   user: glen,
-  name: "formal shirt",
+  name: "Cream Colored Shirt",
   slot: "top",
-  category: "formal",
-  description: "a long-sleeved dress shirt by Zegna, displayed flat against a neutral, light-gray gradient background. The shirt is a deep, muted charcoal or dark navy hue and features a clean, minimalist design with a hidden button placket that creates a seamless vertical line down the center. It is constructed with a structured spread collar and standard button cuffs. A small, dark brand label is visible on the inside of the collar, emphasizing the garment's high-end, tailored aesthetic.",
-  status: 2
+  category: "casual",
+  description: "This cream-colored shirt features a refined, understated aesthetic that leans into a classic old money or minimalist style. It is crafted from a textured fabric, likely a linen or cotton blend, which gives the garment a rich, tactile appearance and a structured yet breathable feel. The design includes a sharp, standard collar and a clean button-down front, accented by subtle, tonal buttons that maintain its monochromatic look. With its relaxed fit and soft, off-white hue, this piece serves as a versatile wardrobe staple perfect for elevated casual wear or smart-casual layering.",
+  status: 1
 )
 
 item6 = Item.new(
   user: glen,
-  name: "formal shirt",
+  name: "Iron Maiden Shirt",
   slot: "top",
-  category: "formal",
-  description: "a high-quality, long-sleeved button-down shirt from the luxury Italian fashion house ZEGNA, presented against a clean, neutral gray background. The shirt is a light off-white or cream color, crafted from a textured fabric—likely linen or a linen-silk blend—which gives it a sophisticated yet relaxed quiet luxury aesthetic. It features a sharp spread collar, a classic front placket with subtly shimmering buttons, and a straight hemline designed to be worn either tucked or untucked. The overall composition is minimalist and elegant, highlighting the fine craftsmanship and natural drape of the garment.",
+  category: "casual",
+  description: "A classic Iron Maiden band tee features a bold and edgy aesthetic, centered around a large, vibrant graphic of the band's iconic mascot, Eddie. The artwork is intricately detailed, showcasing the character in a menacing pose against a dark, atmospheric background that captures the essence of heavy metal culture. Set on a high-quality black cotton fabric, the shirt provides a striking contrast that makes the colorful illustration and the bands signature logo pop. The garment is designed with a traditional crew neck and a relaxed fit, giving it an authentic vintage feel that is both comfortable and stylish. This t-shirt serves as a timeless piece of music memorabilia, perfect for fans looking to showcase their appreciation for the legendary band's legacy.",
   status: 1
 )
 
 item7 = Item.new(
   user: glen,
-  name: "White Basic Tee",
+  name: "Circle Logo Tee",
   slot: "top",
   category: "casual",
-  description: "a minimalist graphic design centered on a black rectangular background. At the top, a stylized circular emblem contains an abstract, red wing-like shape that curves upward, suggesting movement or flight. Below the emblem, the word cloak is written in a clean, white sans-serif font, creating a sharp contrast that draws the eye toward the center of the frame.",
+  description: "A charcoal black graphic tee offers a modern, alternative aesthetic centered around a distinctive circular chest print. The design features a central black disc containing stylized, runic-inspired typography, surrounded by a textured, copper-colored ring that resembles aged metal or cork. Set against the faded, washed-out black fabric, the warm tones of the graphic provide a subtle yet eye-catching contrast. The shirt is constructed with a classic crew neck and a standard short-sleeve silhouette, suggesting a comfortable, everyday fit. Its minimalist approach to graphic design makes it a versatile piece that bridges the gap between band merchandise and contemporary streetwear.",
   status: 1
 )
 
@@ -124,19 +124,19 @@ item8 = Item.new(
 item9 = Item.new(
   user: glen,
   name: "Black Long-Sleeved Shirt",
-  slot: "top",
+  slot: "outer",
   category: "casual",
   description: "a solid black long-sleeved shirt laid flat against a light gray backdrop. The garment is designed with a classic crew neckline and fitted cuffs, offering a sleek and cohesive monochromatic appearance. Its deep, uniform color and simple construction make it an essential foundational piece for a modern, understated wardrobe.",
-  status: 1
+  status: 1 # Move this to outer later
 )
 
-file5 = URI.open("https://productimage.zegna.com/is/image/zegna/601954A6-9MCZRM--F?wid=2250&hei=3000")
+file5 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773311914/cream-shirt_txej8k.jpg")
 item5.photo.attach(io: file5, filename: "#{item5.name}.png", content_type: "image/png")
-item5.save # Formal Shirt (dark)
+item5.save # Cream Colored Shirt
 
-file6 = URI.open("https://productimage.zegna.com/is/image/zegna/UCX31A6-SRO3-043-F?wid=2250&hei=3000")
+file6 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773311918/iron-maiden-shirt_uzzfqg.jpg")
 item6.photo.attach(io: file6, filename: "#{item6.name}.png", content_type: "image/png")
-item6.save # Formal Shirt (white)
+item6.save # Iron Maiden Shirt
 
 file7 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773271022/logo_tee_gvnhtr.png")
 item7.photo.attach(io: file7, filename: "#{item7.name}.jpg", content_type: "image/jpeg")
@@ -148,7 +148,7 @@ item8.save # White Long-Sleeve Shirt
 
 file9 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272044/black_longsleeve_b0fzwb.png")
 item9.photo.attach(io: file9, filename: "#{item9.name}.jpg", content_type: "image/jpeg")
-item9.save # Black Long-Sleeved Shirt
+item9.save # Black Long-Sleeved Shirt. Move this to outer later.
 
 # Bottoms
 
@@ -200,7 +200,7 @@ file12 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773272038
 item12.photo.attach(io: file12, filename: "#{item12.name}.png", content_type: "image/png")
 item12.save # Jet-Black Trousers
 
-file13 = URI.open("https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80")
+file13 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773313482/wys0a5oxl8evbe82l5qulqguvpls-Photoroom_adjxmn.png")
 item13.photo.attach(io: file13, filename: "#{item13.name}.jpg", content_type: "image/jpeg")
 item13.save # Dark Indigo Raw Denim
 
@@ -259,11 +259,11 @@ file15 = URI.open("https://www.zoomshoes.in/cdn/shop/files/28_2.jpg?v=1688447991
 item15.photo.attach(io: file15, filename: "#{item15.name}.png", content_type: "image/png")
 item15.save # Formal Shoes
 
-file16 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773291306/black_tims_kstfjp.jpg")
+file16 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773312730/black_tims-Photoroom_a9nyh9.png")
 item16.photo.attach(io: file16, filename: "#{item16.name}.png", content_type: "image/png")
 item16.save # Black Timberland Boots
 
-file17 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773291303/black_converse_allstars_gdni6p.jpg")
+file17 = URI.open("https://res.cloudinary.com/dm1uny938/image/upload/v1773312734/black_converse_allstars-Photoroom_z0zwew.png")
 item17.photo.attach(io: file17, filename: "#{item17.name}.png", content_type: "image/png")
 item17.save # Black Converse Allstars
 
