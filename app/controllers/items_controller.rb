@@ -18,8 +18,8 @@ class ItemsController < ApplicationController
     authorize @item
 
     if params[:item][:photo].present?
-      processed = BackgroundRemoverService.call(params[:item][:photo])
-      @item.photo.attach(io: processed.tempfile, filename: processed.original_filename, content_type: processed.content_type)
+      # processed = BackgroundRemoverService.call(params[:item][:photo])
+      @item.photo.attach(params[:item][:photo])
     end
 
     if @item.save
@@ -79,7 +79,8 @@ class ItemsController < ApplicationController
   end
 
   def capture_photo
-    photo = BackgroundRemoverService.call(params[:item][:photo])
+    # photo = BackgroundRemoverService.call(params[:item][:photo])
+    photo = params[:item][:photo]
     result = ItemAnalyzerService.call(photo)
     item = current_user.items.create(
       name: result["name"],
@@ -110,7 +111,8 @@ class ItemsController < ApplicationController
   # This action analyzes the photo provided during new item creation.
   def analyze_photo
     authorize Item
-    photo = BackgroundRemoverService.call(params[:photo])
+    # photo = BackgroundRemoverService.call(params[:photo])
+    photo = params[:photo]
     result = ItemAnalyzerService.call(photo)
     render json: result
   rescue StandardError => e
