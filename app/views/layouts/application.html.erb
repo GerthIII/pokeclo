@@ -17,6 +17,7 @@
     <%= yield :head %>
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= favicon_link_tag "favicon.ico" %>
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -24,12 +25,24 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <%# --- これを <head> の中に追加 --- %>
+<meta property="og:title" content="Pokeclo - AI Closet Stylist">
+<meta property="og:description" content="AIがあなたのクローゼットをスタイリング。毎日のコーデ提案アプリ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="<%= request.original_url %>">
+
+<%# ここが重要！画像ファイル名を自分のものに合わせてください %>
+<meta property="og:image" content="<%= asset_url('ogp-main.png') %>">
+
+<meta name="twitter:card" content="summary_large_image">
+
   </head>
   <body>
     <%= render "shared/flashes" %>
     <% unless current_page?(root_path) || devise_controller? %>
       <header class="app-top-header">
-        <h1 class="app-top-title"> <%= link_to "Pokeclo", dashboard_path %></h1>
+        <h1 class="app-top-title"> <%= link_to "PokeClo - AI Closet Stylist and Outfit Generator", dashboard_path %></h1>
         <button class="profile-menu-button"
                 type="button"
                 data-bs-toggle="collapse"
