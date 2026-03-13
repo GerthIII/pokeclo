@@ -58,10 +58,10 @@ class MessagesController < ApplicationController
     @message.role = "user"
 
     if @message.save
-      response = ai_response
 
       begin
-        suggestions = JSON.parse(response.content.gsub(/```json\n|```/, ''))
+        response = ai_response
+        suggestions = JSON.parse(response.content)
 
         # 古いAI結果削除
         @outfit.messages.where(role: "assistant").destroy_all
@@ -84,6 +84,17 @@ class MessagesController < ApplicationController
 
         attempts += 1
         retry if attempts < 5
+
+        @outfit.messages.where(role: "assistant").destroy_all
+
+        Message.create!(
+        outfit: @outfit,
+        role: "assistant",
+        content: "Sorry, try again."
+        )
+
+        redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again!"
+        return
       end
 
       redirect_to redirect_path_for_outfit(@outfit)
@@ -143,7 +154,7 @@ class MessagesController < ApplicationController
   rescue JSON::ParserError
     @outfit.messages.create!(role: "assistant", content: "Sorry, try again.")
     redirect_to redirect_path_for_outfit(@outfit)
-  end
+    end
 
   private
 

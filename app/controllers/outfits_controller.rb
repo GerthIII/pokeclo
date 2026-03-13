@@ -126,25 +126,36 @@ class OutfitsController < ApplicationController
   end
 
   def try_on
-    @outfit = Outfit.find(params[:id])
-    authorize @outfit, :try_on?
+  @outfit = Outfit.find(params[:id])
+  authorize @outfit, :try_on?
+  attempts = 0
+
+  begin
     if current_user.profile_photo.attached?
       result_image = GeminiService.generate_try_on(
         base: current_user.profile_photo,
         items: @outfit.items.map(&:photo)
       )
-      @outfit.photo.attach(io: result_image, filename: "#{@outfit.id}.png", content_type: "image/png")
+
+      @outfit.photo.attach(
+        io: result_image,
+        filename: "#{@outfit.id}.png",
+        content_type: "image/png"
+      )
+
       redirect_to outfit_path(@outfit)
     else
       redirect_to edit_user_registration_path
     end
-  rescue
+
+  rescue StandardError => e
     attempts += 1
-    retry if attempts < 3
-    StandardError => e
+    retry if attempts < 5
+
     Rails.logger.error("Try-on generation failed: #{e.class} - #{e.message}")
-    redirect_to outfit_path(@outfit)
+    redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again."
   end
+end
 
   private
 
