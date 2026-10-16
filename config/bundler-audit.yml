@@ -1,5 +1,9 @@
 # Audit all gems listed in the Gemfile for known security problems by running bin/bundler-audit.
 # CVEs that are not relevant to the application can be enumerated on the ignore list below.
 
+# DECISION (2026-10-16): ruby_llm ReDoS advisories are fixed only in 2.0.0.rc1 (major + release candidate).
+#   Accepted temporarily to keep the AI chat/try-on stable; upgrade and remove these when ruby_llm 2.0 is final.
 ignore:
-  - CVE-THAT-DOES-NOT-APPLY
+  - CVE-2026-67987
+  - CVE-2026-67989
+  - CVE-2026-67991
