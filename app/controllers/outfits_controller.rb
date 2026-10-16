@@ -88,8 +88,7 @@ class OutfitsController < ApplicationController
   end
 
   def update
-    @outfit = current_user.outfits.find(params[:id])#v.except(:top_item_id, :bottom_item_id, :outer_item_id,
-  #:footwear_item_id))
+    @outfit = current_user.outfits.find(params[:id])
     @outfit.user = current_user
     # authorizes user to crate an item with Pundit
     authorize @outfit

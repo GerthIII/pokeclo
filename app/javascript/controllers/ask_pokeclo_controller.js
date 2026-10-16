@@ -34,7 +34,7 @@ export default class extends Controller {
   submitMessage() {
     if (!this.hasFormTarget || !this.hasContentTarget) return
     const description = this.hasDescriptionTarget ? this.descriptionTarget.value : ""
-    this.contentTarget.value = description || "Create an outift for this item I chose"
+    this.contentTarget.value = description || "Create an outfit for this item I chose"
     this.showSpinner()
     this.formTarget.requestSubmit()
   }
