@@ -7,14 +7,12 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    # authorizes user to crate an item with Pundit
     authorize @item
   end
 
   def create
     @item = Item.new(item_params.except(:photo))
     @item.user = current_user
-    # authorizes user to crate an item with Pundit
     authorize @item
 
     if params[:item][:photo].present?
@@ -34,20 +32,20 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
-    # this will authorize all of the items to be seen
+    # DECISION: Look items up inside the current user's closet only.
+    #   Chose: policy_scope(...).find, so another user's item is a 404 (does not reveal it exists).
+    #   Rejected: Item.find + 403 (confirms the ID is real; one forgotten authorize leaks data).
+    @item = policy_scope(Item).find(params[:id])
     authorize @item
   end
 
   def edit
-    @item = Item.find(params[:id])
-    # authorizes user to crate an item with Pundit
+    @item = policy_scope(Item).find(params[:id])
     authorize @item
   end
 
   def update
-    @item = Item.find(params[:id])
-    # authorizes user to crate an item with Pundit
+    @item = policy_scope(Item).find(params[:id])
     authorize @item
 
     if @item.update(item_params)
@@ -58,12 +56,12 @@ class ItemsController < ApplicationController
   end
 
   def mark_as_bought
-    @item = Item.find(params[:id])
+    @item = policy_scope(Item).find(params[:id])
     authorize @item, :update?
 
     if @item.update(status: 1)
       if ActiveModel::Type::Boolean.new.cast(params[:create_outfit_with_ai])
-        outfit = Outfit.create!(user: current_user, status: "draft", name: "Add a Name To Your Outfit")
+        outfit = current_user.outfits.create!(status: "draft", name: "Add a Name To Your Outfit")
         authorize outfit
         outfit.outfit_items.create!(item: @item, slot: @item.slot)
         redirect_to edit_outfit_path(outfit, auto_ask: true)
@@ -83,24 +81,24 @@ class ItemsController < ApplicationController
   end
 
   def capture_photo
-    photo = BackgroundRemoverService.call(params[:item][:photo])
+    # DECISION: authorize before calling the paid AI services, and save with build + save
+    #   (not create) so a bad AI result shows a message instead of crashing.
+    authorize Item, :create?
+    photo  = BackgroundRemoverService.call(params[:item][:photo])
     result = ItemAnalyzerService.call(photo)
-    item = current_user.items.create(
-      name: result["name"],
-      description: result["description"],
-      category: result["category"],
-      slot: result["slot"]
-    )
-    authorize item
+    item   = current_user.items.build(result.slice("name", "description", "category", "slot"))
     item.photo.attach(photo)
-    redirect_to edit_item_path(item)
+    if item.save
+      redirect_to edit_item_path(item)
+    else
+      redirect_to new_item_path, alert: "We couldn't read that photo. Please fill in the details."
+    end
   end
 
   # ✅ ここに独立して書く
   def add_to_outfit
     item = Item.find(params[:id])
     outfit = current_user.outfits.order(created_at: :desc).first
-    # authorizes user to crate an item with Pundit
     authorize @item
 
     if outfit.present?
