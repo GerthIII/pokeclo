@@ -1,3 +1,10 @@
+# Needed for CI: test env eager-loads (CI=1) and Solid Cable crashes without a test config.
+development:
+  adapter: async
+
+test:
+  adapter: test
+
 production:
   adapter: solid_cable
   connects_to:
