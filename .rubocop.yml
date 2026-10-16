@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   NewCops: enable
   Exclude:
@@ -8,6 +10,7 @@ AllCops:
     - 'script/**/*'
     - 'support/**/*'
     - 'tmp/**/*'
+    - 'vendor/**/*'
     - 'test/**/*'
 
 Style/ConditionalAssignment:
