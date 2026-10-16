@@ -6,4 +6,4 @@ alice_user_message:
 alice_assistant_message:
   outfit: alice_outfit
   role: assistant
-  content: '[{"slot":"top","item_id":1}]'
+  content: '[{"item_id":<%= ActiveRecord::FixtureSet.identify(:alice_top) %>,"slot":"top","item_name":"Alice''s White Tee","status":"selected","category":"casual","style_comment":"Simple and clean."}]'
