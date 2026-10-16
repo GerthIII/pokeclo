@@ -46,7 +46,7 @@ bin/rails db:create db:migrate db:seed
 bin/dev
 ```
 
-The app will be available at http://localhost:3000. The seed data creates a demo user (`glen@gmail.com` / `123123`) with a starter wardrobe.
+The app will be available at http://localhost:3000. The seed data creates a demo user (`glen@gmail.com` / `123123`) with a starter wardrobe. Seeding **deletes all existing data** first, so use it only in development (it refuses to run in production).
 
 ## Common Tasks
 
