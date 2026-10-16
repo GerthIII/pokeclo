@@ -1,3 +1,5 @@
+<%# DECISION: Only use @items/@outfits from the controller (already scoped to current_user).
+    Never query models directly here: Item.where(...) leaked every user's closet. %>
 <div class="container body-container pt-3">
   <section class="dashboard-section">
 
@@ -7,7 +9,7 @@
 
     <div class="carousel-shell">
       <div class="horizontal-scroll">
-        <% Item.where(slot: "outer").each do |item| %>
+        <% @items.where(slot: "outer").each do |item| %>
           <div class="scroll-card item-preview-card">
             <%= link_to item_path(item), class: "item-preview-link" do %>
               <div class="item-preview-cell">
@@ -25,7 +27,7 @@
 
     <div class="carousel-shell">
       <div class="horizontal-scroll">
-        <% Item.where(slot: "top").each do |item| %>
+        <% @items.where(slot: "top").each do |item| %>
           <div class="scroll-card item-preview-card">
             <%= link_to item_path(item), class: "item-preview-link" do %>
               <div class="item-preview-cell">
@@ -43,7 +45,7 @@
 
     <div class="carousel-shell">
       <div class="horizontal-scroll">
-        <% Item.where(slot: "bottom").each do |item| %>
+        <% @items.where(slot: "bottom").each do |item| %>
           <div class="scroll-card item-preview-card">
             <%= link_to item_path(item), class: "item-preview-link" do %>
               <div class="item-preview-cell">
@@ -61,7 +63,7 @@
 
     <div class="carousel-shell">
       <div class="horizontal-scroll">
-        <% Item.where(slot: "footwear").each do |item| %>
+        <% @items.where(slot: "footwear").each do |item| %>
           <div class="scroll-card item-preview-card">
             <%= link_to item_path(item), class: "item-preview-link" do %>
               <div class="item-preview-cell">
