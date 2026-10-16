@@ -1,0 +1,23 @@
+alice_top:
+  name: Alice's White Tee
+  description: A plain white t-shirt
+  category: casual
+  slot: top
+  status: 1
+  user: alice
+
+alice_bottom:
+  name: Alice's Blue Jeans
+  description: Classic blue jeans
+  category: casual
+  slot: bottom
+  status: 2
+  user: alice
+
+bob_top:
+  name: Bob's Black Tee
+  description: A plain black t-shirt
+  category: casual
+  slot: top
+  status: 1
+  user: bob

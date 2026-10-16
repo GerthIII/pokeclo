@@ -1,0 +1,9 @@
+alice_outfit:
+  name: Alice's Outfit
+  status: 0
+  user: alice
+
+bob_outfit:
+  name: Bob's Outfit
+  status: 0
+  user: bob
