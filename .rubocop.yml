@@ -10,6 +10,7 @@ AllCops:
     - 'script/**/*'
     - 'support/**/*'
     - 'tmp/**/*'
+    - 'vendor/**/*'
     - 'test/**/*'
 
 Style/ConditionalAssignment:
