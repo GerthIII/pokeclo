@@ -18,18 +18,22 @@ class ItemPolicy < ApplicationPolicy
     user.present?
   end
 
+  # DECISION: Ownership is checked here AND by the scoped lookup in the controller.
+  #   Two locks, so forgetting one does not leak another user's closet.
   def show?
-    true
+    record.user == user
   end
 
   def create?
-    true
+    user.present?
   end
 
   def update?
-  record.user == user
-  # record: the restaurant passed to the `authorize` method in controller
-  # user: the `current_user` signed in with Devise
+    record.user == user
+  end
+
+  def destroy?
+    record.user == user
   end
 
   class Scope < ApplicationPolicy::Scope
