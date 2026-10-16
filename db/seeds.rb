@@ -1,4 +1,7 @@
 require "open-uri"
+# DECISION: Seeds start with destroy_all on every table, so they must never run in production.
+#   Rejected: production demo seeds (shared demo login can be vandalised; revisit if reviewers need one).
+abort("Seeds wipe all data and are for development only.") if Rails.env.production?
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
