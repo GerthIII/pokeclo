@@ -20,6 +20,14 @@ class OutfitTest < ActiveSupport::TestCase
     assert outfits(:bob_outfit).valid?
   end
 
+  test "destroying an outfit removes its messages and outfit items" do
+    assert_difference "Message.count", -2 do
+      assert_difference "OutfitItem.count", -1 do
+        @outfit.destroy!
+      end
+    end
+  end
+
   test "outfit without a user reports the missing user instead of crashing" do
     outfit = Outfit.new(name: "x", top_item_id: items(:alice_top).id)
     assert_not outfit.valid?
