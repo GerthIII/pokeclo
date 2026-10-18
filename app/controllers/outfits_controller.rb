@@ -25,37 +25,13 @@ class OutfitsController < ApplicationController
   end
 
   def create
-    load_slot_items
-
-    # Se veio de um draft, atualiza ele em vez de criar novo
-    if params[:outfit_id].present?
-      @outfit = current_user.outfits.find(params[:outfit_id])
-      authorize @outfit
+    @outfit = draft_or_new_outfit
+    authorize @outfit
+    assign_slot_item_ids
+    if save_outfit_with_items
+      redirect_after_save(new_outfit_path(outfit_id: @outfit.id, auto_ask: true))
     else
-      @outfit = Outfit.new(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
-      @outfit.user = current_user
-      authorize @outfit
-    end
-
-    @outfit.top_item_id      = outfit_params[:top_item_id]
-    @outfit.bottom_item_id   = outfit_params[:bottom_item_id]
-    @outfit.outer_item_id    = outfit_params[:outer_item_id]
-    @outfit.footwear_item_id = outfit_params[:footwear_item_id]
-
-    if @outfit.update(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
-      @outfit.outfit_items.destroy_all
-      create_outfit_items(@outfit)
-      if params[:ask_for_advice]
-        redirect_to new_outfit_path(outfit_id: @outfit.id, auto_ask: true)
-      elsif params[:redirect_to_edit]
-        redirect_to edit_outfit_path(@outfit)
-      else
-        redirect_to outfit_path(@outfit)
-      end
-    else
-      @messages = @outfit.messages
-      @message = Message.new
-      render :new, status: :unprocessable_entity
+      render_invalid(:new)
     end
   end
 
@@ -76,10 +52,8 @@ class OutfitsController < ApplicationController
     @outfit = current_user.outfits.find(params[:id])
     authorize @outfit
     assign_slot_item_ids
-    if @outfit.update(outfit_params.except(*SLOT_PARAMS))
-      @outfit.outfit_items.destroy_all
-      create_outfit_items(@outfit)
-      redirect_after_update
+    if save_outfit_with_items
+      redirect_after_save(edit_outfit_path(@outfit, auto_ask: true))
     else
       render_invalid(:edit)
     end
@@ -128,9 +102,9 @@ class OutfitsController < ApplicationController
     SLOT_PARAMS.each { |param| @outfit.public_send("#{param}=", outfit_params[param]) }
   end
 
-  def redirect_after_update
+  def redirect_after_save(advice_path)
     if params[:ask_for_advice]
-      redirect_to edit_outfit_path(@outfit, auto_ask: true)
+      redirect_to advice_path
     elsif params[:redirect_to_edit]
       redirect_to edit_outfit_path(@outfit)
     else
@@ -138,9 +112,33 @@ class OutfitsController < ApplicationController
     end
   end
 
+  def draft_or_new_outfit
+    # Se veio de um draft, atualiza ele em vez de criar novo
+    return current_user.outfits.find(params[:outfit_id]) if params[:outfit_id].present?
+
+    Outfit.new(outfit_params.except(*SLOT_PARAMS).merge(user: current_user))
+  end
+
+  def save_outfit_with_items
+    # DECISION: Save outfit + its items all-or-nothing so a failure can't leave a half-empty outfit.
+    Outfit.transaction do
+      raise ActiveRecord::Rollback unless @outfit.update(outfit_params.except(*SLOT_PARAMS))
+
+      @outfit.outfit_items.destroy_all
+      create_outfit_items(@outfit)
+      true
+    end || false
+  rescue ActiveRecord::RecordInvalid => e
+    e.record.errors.full_messages.each { |message| @outfit.errors.add(:base, message) }
+    false
+  end
+
   def render_invalid(template)
+    load_slot_items
+    @auto_ask = params[:auto_ask].present?
     @messages = @outfit.messages
     @message = Message.new
+    build_ai_slot_metadata(@outfit)
     render template, status: :unprocessable_entity
   end
 
@@ -182,10 +180,10 @@ class OutfitsController < ApplicationController
   end
 
   def create_outfit_items(outfit)
-    outfit.outfit_items.create(item_id: outfit.top_item_id, slot: "top") if outfit.top_item_id.present?
-    outfit.outfit_items.create(item_id: outfit.bottom_item_id, slot: "bottom") if outfit.bottom_item_id.present?
-    outfit.outfit_items.create(item_id: outfit.outer_item_id, slot: "outer") if outfit.outer_item_id.present?
-    outfit.outfit_items.create(item_id: outfit.footwear_item_id, slot: "footwear") if outfit.footwear_item_id.present?
+    outfit.outfit_items.create!(item_id: outfit.top_item_id, slot: "top") if outfit.top_item_id.present?
+    outfit.outfit_items.create!(item_id: outfit.bottom_item_id, slot: "bottom") if outfit.bottom_item_id.present?
+    outfit.outfit_items.create!(item_id: outfit.outer_item_id, slot: "outer") if outfit.outer_item_id.present?
+    outfit.outfit_items.create!(item_id: outfit.footwear_item_id, slot: "footwear") if outfit.footwear_item_id.present?
   end
 
   def hydrate_slot_item_ids(outfit)

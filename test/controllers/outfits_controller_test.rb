@@ -44,6 +44,39 @@ class OutfitsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "owner cannot put another user's item into an outfit" do
+    sign_in users(:alice)
+    assert_no_difference "OutfitItem.count" do
+      patch outfit_path(@outfit), params: { outfit: { name: "Alice's Outfit", top_item_id: items(:bob_top).id } }
+    end
+    assert_response :unprocessable_entity
+    assert_equal [items(:alice_top)], @outfit.reload.items.to_a
+  end
+
+  test "owner cannot create an outfit with another user's item" do
+    sign_in users(:alice)
+    assert_no_difference ["Outfit.count", "OutfitItem.count"] do
+      post outfits_path, params: { outfit: { name: "Sneaky", top_item_id: items(:bob_top).id } }
+    end
+    assert_response :unprocessable_entity
+  end
+
+  test "owner can update an outfit with their own item" do
+    sign_in users(:alice)
+    patch outfit_path(@outfit), params: { outfit: { name: "Renamed", top_item_id: items(:alice_top).id } }
+    assert_redirected_to outfit_path(@outfit)
+    assert_equal "Renamed", @outfit.reload.name
+    assert_equal [items(:alice_top)], @outfit.items.to_a
+  end
+
+  test "owner can create an outfit with their own item" do
+    sign_in users(:alice)
+    assert_difference ["Outfit.count", "OutfitItem.count"], 1 do
+      post outfits_path, params: { outfit: { name: "Fresh", top_item_id: items(:alice_top).id } }
+    end
+    assert_redirected_to outfit_path(Outfit.find_by!(name: "Fresh"))
+  end
+
   # Without the fix this raises (the Disk service cannot build a photo URL in tests), which is how it fails.
   test "AI suggestion pointing at another user's item does not show that item's photo" do
     bob_top = items(:bob_top)
