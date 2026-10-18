@@ -2,9 +2,13 @@ class Outfit < ApplicationRecord
   attr_accessor :top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id
 
   SLOTS = ['outer', 'top', 'bottom', 'footwear']
-  has_many :outfit_items
+  # DECISION: dependent: :destroy (not :delete_all / DB cascade) so Active Storage callbacks
+  #   also remove photos from Cloudinary instead of leaving orphaned files.
+  #   Active Storage deletes files with a background job (purge_later), so this needs a job worker
+  #   running in production.
+  has_many :outfit_items, dependent: :destroy
   has_many :items, through: :outfit_items
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   has_one_attached :photo
 
