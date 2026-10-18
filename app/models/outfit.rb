@@ -12,6 +12,10 @@ class Outfit < ApplicationRecord
 
   validates :name, presence: true
 
+  # DECISION: Slot item IDs come from the form, so we check they belong to this user.
+  #   Also enforced on OutfitItem as a safety net for non-form paths (AI suggestions).
+  validate :slot_items_belong_to_user
+
   def filled_slots
     items.pluck(:slot).compact.uniq
   end
@@ -33,5 +37,16 @@ class Outfit < ApplicationRecord
 
       outfit_item.update!(slot: item_slot)
     end
+  end
+
+  private
+
+  def slot_items_belong_to_user
+    return if user.nil?
+
+    ids = [top_item_id, bottom_item_id, outer_item_id, footwear_item_id].compact_blank.map(&:to_i).uniq
+    return if ids.empty?
+
+    errors.add(:base, "Those items aren't in your closet.") if user.items.where(id: ids).count != ids.size
   end
 end
