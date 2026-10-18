@@ -1,11 +1,13 @@
 class OutfitsController < ApplicationController
+  SLOT_PARAMS = %i[top_item_id bottom_item_id outer_item_id footwear_item_id].freeze
+
   def index
     @outfits = policy_scope(Outfit)
   end
 
+  # DECISION: Same as ItemsController: policy_scope(...).find, so other users' outfits are a 404.
   def show
-    @outfit = Outfit.find(params[:id])
-    # authorizes user to crate an item with Pundit
+    @outfit = policy_scope(Outfit).find(params[:id])
     authorize @outfit
     @pending_purchase_items = @outfit.items.where(status: 2)
   end
@@ -13,30 +15,13 @@ class OutfitsController < ApplicationController
   def new
     load_slot_items
     @auto_ask = params[:auto_ask].present?
+    return create_draft_outfit if params[:outfit_id].blank?
 
-    if params[:outfit_id].present?
-      @outfit = current_user.outfits.find(params[:outfit_id])
-      @messages = @outfit.messages
-      @message = Message.new
-      authorize @outfit
-      @outfit.normalize_outfit_item_slots!
-      hydrate_slot_item_ids(@outfit)
-      build_ai_slot_metadata(@outfit)
-      prefill_from_item_param
-    else
-      @outfit = Outfit.create!(user: current_user, status: "draft", name: "Add a Name To Your Outfit")
-      if params[:item_id]
-        @item = current_user.items.find(params[:item_id])
-        OutfitItem.create!(item: @item, outfit: @outfit, slot: @item.slot)
-      end
-      authorize @outfit
-      redirect_to new_outfit_path(outfit_id: @outfit.id, item_id: params[:item_id], auto_ask: params[:auto_ask])
-      return
-    end
-
-    # authorizes user to crate an item with Pundit
+    @outfit = current_user.outfits.find(params[:outfit_id])
     authorize @outfit
-    prefill_from_item_param
+    @messages = @outfit.messages
+    @message = Message.new
+    prepare_outfit_form
   end
 
   def create
@@ -89,74 +74,93 @@ class OutfitsController < ApplicationController
 
   def update
     @outfit = current_user.outfits.find(params[:id])
-    @outfit.user = current_user
-    # authorizes user to crate an item with Pundit
     authorize @outfit
-    # assign virtual attrs so validation can read them
-    @outfit.top_item_id    = outfit_params[:top_item_id]
-    @outfit.bottom_item_id = outfit_params[:bottom_item_id]
-    @outfit.outer_item_id  = outfit_params[:outer_item_id]
-    @outfit.footwear_item_id = outfit_params[:footwear_item_id]
-
-    if @outfit.update(outfit_params.except(:top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id))
+    assign_slot_item_ids
+    if @outfit.update(outfit_params.except(*SLOT_PARAMS))
       @outfit.outfit_items.destroy_all
       create_outfit_items(@outfit)
-      if params[:ask_for_advice]
-        redirect_to edit_outfit_path(@outfit, auto_ask: true)
-      elsif params[:redirect_to_edit]
-        redirect_to edit_outfit_path(@outfit)
-      else
-        redirect_to outfit_path(@outfit)
-      end
+      redirect_after_update
     else
-      @messages = @outfit.messages
-      @message = Message.new
-      render :edit, status: :unprocessable_entity
+      render_invalid(:edit)
     end
   end
 
   def chat
-    @outfit = Outfit.find(params[:id])
+    @outfit = policy_scope(Outfit).find(params[:id])
     authorize @outfit
     @messages = @outfit.messages
-    authorize @messages
     @message = Message.new
-    authorize @message
   end
 
   def try_on
-  @outfit = Outfit.find(params[:id])
-  authorize @outfit, :try_on?
-  attempts = 0
+    @outfit = policy_scope(Outfit).find(params[:id])
+    authorize @outfit, :try_on?
+    return redirect_to edit_user_registration_path unless current_user.profile_photo.attached?
 
-  begin
-    if current_user.profile_photo.attached?
-      result_image = GeminiService.generate_try_on(
-        base: current_user.profile_photo,
-        items: @outfit.items.map(&:photo)
-      )
-
-      @outfit.photo.attach(
-        io: result_image,
-        filename: "#{@outfit.id}.png",
-        content_type: "image/png"
-      )
-
+    if attach_try_on_image
       redirect_to outfit_path(@outfit)
     else
-      redirect_to edit_user_registration_path
+      redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again."
     end
-
-  rescue StandardError => e
-    attempts += 1
-    retry if attempts < 5
-
-    Rails.logger.error("Try-on generation failed: #{e.class} - #{e.message}")
-    redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again."
   end
-end
 
   private
+
+  def create_draft_outfit
+    @outfit = current_user.outfits.create!(status: "draft", name: "Add a Name To Your Outfit")
+    if params[:item_id]
+      @item = current_user.items.find(params[:item_id])
+      OutfitItem.create!(item: @item, outfit: @outfit, slot: @item.slot)
+    end
+    authorize @outfit
+    redirect_to new_outfit_path(outfit_id: @outfit.id, item_id: params[:item_id], auto_ask: params[:auto_ask])
+  end
+
+  def prepare_outfit_form
+    @outfit.normalize_outfit_item_slots!
+    hydrate_slot_item_ids(@outfit)
+    build_ai_slot_metadata(@outfit)
+    prefill_from_item_param
+  end
+
+  # assign virtual attrs so validation can read them
+  def assign_slot_item_ids
+    SLOT_PARAMS.each { |param| @outfit.public_send("#{param}=", outfit_params[param]) }
+  end
+
+  def redirect_after_update
+    if params[:ask_for_advice]
+      redirect_to edit_outfit_path(@outfit, auto_ask: true)
+    elsif params[:redirect_to_edit]
+      redirect_to edit_outfit_path(@outfit)
+    else
+      redirect_to outfit_path(@outfit)
+    end
+  end
+
+  def render_invalid(template)
+    @messages = @outfit.messages
+    @message = Message.new
+    render template, status: :unprocessable_entity
+  end
+
+  def attach_try_on_image
+    attempts = 0
+    begin
+      generate_try_on_photo
+      true
+    rescue StandardError => e
+      attempts += 1
+      retry if attempts < 5
+      Rails.logger.error("Try-on generation failed: #{e.class} - #{e.message}")
+      false
+    end
+  end
+
+  def generate_try_on_photo
+    result = GeminiService.generate_try_on(base: current_user.profile_photo, items: @outfit.items.map(&:photo))
+    @outfit.photo.attach(io: result, filename: "#{@outfit.id}.png", content_type: "image/png")
+  end
 
   def outfit_params
     params.require(:outfit).permit(

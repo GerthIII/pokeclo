@@ -11,25 +11,27 @@ class OutfitPolicy < ApplicationPolicy
   end
 
   def chat?
-    user.present?
+    record.user == user
   end
 
   def try_on?
-    user.present?
+    record.user == user
   end
 
   def show?
-    true
+    record.user == user
   end
 
   def update?
     record.user == user
-    # record: the restaurant passed to the `authorize` method in controller
-    # user: the `current_user` signed in with Devise
   end
 
   def create?
-    true
+    user.present?
+  end
+
+  def destroy?
+    record.user == user
   end
 
   class Scope < ApplicationPolicy::Scope
