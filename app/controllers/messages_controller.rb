@@ -51,112 +51,104 @@ class MessagesController < ApplicationController
   # The crisp white of the shoes "sandwiches" the outfit, pulling the cream/white from the top down to the feet.
   # This prevents the outfit from feeling "bottom-heavy" with all-black pants.
 
+  # DECISION: Load the outfit once, scoped to the current user, for every action.
+  #   Chose: before_action, so new actions are protected by default.
+  #   Rejected: Outfit.find in each action (that's how the original cross-user hole happened).
+  before_action :set_outfit
+
   def create
-    @outfit = Outfit.find(params[:outfit_id])
     @message = @outfit.messages.build(message_params)
     authorize @message
     @message.role = "user"
+    return render outfits_path, status: :unprocessable_entity unless @message.save
 
-    if @message.save
-
-      begin
-        response = ai_response
-        suggestions = JSON.parse(response.content)
-
-        # 古いAI結果削除
-        @outfit.messages.where(role: "assistant").destroy_all
-
-        # 新しいAI結果保存
-        @outfit.messages.create!(
-          role: "assistant",
-          content: suggestions.to_json
-        )
-
-        apply_suggestions_to_outfit!(suggestions)
-      rescue JSON::ParserError
-        @outfit.messages.where(role: "assistant").destroy_all
-
-        Message.create!(
-          outfit: @outfit,
-          role: "assistant",
-          content: "Sorry, try again."
-        )
-
-        attempts += 1
-        retry if attempts < 5
-
-        @outfit.messages.where(role: "assistant").destroy_all
-
-        Message.create!(
-        outfit: @outfit,
-        role: "assistant",
-        content: "Sorry, try again."
-        )
-
-        redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again!"
-        return
-      end
-
+    if suggestions_applied?
       redirect_to redirect_path_for_outfit(@outfit)
     else
-      render outfits_path, status: :unprocessable_entity
+      redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again!"
     end
   end
 
   def confirm
-    @outfit = Outfit.find(params[:outfit_id])
     @message = @outfit.messages.find(params[:id])
     authorize @message
-    suggestions = JSON.parse(@message.content)
-    apply_suggestions_to_outfit!(suggestions)
+    apply_suggestions_to_outfit!(JSON.parse(@message.content))
     redirect_to edit_outfit_path(@outfit)
   rescue JSON::ParserError
     redirect_to new_outfit_path(@outfit)
   end
 
   def change_slot
-    @outfit = Outfit.find(params[:outfit_id])
     @message = @outfit.messages.find(params[:id])
     authorize @message, :confirm?
+    return redirect_to edit_outfit_path(@outfit) unless prepare_slot_change
 
-    slot = params[:slot].to_s
-    if slot.blank? || !Outfit::SLOTS.include?(slot)
-      redirect_to edit_outfit_path(@outfit)
-      return
-    end
-
-    current_item_id = params[:current_item_id].presence&.to_i
-    candidate_scope = Item.where(user_id: current_user.id, slot: slot)
-    candidate_scope = candidate_scope.where.not(id: current_item_id) if current_item_id.present?
-    if candidate_scope.none?
-      redirect_to edit_outfit_path(@outfit)
-      return
-    end
-
-    @forced_candidate_slots = [slot]
-    @excluded_item_ids = [current_item_id].compact
-
-    prompt = "Regenerate this outfit by changing only the #{slot} slot. " \
-             "Treat #{slot} as the only missing slot and keep all other slots exactly as they are. " \
-             "Do not use item_id #{current_item_id} for #{slot}."
-
-    user_message = @outfit.messages.build(role: "user", content: prompt)
-    if user_message.save
-      @message = user_message
-      response = ai_response
-      suggestions = JSON.parse(response.content)
-      @outfit.messages.create!(role: "assistant", content: suggestions.to_json)
-      apply_suggestions_to_outfit!(suggestions)
-      redirect_to redirect_path_for_outfit(@outfit)
-    else
-      redirect_to redirect_path_for_outfit(@outfit)
-    end
+    regenerate_slot
   rescue JSON::ParserError
     @outfit.messages.create!(role: "assistant", content: "Sorry, try again.")
     redirect_to redirect_path_for_outfit(@outfit)
-    end
+  end
 
   private
+
+  def set_outfit
+    @outfit = policy_scope(Outfit).find(params[:outfit_id])
+  end
+
+  def suggestions_applied?
+    attempts = 0
+    begin
+      fetch_and_apply_suggestions
+      true
+    rescue JSON::ParserError
+      replace_assistant_message("Sorry, try again.")
+      attempts += 1
+      retry if attempts < 5
+      false
+    end
+  end
+
+  def fetch_and_apply_suggestions
+    suggestions = JSON.parse(ai_response.content)
+    replace_assistant_message(suggestions.to_json)
+    apply_suggestions_to_outfit!(suggestions)
+  end
+
+  def replace_assistant_message(content)
+    @outfit.messages.where(role: "assistant").destroy_all
+    @outfit.messages.create!(role: "assistant", content: content)
+  end
+
+  def prepare_slot_change
+    slot = params[:slot].to_s
+    return false unless Outfit::SLOTS.include?(slot)
+
+    current_item_id = params[:current_item_id].presence&.to_i
+    candidates = current_user.items.where(slot: slot)
+    candidates = candidates.where.not(id: current_item_id) if current_item_id.present?
+    return false if candidates.none?
+
+    @forced_candidate_slots = [slot]
+    @excluded_item_ids = [current_item_id].compact
+  end
+
+  def regenerate_slot
+    user_message = @outfit.messages.build(role: "user", content: slot_change_prompt)
+    return redirect_to(redirect_path_for_outfit(@outfit)) unless user_message.save
+
+    @message = user_message
+    suggestions = JSON.parse(ai_response.content)
+    @outfit.messages.create!(role: "assistant", content: suggestions.to_json)
+    apply_suggestions_to_outfit!(suggestions)
+    redirect_to redirect_path_for_outfit(@outfit)
+  end
+
+  def slot_change_prompt
+    slot = @forced_candidate_slots.first
+    "Regenerate this outfit by changing only the #{slot} slot. " \
+      "Treat #{slot} as the only missing slot and keep all other slots exactly as they are. " \
+      "Do not use item_id #{@excluded_item_ids.first} for #{slot}."
+  end
 
   # currently the ai doesn't have ids for the items you selected at the start. For now its ok but later we may need to add that.
   def ai_response

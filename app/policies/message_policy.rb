@@ -5,29 +5,19 @@ class MessagePolicy < ApplicationPolicy
   # code, beware of possible changes to the ancestors:
   # https://gist.github.com/Burgestrand/4b4bc22f31c8a95c425fc0e30d7ef1f5
 
-  def chat?
-    user.present?
-  end
-
+  # DECISION: Messages have no user_id; ownership is checked through their outfit.
+  #   Rejected: adding user_id (migration + duplicate data the outfit already has).
   def confirm?
-    user.present?
-  end
-
-  def ai_response?
-    user.present?
+    record.outfit.user == user
   end
 
   def create?
-    true
+    record.outfit.user == user
   end
 
   class Scope < ApplicationPolicy::Scope
-    # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
-     def resolve
-      scope.where(user: user)
+    def resolve
+      scope.joins(:outfit).where(outfits: { user_id: user.id })
     end
   end
 end

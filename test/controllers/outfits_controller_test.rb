@@ -43,4 +43,20 @@ class OutfitsControllerTest < ActionDispatch::IntegrationTest
     get outfit_path(@outfit)
     assert_response :success
   end
+
+  # Without the fix this raises (the Disk service cannot build a photo URL in tests), which is how it fails.
+  test "AI suggestion pointing at another user's item does not show that item's photo" do
+    bob_top = items(:bob_top)
+    bob_top.photo.attach(io: StringIO.new("img"), filename: "bob.png", content_type: "image/png")
+    messages(:alice_assistant_message).update!(
+      content: [{ item_id: bob_top.id, slot: "top", item_name: "Mystery" }].to_json
+    )
+    sign_in users(:alice)
+    get edit_outfit_path(@outfit)
+    assert_response :success
+    assert_includes response.body, "Mystery"
+    assert_not_includes response.body, "bob.png"
+    assert_not_includes response.body, "Bob's Black Tee"
+    assert_no_match(/<img[^>]*width="80"/, response.body)
+  end
 end

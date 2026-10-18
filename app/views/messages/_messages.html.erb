@@ -12,7 +12,7 @@
         <% begin %>
           <% suggestions = JSON.parse(message.content) %>
           <% suggestions.each do |s| %>
-            <% item = Item.find_by(id: s['item_id']) %>
+            <% item = current_user.items.find_by(id: s['item_id']) %>
             <div class="d-flex align-items-center mb-2">
               <% if item&.photo&.attached? %>
                 <% url = item.photo.url(transformation: { width: 80, height: 80, crop: :fill }) %>
