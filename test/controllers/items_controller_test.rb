@@ -26,6 +26,38 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "mark as bought with create_outfit_with_ai makes a draft outfit holding the item" do
+    sign_in users(:alice)
+    item = items(:alice_bottom)
+    assert_difference "Outfit.count", 1 do
+      patch mark_as_bought_item_path(item), params: { create_outfit_with_ai: true }
+    end
+    outfit = Outfit.order(:id).last
+    assert_redirected_to edit_outfit_path(outfit, auto_ask: true)
+    assert item.reload.owned?
+    assert outfit.draft?
+    assert_equal users(:alice), outfit.user
+    assert_equal [item], outfit.items.to_a
+  end
+
+  test "mark as bought without the param redirects to the item and makes no outfit" do
+    sign_in users(:alice)
+    item = items(:alice_bottom)
+    assert_no_difference "Outfit.count" do
+      patch mark_as_bought_item_path(item)
+    end
+    assert_redirected_to item_path(item)
+    assert item.reload.owned?
+  end
+
+  test "mark as bought as JSON returns the new status" do
+    sign_in users(:alice)
+    item = items(:alice_bottom)
+    patch mark_as_bought_item_path(item), as: :json
+    assert_response :ok
+    assert_equal({ "id" => item.id, "status" => "owned" }, response.parsed_body)
+  end
+
   test "owner can view their item" do
     sign_in users(:alice)
     get item_path(items(:alice_top))

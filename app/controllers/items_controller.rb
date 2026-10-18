@@ -58,25 +58,12 @@ class ItemsController < ApplicationController
   def mark_as_bought
     @item = policy_scope(Item).find(params[:id])
     authorize @item, :update?
+    return render_not_bought unless mark_item_owned
+    return redirect_to edit_outfit_path(@outfit, auto_ask: true) if @outfit
 
-    if @item.update(status: :owned)
-      if ActiveModel::Type::Boolean.new.cast(params[:create_outfit_with_ai])
-        outfit = current_user.outfits.create!(status: :draft, name: "Add a Name To Your Outfit")
-        authorize outfit
-        outfit.outfit_items.create!(item: @item, slot: @item.slot)
-        redirect_to edit_outfit_path(outfit, auto_ask: true)
-        return
-      end
-
-      respond_to do |format|
-        format.html { redirect_to item_path(@item) }
-        format.json { render json: { id: @item.id, status: @item.status }, status: :ok }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to item_path(@item) }
-        format.json { render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity }
-      end
+    respond_to do |format|
+      format.html { redirect_to item_path(@item) }
+      format.json { render json: { id: @item.id, status: @item.status }, status: :ok }
     end
   end
 
@@ -93,6 +80,32 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def mark_item_owned
+    ActiveRecord::Base.transaction do
+      next false unless @item.update(status: :owned)
+
+      @outfit = create_outfit_from_bought_item if ActiveModel::Type::Boolean.new.cast(params[:create_outfit_with_ai])
+      true
+    end
+  end
+
+  def render_not_bought
+    respond_to do |format|
+      format.html { redirect_to item_path(@item) }
+      format.json { render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity }
+    end
+  end
+
+  # DECISION: Authorize before creating, against :create? (the old `authorize outfit` looked for a
+  #   mark_as_bought? policy method that never existed, so this path was always a 500).
+  #   One transaction so a failure can't leave the item bought with an empty draft outfit.
+  def create_outfit_from_bought_item
+    authorize Outfit, :create?
+    outfit = current_user.outfits.create!(status: :draft, name: "Add a Name To Your Outfit")
+    outfit.outfit_items.create!(item: @item, slot: @item.slot)
+    outfit
+  end
 
   def item_params
     params.require(:item).permit(:name, :description, :photo, :category, :slot, :status, :commit_action)
