@@ -1,4 +1,13 @@
 class OutfitsController < ApplicationController
+  # DECISION: Try-on costs money per call. POST only, at most 2 attempts, and only on network/API errors.
+  #   Rejected: background job (better, but a much bigger change for now); sleep between retries (blocks a web thread).
+  TRY_ON_ATTEMPTS = 2
+  # Same errors ruby_llm treats as transient. Not RubyLLM::Error as a whole: it includes
+  # BadRequest/Unauthorized/PaymentRequired/Forbidden, which never succeed on retry.
+  RETRYABLE_AI_ERRORS = [
+    RubyLLM::RateLimitError, RubyLLM::ServerError, RubyLLM::ServiceUnavailableError, RubyLLM::OverloadedError,
+    Faraday::TimeoutError, Faraday::ConnectionFailed
+  ].freeze
   SLOT_PARAMS = %i[top_item_id bottom_item_id outer_item_id footwear_item_id].freeze
 
   def index
@@ -69,16 +78,20 @@ class OutfitsController < ApplicationController
   def try_on
     @outfit = policy_scope(Outfit).find(params[:id])
     authorize @outfit, :try_on?
-    return redirect_to edit_user_registration_path unless current_user.profile_photo.attached?
+    return no_profile_photo unless current_user.profile_photo.attached?
 
     if attach_try_on_image
-      redirect_to outfit_path(@outfit)
+      redirect_to outfit_path(@outfit), status: :see_other
     else
-      redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again."
+      redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again.", status: :see_other
     end
   end
 
   private
+
+  def no_profile_photo
+    redirect_to edit_user_registration_path, alert: "Add a profile photo to try outfits on.", status: :see_other
+  end
 
   def create_draft_outfit
     @outfit = current_user.outfits.create!(status: "draft", name: "Add a Name To Your Outfit")
@@ -142,17 +155,20 @@ class OutfitsController < ApplicationController
     render template, status: :unprocessable_entity
   end
 
-  def attach_try_on_image
-    attempts = 0
-    begin
-      generate_try_on_photo
-      true
-    rescue StandardError => e
-      attempts += 1
-      retry if attempts < 5
-      Rails.logger.error("Try-on generation failed: #{e.class} - #{e.message}")
-      false
-    end
+  def attach_try_on_image(attempt = 1)
+    generate_try_on_photo
+    true
+  rescue *RETRYABLE_AI_ERRORS => e
+    return attach_try_on_image(attempt + 1) if attempt < TRY_ON_ATTEMPTS
+
+    log_try_on_failure(e)
+  rescue StandardError => e
+    log_try_on_failure(e)
+  end
+
+  def log_try_on_failure(error)
+    Rails.logger.error("Try-on generation failed: #{error.class} - #{error.message}")
+    nil
   end
 
   def generate_try_on_photo

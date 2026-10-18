@@ -34,10 +34,11 @@
 <article class="outfit-show-card-minimal pt-0" data-controller="try-on-loading">
 <p class="outfit-show-description mb-3 mx-3">Use Pokeclo AI to see how you would look in this outfit!</p>
 <div class="container d-flex px-3 gap-4 justify-content-between" data-try-on-loading-target="actions">
-  <%= link_to "Try on!",
+  <%= button_to "Try on!",
               try_on_outfit_path(@outfit),
               class: "main-button main-button--cta",
-              data: { action: "click->try-on-loading#start", try_on_loading_target: "button", skip_purchase_prompt: true } %>
+              form: { data: { action: "submit->try-on-loading#start" } },
+              data: { try_on_loading_target: "button" } %>
   <% if @outfit.photo.attached?  %>
     <button type="button" class="main-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Show Me in This Outfit

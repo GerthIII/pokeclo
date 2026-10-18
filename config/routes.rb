@@ -22,7 +22,8 @@ end
   resources :outfits do
     member do
       patch :generate
-      get :try_on
+      # DECISION: POST, not GET. GETs can be fired by prefetching/crawlers and must not spend money or write data.
+      post :try_on
       get :chat # Creates /outfits/:id/generate
     end
     resources :messages, only: [:new, :create] do

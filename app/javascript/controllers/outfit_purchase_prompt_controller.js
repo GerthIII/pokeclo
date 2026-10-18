@@ -169,8 +169,8 @@ export default class extends Controller {
     const url = this.normalizeUrl(urlLike);
     if (!url) return false;
 
-    // Don't block try-on navigation with the purchase offcanvas prompt.
-    return /\/outfits\/[^/]+\/try_on$/.test(url.pathname);
+    // Returning to the page you're already on (e.g. the redirect after try-on) isn't leaving it.
+    return url.pathname === window.location.pathname;
   }
 
   normalizeUrl(urlLike) {
