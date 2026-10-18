@@ -46,4 +46,34 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal({ "error" => "Could not analyze photo" }, response.parsed_body)
     assert_not_includes response.body, "secret internal detail"
   end
+
+  test "creating an item with status owned" do
+    sign_in users(:alice)
+    assert_difference "Item.count", 1 do
+      post items_path, params: { item: item_attrs.merge(status: "owned") }
+    end
+    assert Item.order(:id).last.owned?
+  end
+
+  test "creating an item with status wishlist" do
+    sign_in users(:alice)
+    assert_difference "Item.count", 1 do
+      post items_path, params: { item: item_attrs.merge(status: "wishlist") }
+    end
+    assert Item.order(:id).last.wishlist?
+  end
+
+  test "updating an item with a bogus status is a 422 and changes nothing" do
+    sign_in users(:alice)
+    item = items(:alice_top)
+    patch item_path(item), params: { item: { status: "bogus" } }
+    assert_response :unprocessable_entity
+    assert item.reload.owned?
+  end
+
+  private
+
+  def item_attrs
+    { name: "Hat", description: "A hat", category: "casual", slot: "top" }
+  end
 end

@@ -11,11 +11,13 @@ class Item < ApplicationRecord
   validates :slot, presence: true
   SLOT = ['outer', 'top', 'bottom', 'footwear']
   CATEGORY = ['sports', 'casual', 'formal', 'outdoor']
-  # validates :status, presence: true
+  # DECISION: Named enum over raw integers. Numbers unchanged (1 = owned, 2 = wishlist), so no migration.
+  #   validate: true turns a bad value into a form error instead of a 500.
+  enum :status, { owned: 1, wishlist: 2 }, validate: true
 
   private
 
   def set_default_status
-    self.status ||= 2
+    self.status ||= :wishlist
   end
 end

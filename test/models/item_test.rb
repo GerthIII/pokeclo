@@ -1,7 +1,20 @@
 require "test_helper"
 
 class ItemTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "a new item defaults to wishlist" do
+    item = users(:alice).items.build(name: "x", description: "x", category: "casual", slot: "top")
+    item.valid?
+    assert item.wishlist?
+  end
+
+  test "an invalid status is invalid, not an exception" do
+    item = Item.new(status: "bogus")
+    assert_not item.valid?
+    assert item.errors.key?(:status)
+  end
+
+  test "fixture statuses map to enum names" do
+    assert items(:alice_top).owned?
+    assert items(:alice_bottom).wishlist?
+  end
 end

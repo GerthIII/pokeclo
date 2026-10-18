@@ -9,6 +9,9 @@ class Outfit < ApplicationRecord
   has_many :outfit_items, dependent: :destroy
   has_many :items, through: :outfit_items
   has_many :messages, dependent: :destroy
+  # Existing rows are 0 (the old code wrote "draft" into this integer column). Nothing sets :saved yet.
+  # allow_nil: outfits created from the form have no status yet.
+  enum :status, { draft: 0, saved: 1 }, validate: { allow_nil: true }
 
   has_one_attached :photo
 

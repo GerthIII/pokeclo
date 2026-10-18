@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   def index
     @items = policy_scope(Item)
-    @owned_items = @items.where(status: 1)
-    @not_bought_items = @items.where(status: 2)
+    @owned_items = @items.owned
+    @not_bought_items = @items.wishlist
   end
 
   def new
@@ -59,9 +59,9 @@ class ItemsController < ApplicationController
     @item = policy_scope(Item).find(params[:id])
     authorize @item, :update?
 
-    if @item.update(status: 1)
+    if @item.update(status: :owned)
       if ActiveModel::Type::Boolean.new.cast(params[:create_outfit_with_ai])
-        outfit = current_user.outfits.create!(status: "draft", name: "Add a Name To Your Outfit")
+        outfit = current_user.outfits.create!(status: :draft, name: "Add a Name To Your Outfit")
         authorize outfit
         outfit.outfit_items.create!(item: @item, slot: @item.slot)
         redirect_to edit_outfit_path(outfit, auto_ask: true)
