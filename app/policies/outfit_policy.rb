@@ -10,10 +10,6 @@ class OutfitPolicy < ApplicationPolicy
     user.present?
   end
 
-  def chat?
-    record.user == user
-  end
-
   def try_on?
     record.user == user
   end

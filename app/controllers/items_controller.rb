@@ -80,43 +80,16 @@ class ItemsController < ApplicationController
     end
   end
 
-  def capture_photo
-    # DECISION: authorize before calling the paid AI services, and save with build + save
-    #   (not create) so a bad AI result shows a message instead of crashing.
-    authorize Item, :create?
-    photo  = BackgroundRemoverService.call(params[:item][:photo])
-    result = ItemAnalyzerService.call(photo)
-    item   = current_user.items.build(result.slice("name", "description", "category", "slot"))
-    item.photo.attach(photo)
-    if item.save
-      redirect_to edit_item_path(item)
-    else
-      redirect_to new_item_path, alert: "We couldn't read that photo. Please fill in the details."
-    end
-  end
-
-  # ✅ ここに独立して書く
-  def add_to_outfit
-    item = Item.find(params[:id])
-    outfit = current_user.outfits.order(created_at: :desc).first
-    authorize @item
-
-    if outfit.present?
-      outfit.jackets.attach(item.photo.blob)
-      redirect_to edit_outfit_path(outfit)
-    else
-      redirect_to new_outfit_path
-    end
-  end
-
   # This action analyzes the photo provided during new item creation.
   def analyze_photo
     authorize Item
     photo = BackgroundRemoverService.call(params[:photo])
     result = ItemAnalyzerService.call(photo)
     render json: result
+  # DECISION: Log the real error; send the browser a generic message (internal details can leak secrets or stack info).
   rescue StandardError => e
-    render json: { error: e.message }, status: :unprocessable_entity
+    Rails.logger.error("Photo analysis failed: #{e.class} - #{e.message}")
+    render json: { error: "Could not analyze photo" }, status: :unprocessable_entity
   end
 
   private
