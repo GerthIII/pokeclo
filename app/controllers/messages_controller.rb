@@ -51,6 +51,10 @@ class MessagesController < ApplicationController
   # The crisp white of the shoes "sandwiches" the outfit, pulling the cream/white from the top down to the feet.
   # This prevents the outfit from feeling "bottom-heavy" with all-black pants.
 
+  # DECISION: The LLM sometimes replies with non-JSON. Retry up to 3 total attempts, then show one error.
+  #   Rejected: 5 attempts (slow + costly during an outage); no retry (users see avoidable failures).
+  AI_ATTEMPTS = 3
+
   # DECISION: Load the outfit once, scoped to the current user, for every action.
   #   Chose: before_action, so new actions are protected by default.
   #   Rejected: Outfit.find in each action (that's how the original cross-user hole happened).
@@ -60,13 +64,9 @@ class MessagesController < ApplicationController
     @message = @outfit.messages.build(message_params)
     authorize @message
     @message.role = "user"
-    return render outfits_path, status: :unprocessable_entity unless @message.save
+    return redirect_to redirect_path_for_outfit(@outfit), alert: "Message can't be blank." unless @message.save
 
-    if suggestions_applied?
-      redirect_to redirect_path_for_outfit(@outfit)
-    else
-      redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again!"
-    end
+    finish_chat(fetch_suggestions)
   end
 
   def confirm
@@ -75,7 +75,7 @@ class MessagesController < ApplicationController
     apply_suggestions_to_outfit!(JSON.parse(@message.content))
     redirect_to edit_outfit_path(@outfit)
   rescue JSON::ParserError
-    redirect_to new_outfit_path(@outfit)
+    redirect_to edit_outfit_path(@outfit)
   end
 
   def change_slot
@@ -84,9 +84,6 @@ class MessagesController < ApplicationController
     return redirect_to edit_outfit_path(@outfit) unless prepare_slot_change
 
     regenerate_slot
-  rescue JSON::ParserError
-    @outfit.messages.create!(role: "assistant", content: "Sorry, try again.")
-    redirect_to redirect_path_for_outfit(@outfit)
   end
 
   private
@@ -95,28 +92,31 @@ class MessagesController < ApplicationController
     @outfit = policy_scope(Outfit).find(params[:outfit_id])
   end
 
-  def suggestions_applied?
-    attempts = 0
-    begin
-      fetch_and_apply_suggestions
-      true
-    rescue JSON::ParserError
+  def finish_chat(suggestions)
+    if suggestions
+      replace_assistant_message(suggestions)
+      apply_suggestions_to_outfit!(suggestions)
+      redirect_to redirect_path_for_outfit(@outfit)
+    else
       replace_assistant_message("Sorry, try again.")
-      attempts += 1
-      retry if attempts < 5
-      false
+      redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again!"
     end
   end
 
-  def fetch_and_apply_suggestions
-    suggestions = JSON.parse(ai_response.content)
-    replace_assistant_message(suggestions.to_json)
-    apply_suggestions_to_outfit!(suggestions)
+  # Returns the parsed suggestions Array, or nil after AI_ATTEMPTS bad replies. Saves nothing.
+  def fetch_suggestions
+    AI_ATTEMPTS.times do
+      parsed = JSON.parse(ai_response.content)
+      return parsed if parsed.is_a?(Array)
+    rescue JSON::ParserError
+      next
+    end
+    nil
   end
 
   def replace_assistant_message(content)
     @outfit.messages.where(role: "assistant").destroy_all
-    @outfit.messages.create!(role: "assistant", content: content)
+    @outfit.messages.create!(role: "assistant", content: content.is_a?(String) ? content : content.to_json)
   end
 
   def prepare_slot_change
@@ -137,9 +137,13 @@ class MessagesController < ApplicationController
     return redirect_to(redirect_path_for_outfit(@outfit)) unless user_message.save
 
     @message = user_message
-    suggestions = JSON.parse(ai_response.content)
-    @outfit.messages.create!(role: "assistant", content: suggestions.to_json)
-    apply_suggestions_to_outfit!(suggestions)
+    suggestions = fetch_suggestions
+    if suggestions
+      @outfit.messages.create!(role: "assistant", content: suggestions.to_json)
+      apply_suggestions_to_outfit!(suggestions)
+    else
+      @outfit.messages.create!(role: "assistant", content: "Sorry, try again.")
+    end
     redirect_to redirect_path_for_outfit(@outfit)
   end
 
