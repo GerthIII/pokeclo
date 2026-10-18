@@ -1,7 +1,12 @@
 require "test_helper"
 
 class OutfitsControllerTest < ActionDispatch::IntegrationTest
-  setup { @outfit = outfits(:alice_outfit) }
+  setup do
+    @outfit = outfits(:alice_outfit)
+    users(:alice).profile_photo.attach(
+      io: File.open(file_fixture("profile.png")), filename: "profile.png", content_type: "image/png"
+    )
+  end
 
   test "another user's outfit show is a 404" do
     sign_in users(:bob)
@@ -33,9 +38,57 @@ class OutfitsControllerTest < ActionDispatch::IntegrationTest
   test "another user's outfit cannot be tried on" do
     sign_in users(:bob)
     assert_no_changes -> { @outfit.reload.photo.attached? } do
-      get try_on_outfit_path(@outfit)
+      post try_on_outfit_path(@outfit)
     end
     assert_response :not_found
+  end
+
+  test "try_on no longer routes for GET" do
+    sign_in users(:alice)
+    get "/outfits/#{@outfit.id}/try_on"
+    assert_response :not_found
+  end
+
+  test "try_on without a profile photo redirects with an alert" do
+    users(:alice).profile_photo.purge
+    sign_in users(:alice)
+    post try_on_outfit_path(@outfit)
+    assert_response :see_other
+    assert_redirected_to edit_user_registration_path
+    assert_equal "Add a profile photo to try outfits on.", flash[:alert]
+  end
+
+  test "try_on attaches the photo and redirects with 303" do
+    sign_in users(:alice)
+    GeminiService.stub(:generate_try_on, ->(**) { StringIO.new("img") }) do
+      post try_on_outfit_path(@outfit)
+    end
+    assert_response :see_other
+    assert_redirected_to outfit_path(@outfit)
+    assert @outfit.reload.photo.attached?
+  end
+
+  test "try_on retries a retryable error once, then redirects with an alert" do
+    sign_in users(:alice)
+    calls = 0
+    GeminiService.stub(:generate_try_on, ->(**) { calls += 1; raise RubyLLM::ServerError.new(nil, "boom") }) do
+      post try_on_outfit_path(@outfit)
+    end
+    assert_equal 2, calls
+    assert_response :see_other
+    assert_redirected_to outfit_path(@outfit)
+    assert_equal "OOPS, something went wrong. Please try again.", flash[:alert]
+  end
+
+  test "try_on does not retry other errors" do
+    sign_in users(:alice)
+    calls = 0
+    GeminiService.stub(:generate_try_on, ->(**) { calls += 1; raise ArgumentError }) do
+      post try_on_outfit_path(@outfit)
+    end
+    assert_equal 1, calls
+    assert_redirected_to outfit_path(@outfit)
+    assert_equal "OOPS, something went wrong. Please try again.", flash[:alert]
   end
 
   test "owner can view their outfit" do
