@@ -10,35 +10,26 @@ Rails.application.routes.draw do
   get :dashboard, to: "users#dashboard", as: :dashboard # Creates /users/:id/dashboard
 
   resources :items do
-  post :capture_photo, on: :collection
-  post :add_to_outfit, on: :member
-  patch :mark_as_bought, on: :member
-  # creates a global action so the photo doesn't need a specific id. AI can see photo before it's saved.
-  collection do
-    post :analyze_photo
+    patch :mark_as_bought, on: :member
+    # creates a global action so the photo doesn't need a specific id. AI can see photo before it's saved.
+    collection do
+      post :analyze_photo
+    end
   end
-end
 
   resources :outfits do
     member do
-      patch :generate
       # DECISION: POST, not GET. GETs can be fired by prefetching/crawlers and must not spend money or write data.
       post :try_on
-      get :chat # Creates /outfits/:id/generate
     end
-    resources :messages, only: [:new, :create] do
+    resources :messages, only: [:create] do
       member do
         post :confirm
         post :change_slot
       end
     end
-    resources :outfit_items, only: [:create, :update]
   end
 
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
   # root "posts#index"

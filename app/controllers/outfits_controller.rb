@@ -68,13 +68,6 @@ class OutfitsController < ApplicationController
     end
   end
 
-  def chat
-    @outfit = policy_scope(Outfit).find(params[:id])
-    authorize @outfit
-    @messages = @outfit.messages
-    @message = Message.new
-  end
-
   def try_on
     @outfit = policy_scope(Outfit).find(params[:id])
     authorize @outfit, :try_on?
@@ -222,10 +215,6 @@ class OutfitsController < ApplicationController
     when "outer" then @outfit.outer_item_id = item.id
     when "footwear" then @outfit.footwear_item_id = item.id
     end
-  end
-
-  def user_params
-    params.require(:user).permit(:name, :email, :profile_photo)
   end
 
   def build_ai_slot_metadata(outfit)

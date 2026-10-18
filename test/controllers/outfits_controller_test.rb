@@ -29,12 +29,6 @@ class OutfitsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Alice's Outfit", @outfit.reload.name
   end
 
-  test "another user's outfit chat is a 404" do
-    sign_in users(:bob)
-    get chat_outfit_path(@outfit)
-    assert_response :not_found
-  end
-
   test "another user's outfit cannot be tried on" do
     sign_in users(:bob)
     assert_no_changes -> { @outfit.reload.photo.attached? } do

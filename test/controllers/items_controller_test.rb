@@ -36,4 +36,14 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     get items_path
     assert_redirected_to new_user_session_path
   end
+
+  test "analyze_photo does not leak internal error details" do
+    sign_in users(:alice)
+    BackgroundRemoverService.stub(:call, ->(_photo) { raise RuntimeError, "secret internal detail" }) do
+      post analyze_photo_items_path, params: { photo: fixture_file_upload("profile.png", "image/png") }
+    end
+    assert_response :unprocessable_entity
+    assert_equal({ "error" => "Could not analyze photo" }, response.parsed_body)
+    assert_not_includes response.body, "secret internal detail"
+  end
 end
