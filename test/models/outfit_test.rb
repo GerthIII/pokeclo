@@ -7,6 +7,12 @@ class OutfitTest < ActiveSupport::TestCase
     assert @outfit.draft?
   end
 
+  test "a new outfit defaults to draft and is valid" do
+    outfit = Outfit.new(name: "x", user: users(:alice))
+    assert outfit.draft?
+    assert outfit.valid?
+  end
+
   test "an invalid status is invalid, not an exception" do
     outfit = Outfit.new(name: "x", user: users(:alice), status: "bogus")
     assert_not outfit.valid?
