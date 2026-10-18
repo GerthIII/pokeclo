@@ -122,6 +122,7 @@ class OutfitsControllerTest < ActionDispatch::IntegrationTest
       post outfits_path, params: { outfit: { name: "Fresh", top_item_id: items(:alice_top).id } }
     end
     assert_redirected_to outfit_path(Outfit.find_by!(name: "Fresh"))
+    assert Outfit.find_by!(name: "Fresh").draft?
   end
 
   # Without the fix this raises (the Disk service cannot build a photo URL in tests), which is how it fails.

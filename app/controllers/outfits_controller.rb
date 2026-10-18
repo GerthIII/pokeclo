@@ -18,7 +18,7 @@ class OutfitsController < ApplicationController
   def show
     @outfit = policy_scope(Outfit).find(params[:id])
     authorize @outfit
-    @pending_purchase_items = @outfit.items.where(status: 2)
+    @pending_purchase_items = @outfit.items.wishlist
   end
 
   def new
@@ -87,7 +87,7 @@ class OutfitsController < ApplicationController
   end
 
   def create_draft_outfit
-    @outfit = current_user.outfits.create!(status: "draft", name: "Add a Name To Your Outfit")
+    @outfit = current_user.outfits.create!(status: :draft, name: "Add a Name To Your Outfit")
     if params[:item_id]
       @item = current_user.items.find(params[:item_id])
       OutfitItem.create!(item: @item, outfit: @outfit, slot: @item.slot)

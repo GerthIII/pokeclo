@@ -22,7 +22,7 @@
       </div>
       <div class="item-show-actions">
         <%= link_to "Go to the Fitting Room", new_outfit_path(item_id: @item.id, auto_ask: true), class: "main-button main-button--cta" %>
-        <% if @item.status == 2 %>
+        <% if @item.wishlist? %>
           <div class="item-show-bought-action">
             <%= button_to mark_as_bought_item_path(@item),
                           method: :patch,

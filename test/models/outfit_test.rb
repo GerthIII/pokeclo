@@ -3,6 +3,22 @@ require "test_helper"
 class OutfitTest < ActiveSupport::TestCase
   setup { @outfit = outfits(:alice_outfit) }
 
+  test "fixture outfit is a draft" do
+    assert @outfit.draft?
+  end
+
+  test "a new outfit defaults to draft and is valid" do
+    outfit = Outfit.new(name: "x", user: users(:alice))
+    assert outfit.draft?
+    assert outfit.valid?
+  end
+
+  test "an invalid status is invalid, not an exception" do
+    outfit = Outfit.new(name: "x", user: users(:alice), status: "bogus")
+    assert_not outfit.valid?
+    assert outfit.errors.key?(:status)
+  end
+
   test "slot item from another user's closet is invalid" do
     @outfit.top_item_id = items(:bob_top).id
     assert_not @outfit.valid?
