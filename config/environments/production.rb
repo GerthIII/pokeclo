@@ -50,9 +50,11 @@ Rails.application.configure do
   # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :solid_cache_store
 
-  # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue } }
+  # DECISION: :async runs jobs (photo purge/analyze) in threads inside the web process.
+  #   Chose it over Solid Queue in Puma (forks a 2nd process on a 512 MB dyno) and a worker dyno (~$7/mo).
+  #   Trade-off: jobs queued at restart are lost, which is fine for photo cleanup.
+  #   Move to a worker dyno if the app grows.
+  config.active_job.queue_adapter = :async
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
