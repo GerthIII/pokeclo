@@ -5,7 +5,17 @@ class ItemAnalyzerService
   def self.call(photo)
     chat = RubyLLM.chat(model: "gemini-2.5-flash")
 
-    response = chat.ask(<<~PROMPT, with: photo)
+    response = chat.ask(prompt, with: photo)
+
+    result = JSON.parse(response.content)
+    result["name"] = "#{result['category']} #{result['slot']}".strip if result["name"].blank?
+    result
+  rescue JSON::ParserError
+    { error: "Could not analyze photo" }
+  end
+
+  def self.prompt
+    <<~PROMPT
       You are a fashion assistant. Analyze this clothing item photo and respond with ONLY valid JSON, no markdown, no code fences.
 
       Rules:
@@ -22,11 +32,7 @@ class ItemAnalyzerService
         "slot": "..."
       }
     PROMPT
-
-    result = JSON.parse(response.content)
-    result["name"] = "#{result['category']} #{result['slot']}".strip if result["name"].blank?
-    result
-  rescue JSON::ParserError
-    { error: "Could not analyze photo" }
   end
+
+  private_class_method :prompt
 end

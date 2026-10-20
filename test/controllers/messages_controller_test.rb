@@ -42,14 +42,6 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test "another user cannot confirm someone else's message" do
-    sign_in users(:bob)
-    assert_no_difference ["Message.count", "OutfitItem.count"] do
-      post confirm_outfit_message_path(@outfit, messages(:alice_assistant_message))
-    end
-    assert_response :not_found
-  end
-
   test "another user cannot change a slot on someone else's outfit" do
     sign_in users(:bob)
     assert_no_difference "Message.count" do
@@ -124,13 +116,5 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal 3, chat.calls
     assert_redirected_to edit_outfit_path(@outfit, item_id: nil)
-  end
-
-  test "confirm on a non-JSON message redirects to edit" do
-    sign_in users(:alice)
-    message = messages(:alice_assistant_message)
-    message.update!(content: "not json")
-    post confirm_outfit_message_path(@outfit, message)
-    assert_redirected_to edit_outfit_path(@outfit)
   end
 end

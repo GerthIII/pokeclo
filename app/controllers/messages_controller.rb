@@ -17,18 +17,9 @@ class MessagesController < ApplicationController
     finish_chat(fetch_suggestions)
   end
 
-  def confirm
-    @message = @outfit.messages.find(params[:id])
-    authorize @message
-    @outfit.apply_suggestions!(JSON.parse(@message.content))
-    redirect_to edit_outfit_path(@outfit)
-  rescue JSON::ParserError
-    redirect_to edit_outfit_path(@outfit)
-  end
-
   def change_slot
     @message = @outfit.messages.find(params[:id])
-    authorize @message, :confirm?
+    authorize @message
     return redirect_to edit_outfit_path(@outfit) unless prepare_slot_change
 
     regenerate_slot

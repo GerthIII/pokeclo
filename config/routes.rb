@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     end
     resources :messages, only: [:create] do
       member do
-        post :confirm
         post :change_slot
       end
     end

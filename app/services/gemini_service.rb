@@ -11,41 +11,48 @@ class GeminiService
   end
 
   def self.extract_generated_image_source(reply)
-    content = reply.content
-
-    attachment =
-      if reply.respond_to?(:attachments) && reply.attachments.present?
-        reply.attachments.first
-      elsif content.is_a?(Hash)
-        (content[:attachments] || content["attachments"] || []).first
-      elsif content.is_a?(Array)
-        find_attachment_in_array(content)
-      end
-
-    source =
-      if attachment.respond_to?(:source)
-        attachment.source
-      elsif attachment.is_a?(Hash)
-        attachment[:source] || attachment["source"]
-      end
-
+    source = source_of(find_attachment(reply))
     return source if source.present?
 
     raise "No generated image attachment returned by LLM"
   end
 
-  def self.find_attachment_in_array(content)
-    content.each do |entry|
-      return entry if entry.respond_to?(:source)
+  def self.find_attachment(reply)
+    return reply.attachments.first if reply.respond_to?(:attachments) && reply.attachments.present?
 
-      next unless entry.is_a?(Hash)
-
-      nested = (entry[:attachments] || entry["attachments"] || []).first
-      return nested if nested.present?
-
-      return entry if entry[:source].present? || entry["source"].present?
+    content = reply.content
+    case content
+    when Hash then first_nested_attachment(content)
+    when Array then find_attachment_in_array(content)
     end
-
-    nil
   end
+
+  def self.source_of(attachment)
+    if attachment.respond_to?(:source)
+      attachment.source
+    elsif attachment.is_a?(Hash)
+      attachment[:source] || attachment["source"]
+    end
+  end
+
+  def self.first_nested_attachment(hash)
+    (hash[:attachments] || hash["attachments"] || []).first
+  end
+
+  def self.find_attachment_in_array(content)
+    content.lazy.filter_map { |entry| attachment_in_entry(entry) }.first
+  end
+
+  def self.attachment_in_entry(entry)
+    return entry if entry.respond_to?(:source)
+    return unless entry.is_a?(Hash)
+
+    nested = first_nested_attachment(entry)
+    return nested if nested.present?
+
+    entry if entry[:source].present? || entry["source"].present?
+  end
+
+  private_class_method :find_attachment, :source_of, :first_nested_attachment,
+                       :find_attachment_in_array, :attachment_in_entry
 end

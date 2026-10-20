@@ -1,7 +1,7 @@
 class MessagePolicy < ApplicationPolicy
   # DECISION: Messages have no user_id; ownership is checked through their outfit.
   #   Rejected: adding user_id (migration + duplicate data the outfit already has).
-  def confirm?
+  def change_slot?
     record.outfit.user == user
   end
 
