@@ -2,6 +2,7 @@ class Outfit < ApplicationRecord
   attr_accessor :top_item_id, :bottom_item_id, :outer_item_id, :footwear_item_id
 
   SLOTS = ['outer', 'top', 'bottom', 'footwear']
+  SLOT_ITEM_ATTRS = SLOTS.map { |slot| "#{slot}_item_id" }.freeze
   # DECISION: dependent: :destroy (not :delete_all / DB cascade) so Active Storage callbacks
   #   also remove photos from Cloudinary instead of leaving orphaned files.
   #   Active Storage deletes files with a background job (purge_later), so this needs a job worker
@@ -57,7 +58,65 @@ class Outfit < ApplicationRecord
     end
   end
 
+  # Creates an outfit_item for each present *_item_id virtual attribute. Raises on invalid rows.
+  def create_slot_items!
+    SLOTS.each do |slot|
+      item_id = public_send("#{slot}_item_id")
+      outfit_items.create!(item_id: item_id, slot: slot) if item_id.present?
+    end
+  end
+
+  # Saves attributes and slot items all-or-nothing. Returns true, or false with errors on self.
+  def save_with_slot_items(params)
+    # DECISION: Save outfit + its items all-or-nothing so a failure can't leave a half-empty outfit.
+    SLOTS.each { |slot| public_send("#{slot}_item_id=", params["#{slot}_item_id"]) }
+    transaction do
+      raise ActiveRecord::Rollback unless update(params.except(*SLOT_ITEM_ATTRS))
+
+      outfit_items.destroy_all
+      create_slot_items!
+      true
+    end || false
+  rescue ActiveRecord::RecordInvalid => e
+    e.record.errors.full_messages.each { |message| errors.add(:base, message) }
+    false
+  end
+
+  def hydrate_slot_item_ids!
+    slot_item_ids = outfit_items.pluck(:slot, :item_id).to_h
+    SLOTS.each { |slot| public_send("#{slot}_item_id=", slot_item_ids[slot]) }
+  end
+
+  def assign_slot_item(item)
+    public_send("#{item.slot}_item_id=", item.id) if SLOTS.include?(item.slot)
+  end
+
+  # Returns [message, { slot => item_id }] for the newest assistant message holding a usable
+  # suggestion array, or [nil, {}].
+  def latest_suggestion
+    messages.where(role: "assistant").order(created_at: :desc).each do |message|
+      slot_item_ids = suggestion_slot_item_ids(message)
+      return [message, slot_item_ids] if slot_item_ids.present?
+    end
+    [nil, {}]
+  end
+
   private
+
+  def suggestion_slot_item_ids(message)
+    parsed = JSON.parse(message.content)
+    parsed.is_a?(Array) ? slot_item_ids_from(parsed) : {}
+  rescue JSON::ParserError
+    {}
+  end
+
+  def slot_item_ids_from(entries)
+    entries.grep(Hash).each_with_object({}) do |entry, ids|
+      slot = entry["slot"].to_s
+      item_id = entry["item_id"].to_i
+      ids[slot] = item_id unless slot.blank? || item_id.zero?
+    end
+  end
 
   def assign_slot!(slot, item)
     outfit_item = outfit_items.find_or_initialize_by(slot: slot)
