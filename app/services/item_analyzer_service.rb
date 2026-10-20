@@ -33,4 +33,6 @@ class ItemAnalyzerService
       }
     PROMPT
   end
+
+  private_class_method :prompt
 end

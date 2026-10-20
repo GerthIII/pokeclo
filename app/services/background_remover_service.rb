@@ -39,4 +39,6 @@ class BackgroundRemoverService
       type: "image/png"
     )
   end
+
+  private_class_method :post_to_api, :form_data, :build_upload
 end

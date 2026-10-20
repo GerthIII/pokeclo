@@ -52,4 +52,7 @@ class GeminiService
 
     entry if entry[:source].present? || entry["source"].present?
   end
+
+  private_class_method :find_attachment, :source_of, :first_nested_attachment,
+                       :find_attachment_in_array, :attachment_in_entry
 end
