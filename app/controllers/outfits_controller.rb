@@ -46,7 +46,7 @@ class OutfitsController < ApplicationController
 
   def edit
     @outfit = current_user.outfits.find(params[:id])
-    # authorizes user to crate an item with Pundit
+    # authorizes the outfit with Pundit
     authorize @outfit
     @outfit.normalize_outfit_item_slots!
     @auto_ask = params[:auto_ask].present?
@@ -119,7 +119,7 @@ class OutfitsController < ApplicationController
   end
 
   def draft_or_new_outfit
-    # Se veio de um draft, atualiza ele em vez de criar novo
+    # If this came from a draft, update it instead of creating a new one.
     return current_user.outfits.find(params[:outfit_id]) if params[:outfit_id].present?
 
     Outfit.new(outfit_params.except(*SLOT_PARAMS).merge(user: current_user))
@@ -228,9 +228,11 @@ class OutfitsController < ApplicationController
       slot_item_ids = {}
       parsed.each do |entry|
         next unless entry.is_a?(Hash)
+
         slot = entry["slot"].to_s
         item_id = entry["item_id"].to_i
         next if slot.blank? || item_id.zero?
+
         slot_item_ids[slot] = item_id
       end
       next if slot_item_ids.empty?

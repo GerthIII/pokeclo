@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def dashboard
     @items = policy_scope(Item)
     @outfits = policy_scope(Outfit)

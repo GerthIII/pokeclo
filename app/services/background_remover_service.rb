@@ -27,7 +27,7 @@ class BackgroundRemoverService
       filename: "#{File.basename(photo.original_filename, '.*')}_no_bg.png",
       type: "image/png"
     )
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("BackgroundRemoverService failed: #{e.message}")
     photo.rewind
     photo
