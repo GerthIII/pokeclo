@@ -17,4 +17,13 @@ class ItemTest < ActiveSupport::TestCase
     assert items(:alice_top).owned?
     assert items(:alice_bottom).wishlist?
   end
+
+  %i[name description category slot].each do |attribute|
+    test "an item is invalid without #{attribute}" do
+      item = users(:alice).items.build(name: "x", description: "x", category: "casual", slot: "top")
+      item[attribute] = nil
+      assert_not item.valid?
+      assert item.errors.key?(attribute)
+    end
+  end
 end

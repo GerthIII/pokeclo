@@ -48,4 +48,31 @@ class OutfitTest < ActiveSupport::TestCase
     outfit = Outfit.new(name: "x", top_item_id: items(:alice_top).id)
     assert_not outfit.valid?
   end
+
+  test "an outfit is invalid without a name" do
+    outfit = Outfit.new(user: users(:alice))
+    assert_not outfit.valid?
+    assert outfit.errors.key?(:name)
+  end
+
+  test "missing_slots lists every slot the outfit has no item for" do
+    assert_equal %w[outer bottom footwear].sort, @outfit.missing_slots.sort
+    assert_not_includes @outfit.missing_slots, "top"
+  end
+
+  test "candidate_items_for_missing_slots returns only the owner's items" do
+    bob_jeans = users(:bob).items.create!(name: "Bob's Jeans", description: "x", category: "casual", slot: "bottom")
+    candidates = @outfit.candidate_items_for_missing_slots
+
+    assert_includes candidates, items(:alice_bottom)
+    assert_not_includes candidates, bob_jeans
+    assert candidates.all? { |item| item.user_id == users(:alice).id }
+  end
+
+  test "normalize_outfit_item_slots! fills a blank slot from the item" do
+    outfit_item = outfit_items(:alice_outfit_top)
+    outfit_item.update_column(:slot, nil)
+    @outfit.normalize_outfit_item_slots!
+    assert_equal "top", outfit_item.reload.slot
+  end
 end
