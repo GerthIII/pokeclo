@@ -26,7 +26,6 @@
           <div class="item-show-bought-action">
             <%= button_to mark_as_bought_item_path(@item),
                           method: :patch,
-                          params: { create_outfit_with_ai: true },
                           class: "item-show-check-button",
                           form: { data: { turbo_confirm: "Mark this item as bought?" } },
                           title: "Mark as bought",

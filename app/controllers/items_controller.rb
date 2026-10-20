@@ -55,28 +55,16 @@ class ItemsController < ApplicationController
     end
   end
 
+  # DECISION: Mark as bought only moves the item from the wishlist to the closet.
+  #   Rejected: also creating a draft outfit (the old button did, then 500'd on a missing policy method).
   def mark_as_bought
     @item = policy_scope(Item).find(params[:id])
     authorize @item, :update?
+    return render_not_bought unless @item.update(status: :owned)
 
-    if @item.update(status: :owned)
-      if ActiveModel::Type::Boolean.new.cast(params[:create_outfit_with_ai])
-        outfit = current_user.outfits.create!(status: :draft, name: "Add a Name To Your Outfit")
-        authorize outfit
-        outfit.outfit_items.create!(item: @item, slot: @item.slot)
-        redirect_to edit_outfit_path(outfit, auto_ask: true)
-        return
-      end
-
-      respond_to do |format|
-        format.html { redirect_to item_path(@item) }
-        format.json { render json: { id: @item.id, status: @item.status }, status: :ok }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to item_path(@item) }
-        format.json { render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity }
-      end
+    respond_to do |format|
+      format.html { redirect_to item_path(@item), status: :see_other }
+      format.json { render json: { id: @item.id, status: @item.status }, status: :ok }
     end
   end
 
@@ -93,6 +81,13 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def render_not_bought
+    respond_to do |format|
+      format.html { redirect_to item_path(@item) }
+      format.json { render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity }
+    end
+  end
 
   def item_params
     params.require(:item).permit(:name, :description, :photo, :category, :slot, :status, :commit_action)
