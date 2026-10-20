@@ -228,9 +228,11 @@ class OutfitsController < ApplicationController
       slot_item_ids = {}
       parsed.each do |entry|
         next unless entry.is_a?(Hash)
+
         slot = entry["slot"].to_s
         item_id = entry["item_id"].to_i
         next if slot.blank? || item_id.zero?
+
         slot_item_ids[slot] = item_id
       end
       next if slot_item_ids.empty?

@@ -102,7 +102,8 @@ class MessagesController < ApplicationController
       "Do not use item_id #{@excluded_item_ids.first} for #{slot}."
   end
 
-  # currently the ai doesn't have ids for the items you selected at the start. For now its ok but later we may need to add that.
+  # currently the ai doesn't have ids for the items you selected at the start.
+  # For now its ok but later we may need to add that.
   def ai_response
     chat = RubyLLM.chat
     chat.with_instructions(StylistPrompt::SYSTEM)
@@ -157,7 +158,8 @@ class MessagesController < ApplicationController
         name: item.name
       }
     end.to_json
-    chat.ask("#{@message.content} these are the current items in this outfit: #{current_items}. Here are the items that I own that you can use to suggest me an outfit. candidates: #{candidates}.")
+    chat.ask("#{@message.content} these are the current items in this outfit: #{current_items}. " \
+             "Here are the items that I own that you can use to suggest me an outfit. candidates: #{candidates}.")
   end
 
   def message_params
