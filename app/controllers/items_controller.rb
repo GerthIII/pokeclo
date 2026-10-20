@@ -15,17 +15,9 @@ class ItemsController < ApplicationController
     @item.user = current_user
     authorize @item
 
-    if params[:item][:photo].present?
-      processed = BackgroundRemoverService.call(params[:item][:photo])
-      @item.photo.attach(processed)
-    end
-
+    attach_processed_photo
     if @item.save
-      if params[:commit_action] == "Create Outfit"
-        redirect_to new_outfit_path(item_id: @item.id, auto_ask: true)
-      else
-        redirect_to item_path(@item)
-      end
+      redirect_to after_create_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -81,6 +73,20 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def attach_processed_photo
+    return if params[:item][:photo].blank?
+
+    @item.photo.attach(BackgroundRemoverService.call(params[:item][:photo]))
+  end
+
+  def after_create_path
+    if params[:commit_action] == "Create Outfit"
+      new_outfit_path(item_id: @item.id, auto_ask: true)
+    else
+      item_path(@item)
+    end
+  end
 
   def render_not_bought
     respond_to do |format|

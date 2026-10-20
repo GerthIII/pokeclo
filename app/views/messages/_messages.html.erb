@@ -29,7 +29,6 @@
           <%# if all_applied %>
             <!-- <span class="badge bg-success mt-2">Applied to Outfit</span> -->
           <%# else %>
-            <%#= button_to "Apply to Outfit", confirm_outfit_message_path(outfit, message), method: :post, class: "btn btn-primary btn-sm mt-2" %>
           <%# end %>
         <% rescue JSON::ParserError %>
           <%= raw(render_markdown(message.content)) %>

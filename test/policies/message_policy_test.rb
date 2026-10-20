@@ -19,8 +19,8 @@ class MessagePolicyTest < ActiveSupport::TestCase
     assert_not MessagePolicy.new(@bob, @message).create?
   end
 
-  def test_confirm
-    assert MessagePolicy.new(@alice, messages(:alice_assistant_message)).confirm?
-    assert_not MessagePolicy.new(@bob, messages(:alice_assistant_message)).confirm?
+  def test_change_slot
+    assert MessagePolicy.new(@alice, messages(:alice_assistant_message)).change_slot?
+    assert_not MessagePolicy.new(@bob, messages(:alice_assistant_message)).change_slot?
   end
 end
