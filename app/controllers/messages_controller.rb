@@ -20,7 +20,7 @@ class MessagesController < ApplicationController
   def confirm
     @message = @outfit.messages.find(params[:id])
     authorize @message
-    apply_suggestions_to_outfit!(JSON.parse(@message.content))
+    @outfit.apply_suggestions!(JSON.parse(@message.content))
     redirect_to edit_outfit_path(@outfit)
   rescue JSON::ParserError
     redirect_to edit_outfit_path(@outfit)
@@ -43,7 +43,7 @@ class MessagesController < ApplicationController
   def finish_chat(suggestions)
     if suggestions
       replace_assistant_message(suggestions)
-      apply_suggestions_to_outfit!(suggestions)
+      @outfit.apply_suggestions!(suggestions)
       redirect_to redirect_path_for_outfit(@outfit)
     else
       replace_assistant_message("Sorry, try again.")
@@ -54,12 +54,17 @@ class MessagesController < ApplicationController
   # Returns the parsed suggestions Array, or nil after AI_ATTEMPTS bad replies. Saves nothing.
   def fetch_suggestions
     AI_ATTEMPTS.times do
-      parsed = JSON.parse(ai_response.content)
+      parsed = JSON.parse(stylist_reply.content)
       return parsed if parsed.is_a?(Array)
     rescue JSON::ParserError
       next
     end
     nil
+  end
+
+  def stylist_reply
+    StylistChat.new(outfit: @outfit, message: @message,
+                    candidate_slots: @forced_candidate_slots, excluded_item_ids: @excluded_item_ids || []).ask
   end
 
   def replace_assistant_message(content)
@@ -85,14 +90,17 @@ class MessagesController < ApplicationController
     return redirect_to(redirect_path_for_outfit(@outfit)) unless user_message.save
 
     @message = user_message
-    suggestions = fetch_suggestions
+    save_slot_reply(fetch_suggestions)
+    redirect_to redirect_path_for_outfit(@outfit)
+  end
+
+  def save_slot_reply(suggestions)
     if suggestions
       @outfit.messages.create!(role: "assistant", content: suggestions.to_json)
-      apply_suggestions_to_outfit!(suggestions)
+      @outfit.apply_suggestions!(suggestions)
     else
       @outfit.messages.create!(role: "assistant", content: "Sorry, try again.")
     end
-    redirect_to redirect_path_for_outfit(@outfit)
   end
 
   def slot_change_prompt
@@ -102,83 +110,8 @@ class MessagesController < ApplicationController
       "Do not use item_id #{@excluded_item_ids.first} for #{slot}."
   end
 
-  # currently the ai doesn't have ids for the items you selected at the start.
-  # For now its ok but later we may need to add that.
-  def ai_response
-    chat = RubyLLM.chat
-    chat.with_instructions(StylistPrompt::SYSTEM)
-    @outfit.messages.where.not(id: @message.id).each do |msg|
-      display_content = msg.content
-      if msg.role == 'assistant'
-        begin
-          json_content = JSON.parse(msg.content)
-          display_content =
-            case json_content
-            when Hash
-              json_content['style_advice'].presence || msg.content
-            when Array
-              json_content
-            .map { |entry| entry.is_a?(Hash) ? entry['style_comment'].presence || entry['item_name'] : nil }
-            .compact
-            .join("\n")
-            .presence || msg.content
-            else
-              msg.content
-            end
-        rescue JSON::ParserError
-          display_content = msg.content
-        end
-      end
-      chat.add_message(role: msg.role, content: display_content)
-    end
-    current_items = @outfit.items.map do |item|
-      {
-        item_id: item.id,
-        category: item.category,
-        slot: item.slot,
-        description: item.description,
-        name: item.name
-      }
-    end.to_json
-
-    candidate_items_scope =
-      if @forced_candidate_slots.present?
-        Item.where(user_id: @outfit.user_id, slot: @forced_candidate_slots)
-      else
-        @outfit.candidate_items_for_missing_slots
-      end
-    candidate_items_scope = candidate_items_scope.where.not(id: @excluded_item_ids) if @excluded_item_ids.present?
-
-    candidates = candidate_items_scope.map do |item|
-      {
-        item_id: item.id,
-        category: item.category,
-        slot: item.slot,
-        description: item.description,
-        name: item.name
-      }
-    end.to_json
-    chat.ask("#{@message.content} these are the current items in this outfit: #{current_items}. " \
-             "Here are the items that I own that you can use to suggest me an outfit. candidates: #{candidates}.")
-  end
-
   def message_params
     params.require(:message).permit(:content)
-  end
-
-  def apply_suggestions_to_outfit!(suggestions)
-    suggestions.each do |suggestion|
-      item = Item.find_by(id: suggestion["item_id"], user_id: current_user.id)
-      next unless item
-
-      slot = suggestion["slot"]
-      next if slot.blank?
-
-      outfit_item = @outfit.outfit_items.find_or_initialize_by(slot: slot)
-      outfit_item.item = item
-      outfit_item.save!
-      @outfit.outfit_items.where(slot: slot).where.not(id: outfit_item.id).delete_all
-    end
   end
 
   def redirect_path_for_outfit(outfit)

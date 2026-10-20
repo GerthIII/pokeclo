@@ -47,7 +47,24 @@ class Outfit < ApplicationRecord
     end
   end
 
+  def apply_suggestions!(suggestions)
+    suggestions.each do |suggestion|
+      item = user.items.find_by(id: suggestion["item_id"])
+      slot = suggestion["slot"]
+      next if item.nil? || slot.blank?
+
+      assign_slot!(slot, item)
+    end
+  end
+
   private
+
+  def assign_slot!(slot, item)
+    outfit_item = outfit_items.find_or_initialize_by(slot: slot)
+    outfit_item.item = item
+    outfit_item.save!
+    outfit_items.where(slot: slot).where.not(id: outfit_item.id).delete_all
+  end
 
   def slot_items_belong_to_user
     return if user.nil?

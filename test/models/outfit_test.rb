@@ -75,4 +75,16 @@ class OutfitTest < ActiveSupport::TestCase
     @outfit.normalize_outfit_item_slots!
     assert_equal "top", outfit_item.reload.slot
   end
+
+  test "apply_suggestions! sets the slot from the user's own item" do
+    @outfit.apply_suggestions!([{ "item_id" => items(:alice_bottom).id, "slot" => "bottom" }])
+    assert_equal items(:alice_bottom), @outfit.outfit_items.find_by(slot: "bottom").item
+  end
+
+  test "apply_suggestions! ignores another user's item" do
+    assert_no_difference "OutfitItem.count" do
+      @outfit.apply_suggestions!([{ "item_id" => items(:bob_top).id, "slot" => "top" }])
+    end
+    assert_equal items(:alice_top), @outfit.outfit_items.find_by(slot: "top").item
+  end
 end
