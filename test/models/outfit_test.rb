@@ -87,4 +87,50 @@ class OutfitTest < ActiveSupport::TestCase
     end
     assert_equal items(:alice_top), @outfit.outfit_items.find_by(slot: "top").item
   end
+
+  test "create_slot_items! creates rows only for present ids" do
+    @outfit.outfit_items.destroy_all
+    @outfit.top_item_id = items(:alice_top).id
+    @outfit.bottom_item_id = items(:alice_bottom).id
+    @outfit.outer_item_id = ""
+    @outfit.create_slot_items!
+    assert_equal({ "top" => items(:alice_top).id, "bottom" => items(:alice_bottom).id },
+                 @outfit.outfit_items.pluck(:slot, :item_id).to_h)
+  end
+
+  test "hydrate_slot_item_ids! sets virtual attributes from outfit items" do
+    @outfit.hydrate_slot_item_ids!
+    assert_equal items(:alice_top).id, @outfit.top_item_id
+    assert_nil @outfit.bottom_item_id
+    assert_nil @outfit.outer_item_id
+    assert_nil @outfit.footwear_item_id
+  end
+
+  test "assign_slot_item sets the matching virtual attribute" do
+    @outfit.assign_slot_item(items(:alice_bottom))
+    assert_equal items(:alice_bottom).id, @outfit.bottom_item_id
+  end
+
+  test "assign_slot_item ignores an unknown slot" do
+    @outfit.assign_slot_item(Item.new(id: 1, slot: "hat"))
+    assert_nil @outfit.top_item_id
+  end
+
+  test "latest_suggestion returns the newest usable assistant message" do
+    message, ids = @outfit.latest_suggestion
+    assert_equal messages(:alice_assistant_message), message
+    assert_equal({ "top" => items(:alice_top).id }, ids)
+  end
+
+  test "latest_suggestion skips a newer assistant message with invalid JSON" do
+    @outfit.messages.create!(role: "assistant", content: "not json", created_at: 1.minute.from_now)
+    message, ids = @outfit.latest_suggestion
+    assert_equal messages(:alice_assistant_message), message
+    assert_equal({ "top" => items(:alice_top).id }, ids)
+  end
+
+  test "latest_suggestion is empty without assistant messages" do
+    @outfit.messages.where(role: "assistant").destroy_all
+    assert_equal [nil, {}], @outfit.latest_suggestion
+  end
 end

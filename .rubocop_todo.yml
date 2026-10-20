@@ -7,14 +7,12 @@
 Metrics/ClassLength:
   Exclude:
     - 'app/controllers/items_controller.rb'
-    - 'app/controllers/outfits_controller.rb'
 
 # Offense count: 14
 # Configuration parameters: CountComments, Max, CountAsOne, AllowedMethods, AllowedPatterns.
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/items_controller.rb'
-    - 'app/controllers/outfits_controller.rb'
     - 'app/services/background_remover_service.rb'
     - 'app/services/gemini_service.rb'
     - 'app/services/item_analyzer_service.rb'
@@ -23,5 +21,4 @@ Metrics/MethodLength:
 # Configuration parameters: AllowedMethods, AllowedPatterns, Max.
 Metrics/PerceivedComplexity:
   Exclude:
-    - 'app/controllers/outfits_controller.rb'
     - 'app/services/gemini_service.rb'
