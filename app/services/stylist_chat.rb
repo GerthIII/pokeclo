@@ -64,12 +64,20 @@ class StylistChat
   end
 
   def candidate_scope
-    scope =
-      if @candidate_slots.present?
-        Item.where(user_id: @outfit.user_id, slot: @candidate_slots)
-      else
-        @outfit.candidate_items_for_missing_slots
-      end
+    scope = base_candidates
     @excluded_item_ids.present? ? scope.where.not(id: @excluded_item_ids) : scope
+  end
+
+  # DECISION: A full outfit offers all of the owner's items (wishlist included, to show how a planned purchase fits).
+  #   Rejected: always all items (the AI may replace the starter item the user picked in the Fitting Room).
+  #   Rejected: leave it (once the outfit is full the AI gets 0 candidates, so follow-up chat looks broken).
+  def base_candidates
+    if @candidate_slots.present?
+      Item.where(user_id: @outfit.user_id, slot: @candidate_slots)
+    elsif @outfit.missing_slots.any?
+      @outfit.candidate_items_for_missing_slots
+    else
+      Item.where(user_id: @outfit.user_id)
+    end
   end
 end

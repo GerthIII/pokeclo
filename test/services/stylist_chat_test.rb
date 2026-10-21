@@ -32,6 +32,13 @@ class StylistChatTest < ActiveSupport::TestCase
     @chat = RecordingChat.new
   end
 
+  def fill_outfit
+    %w[bottom outer footwear].each do |slot|
+      item = users(:alice).items.create!(name: "Alice #{slot}", description: "x", category: "casual", slot: slot)
+      @outfit.outfit_items.create!(item: item, slot: slot)
+    end
+  end
+
   def run_chat(**)
     reply = nil
     RubyLLM.stub(:chat, @chat) { reply = StylistChat.new(outfit: @outfit, message: @message, **).ask }
@@ -53,6 +60,30 @@ class StylistChatTest < ActiveSupport::TestCase
   test "excludes excluded_item_ids from candidates" do
     run_chat(candidate_slots: ["bottom"], excluded_item_ids: [items(:alice_bottom).id])
     assert_not_includes @chat.asked, "\"item_id\":#{items(:alice_bottom).id}"
+  end
+
+  test "an outfit with a missing slot sends only that slot's items" do
+    run_chat
+    assert_includes @chat.asked, "\"item_id\":#{items(:alice_bottom).id}"
+    candidates = @chat.asked.split("candidates:").last
+    assert_not_includes candidates, "\"item_id\":#{items(:alice_top).id}"
+  end
+
+  test "a full outfit sends all the owner's items and never another user's" do
+    fill_outfit
+    run_chat
+    candidates = @chat.asked.split("candidates:").last
+    assert_includes candidates, "\"item_id\":#{items(:alice_top).id}"
+    assert_includes candidates, "\"item_id\":#{items(:alice_bottom).id}"
+    assert_not_includes candidates, "\"item_id\":#{items(:bob_top).id}"
+  end
+
+  test "a full outfit still leaves out excluded ids" do
+    fill_outfit
+    run_chat(excluded_item_ids: [items(:alice_bottom).id])
+    candidates = @chat.asked.split("candidates:").last
+    assert_not_includes candidates, "\"item_id\":#{items(:alice_bottom).id}"
+    assert_includes candidates, "\"item_id\":#{items(:alice_top).id}"
   end
 
   test "replays assistant JSON history as its style_comment text" do

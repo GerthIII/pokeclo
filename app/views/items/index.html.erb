@@ -4,6 +4,13 @@
     <div class="container d-flex justify-content-center mt-1">
       <p><strong>My Closet</strong></p>
     </div>
+    <%# DECISION: The total comes from the controller (@items_total), not a model query in the view. %>
+    <div class="container d-flex flex-column align-items-center mb-2">
+      <p class="mb-0"><%= @items_total %> / <%= Item::MAX_PER_USER %> items</p>
+      <% if @items_total >= Item::MAX_PER_USER %>
+        <p class="mb-0 text-muted">Closet full: delete an item to add a new one.</p>
+      <% end %>
+    </div>
   <div class="container my-1" data-controller="filter-items">
 
     <p>Filter by Category</p>

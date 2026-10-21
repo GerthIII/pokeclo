@@ -12,6 +12,16 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+
+    # Bulk-inserts items so the user has `total` items (default: the per-user maximum).
+    def fill_closet(user, total = Item::MAX_PER_USER)
+      now = Time.current
+      rows = Array.new(total - user.items.count) do |i|
+        { user_id: user.id, name: "Item #{i}", description: "x", category: "casual", slot: "top", status: 1,
+          created_at: now, updated_at: now }
+      end
+      Item.insert_all(rows)
+    end
   end
 end
 
