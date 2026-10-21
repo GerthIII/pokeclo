@@ -82,6 +82,10 @@ class Outfit < ApplicationRecord
     false
   end
 
+  def add_item!(item)
+    outfit_items.create!(item: item, slot: item.slot)
+  end
+
   def hydrate_slot_item_ids!
     slot_item_ids = outfit_items.pluck(:slot, :item_id).to_h
     SLOTS.each { |slot| public_send("#{slot}_item_id=", slot_item_ids[slot]) }

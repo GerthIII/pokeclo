@@ -81,6 +81,13 @@ class OutfitTest < ActiveSupport::TestCase
     assert_equal items(:alice_bottom), @outfit.outfit_items.find_by(slot: "bottom").item
   end
 
+  test "apply_suggestions! skips a deleted item without error" do
+    deleted_id = items(:alice_bottom).id
+    items(:alice_bottom).destroy
+    assert_nothing_raised { @outfit.apply_suggestions!([{ "item_id" => deleted_id, "slot" => "bottom" }]) }
+    assert_not_includes @outfit.reload.filled_slots, "bottom"
+  end
+
   test "apply_suggestions! ignores another user's item" do
     assert_no_difference "OutfitItem.count" do
       @outfit.apply_suggestions!([{ "item_id" => items(:bob_top).id, "slot" => "top" }])

@@ -17,7 +17,7 @@
     <div class="outfit-show-content d-flex justify-content-between">
       <p class="outfit-show-title"><%= @outfit.name.capitalize.presence || "Untitled Outfit" %></p>
 
-    <div class="d-flex justify-content-end mb-1">
+    <div class="d-flex justify-content-end align-items-center gap-2 mb-1">
       <%= link_to 'edit', edit_outfit_path(@outfit, show_name: 1),
       class: "btn btn-dark btn-sm rounded-pill fw-bold text-lowercase",
       style: "font-size: 14px;
@@ -27,6 +27,11 @@
               line-height: 1.2;       /* 文字の高さを抑える */
               display: inline-flex;   /* 中央揃えしやすくする */
               align-items: center;" %>
+      <%= button_to "delete", outfit_path(@outfit),
+                    method: :delete,
+                    class: "btn btn-outline-danger btn-sm rounded-pill fw-bold text-lowercase",
+                    form: { data: { turbo_confirm: "Delete this outfit and its chat?", skip_purchase_prompt: "true" } },
+                    style: "font-size: 14px; letter-spacing: 0.5px; padding: 2px 15px; line-height: 1.2;" %>
     </div>
     </div>
   </article>

@@ -8,6 +8,27 @@ class OutfitsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
+  test "owner deletes an outfit with its outfit_items and messages but keeps the items" do
+    sign_in users(:alice)
+    assert_difference "Outfit.count", -1 do
+      delete outfit_path(@outfit)
+    end
+    assert_redirected_to outfits_path
+    assert_response :see_other
+    assert_equal "Outfit deleted.", flash[:notice]
+    assert_not OutfitItem.exists?(outfit_id: @outfit.id)
+    assert_not Message.exists?(outfit_id: @outfit.id)
+    assert Item.exists?(items(:alice_top).id)
+  end
+
+  test "another user's outfit cannot be deleted" do
+    sign_in users(:bob)
+    assert_no_difference ["Outfit.count", "OutfitItem.count", "Message.count"] do
+      delete outfit_path(@outfit)
+    end
+    assert_response :not_found
+  end
+
   test "another user's outfit show is a 404" do
     sign_in users(:bob)
     get outfit_path(@outfit)

@@ -12,6 +12,15 @@
       <%= link_to edit_item_path(@item) do %>
         <%= image_tag "pencil-icon2.png", alt: "Edit", style: "width: 20px; height: 20px; margin-left: 5px;" %>
       <% end %>
+      <% confirm_text = @outfit_count.positive? ? "Delete this item? It's used in #{pluralize(@outfit_count, 'outfit')} and will be removed from them." : "Delete this item?" %>
+      <%= button_to item_path(@item),
+                    method: :delete,
+                    class: "btn btn-link p-0 ms-2 text-danger",
+                    form: { data: { turbo_confirm: confirm_text } },
+                    title: "Delete item",
+                    aria: { label: "Delete item" } do %>
+        <i class="fa-solid fa-trash"></i>
+      <% end %>
       <% if @item.description.present? %>
         <p class="item-show-description" hidden><%= @item.description %></p>
       <% end %>

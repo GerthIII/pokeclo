@@ -33,6 +33,7 @@ class ItemsController < ApplicationController
     #   Rejected: Item.find + 403 (confirms the ID is real; one forgotten authorize leaks data).
     @item = policy_scope(Item).find(params[:id])
     authorize @item
+    @outfit_count = @item.outfits.distinct.count
   end
 
   def edit
@@ -49,6 +50,17 @@ class ItemsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  # DECISION: Deleting an item removes it from the outfits that use it (the slot goes empty, the outfits stay).
+  #   The confirm dialog shows how many outfits use it. The outfits' try-on photos are kept (they were paid for).
+  #   Rejected: blocking the delete while used (the user must edit every outfit first).
+  #   Rejected: deleting those outfits too (one click could wipe many outfits and chats).
+  def destroy
+    @item = policy_scope(Item).find(params[:id])
+    authorize @item
+    @item.destroy
+    redirect_to items_path, status: :see_other, notice: "Item deleted."
   end
 
   # DECISION: Mark as bought only moves the item from the wishlist to the closet.

@@ -1,4 +1,6 @@
 class OutfitsController < ApplicationController
+  TRY_ON_FAILED = "OOPS, something went wrong. Please try again.".freeze
+
   def index
     @outfits = policy_scope(Outfit)
   end
@@ -47,16 +49,20 @@ class OutfitsController < ApplicationController
     end
   end
 
+  def destroy
+    @outfit = policy_scope(Outfit).find(params[:id])
+    authorize @outfit
+    @outfit.destroy
+    redirect_to outfits_path, status: :see_other, notice: "Outfit deleted."
+  end
+
   def try_on
     @outfit = policy_scope(Outfit).find(params[:id])
     authorize @outfit, :try_on?
     return no_profile_photo unless current_user.profile_photo.attached?
 
-    if TryOnGenerator.new(outfit: @outfit, user: current_user).call
-      redirect_to outfit_path(@outfit), status: :see_other
-    else
-      redirect_to outfit_path(@outfit), alert: "OOPS, something went wrong. Please try again.", status: :see_other
-    end
+    failed = !TryOnGenerator.new(outfit: @outfit, user: current_user).call
+    redirect_to outfit_path(@outfit), status: :see_other, alert: (TRY_ON_FAILED if failed)
   end
 
   private
@@ -67,10 +73,7 @@ class OutfitsController < ApplicationController
 
   def create_draft_outfit
     @outfit = current_user.outfits.create!(status: :draft, name: "Add a Name To Your Outfit")
-    if params[:item_id]
-      @item = current_user.items.find(params[:item_id])
-      OutfitItem.create!(item: @item, outfit: @outfit, slot: @item.slot)
-    end
+    @outfit.add_item!(current_user.items.find(params[:item_id])) if params[:item_id]
     authorize @outfit
     redirect_to new_outfit_path(outfit_id: @outfit.id, item_id: params[:item_id], auto_ask: params[:auto_ask])
   end
