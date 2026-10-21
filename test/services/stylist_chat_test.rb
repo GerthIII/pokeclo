@@ -86,6 +86,21 @@ class StylistChatTest < ActiveSupport::TestCase
     assert_includes candidates, "\"item_id\":#{items(:alice_top).id}"
   end
 
+  test "a locked item in the outfit is named as locked" do
+    run_chat(locked_item_ids: [items(:alice_top).id])
+    assert_includes @chat.asked.split("Never change these items:").last, "\"item_id\":#{items(:alice_top).id}"
+  end
+
+  test "a locked id not in the outfit or owned by another user is not mentioned" do
+    run_chat(locked_item_ids: [items(:alice_bottom).id, items(:bob_top).id])
+    assert_not_includes @chat.asked, "Never change"
+  end
+
+  test "no locked ids means no Never change sentence" do
+    run_chat
+    assert_not_includes @chat.asked, "Never change"
+  end
+
   test "replays assistant JSON history as its style_comment text" do
     run_chat
     assistant = @chat.added.find { |m| m[:role] == "assistant" }

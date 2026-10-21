@@ -14,6 +14,7 @@ class MessagesController < ApplicationController
     @message.role = "user"
     return redirect_to redirect_path_for_outfit(@outfit), alert: "Message can't be blank." unless @message.save
 
+    lock_starter_item
     finish_chat(fetch_suggestions)
   end
 
@@ -54,8 +55,14 @@ class MessagesController < ApplicationController
   end
 
   def stylist_reply
-    StylistChat.new(outfit: @outfit, message: @message,
-                    candidate_slots: @forced_candidate_slots, excluded_item_ids: @excluded_item_ids || []).ask
+    StylistChat.new(outfit: @outfit, message: @message, candidate_slots: @forced_candidate_slots,
+                    excluded_item_ids: @excluded_item_ids || [], locked_item_ids: @locked_item_ids || []).ask
+  end
+
+  # DECISION: Only create locks the Fitting Room starter item; change_slot is an explicit request to change a slot.
+  #   StylistChat ignores ids not in the outfit, so a forged item_id does nothing.
+  def lock_starter_item
+    @locked_item_ids = [params[:item_id].presence&.to_i].compact
   end
 
   def replace_assistant_message(content)

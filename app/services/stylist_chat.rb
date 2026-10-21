@@ -2,11 +2,12 @@
 #   Rejected: a controller concern (passes the linter but only moves the fat).
 #   It still calls RubyLLM.chat so tests can stub one seam.
 class StylistChat
-  def initialize(outfit:, message:, candidate_slots: nil, excluded_item_ids: [])
+  def initialize(outfit:, message:, candidate_slots: nil, excluded_item_ids: [], locked_item_ids: [])
     @outfit = outfit
     @message = message
     @candidate_slots = candidate_slots
     @excluded_item_ids = excluded_item_ids
+    @locked_item_ids = locked_item_ids
   end
 
   def ask
@@ -14,7 +15,7 @@ class StylistChat
     replay_history(chat)
     chat.ask("#{@message.content} these are the current items in this outfit: #{item_payload(@outfit.items)}. " \
              "Here are the items that I own that you can use to suggest me an outfit. " \
-             "candidates: #{item_payload(candidate_scope)}.")
+             "candidates: #{item_payload(candidate_scope)}.#{locked_sentence}")
   end
 
   private
@@ -61,6 +62,12 @@ class StylistChat
     items.map do |item|
       { item_id: item.id, category: item.category, slot: item.slot, description: item.description, name: item.name }
     end.to_json
+  end
+
+  # Only ids still in the outfit count, so clearing a slot releases its lock (and a forged id does nothing).
+  def locked_sentence
+    locked = @outfit.items.where(id: @locked_item_ids)
+    locked.empty? ? "" : " Never change these items: #{item_payload(locked)}."
   end
 
   def candidate_scope
