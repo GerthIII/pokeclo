@@ -23,6 +23,11 @@ class OutfitPolicyTest < ActiveSupport::TestCase
     assert_not OutfitPolicy.new(nil, Outfit.new).create?
   end
 
+  def test_clear_slot
+    assert OutfitPolicy.new(@alice, @outfit).clear_slot?
+    assert_not OutfitPolicy.new(@bob, @outfit).clear_slot?
+  end
+
   def test_update
     assert OutfitPolicy.new(@alice, @outfit).update?
     assert_not OutfitPolicy.new(@bob, @outfit).update?

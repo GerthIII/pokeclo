@@ -8,6 +8,10 @@ class OutfitPolicy < ApplicationPolicy
     record.user == user
   end
 
+  def clear_slot?
+    record.user == user
+  end
+
   def show?
     record.user == user
   end

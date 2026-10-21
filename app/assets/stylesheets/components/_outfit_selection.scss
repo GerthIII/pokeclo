@@ -134,6 +134,7 @@
 }
 
 .slot-cell {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -182,6 +183,30 @@
 }
 
 .slot-change-icon:hover {
+  border-color: #9ca3af;
+  color: #111827;
+}
+
+// Sits on the slot square's top-right corner, overhanging it so it covers little of the "Tap to Add" button.
+.slot-clear-icon {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 11px;
+  color: #374151;
+  background: #ffffff;
+  text-decoration: none;
+}
+
+.slot-clear-icon:hover {
   border-color: #9ca3af;
   color: #111827;
 }

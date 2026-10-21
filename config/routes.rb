@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       # DECISION: POST, not GET. GETs can be fired by prefetching/crawlers and must not spend money or write data.
       post :try_on
     end
+    resources :slots, only: :destroy, controller: "outfit_slots", param: :slot
     resources :messages, only: [:create] do
       member do
         post :change_slot

@@ -4,13 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["field"]
 
-  connect() {
-    console.log("hello");
-
-  }
-
   show() {
     this.fieldTarget.classList.remove("d-none");
   }
-
 }

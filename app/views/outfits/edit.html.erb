@@ -39,6 +39,7 @@
                       data-bs-target="#top-sheet">
                 Tap to Add
               </button>
+              <%= render "outfits/slot_clear", slot: "top" %>
 
               <div class="slot-cell-meta">
                 <% current_top_id = @outfit.top_item_id.to_i %>
@@ -67,6 +68,7 @@
                       data-bs-target="#bottom-sheet">
                 Tap to Add
               </button>
+              <%= render "outfits/slot_clear", slot: "bottom" %>
 
               <div class="slot-cell-meta">
                 <% current_bottom_id = @outfit.bottom_item_id.to_i %>
@@ -95,6 +97,7 @@
                       data-bs-target="#footwear-sheet">
                 Tap to Add
               </button>
+              <%= render "outfits/slot_clear", slot: "footwear" %>
 
               <div class="slot-cell-meta">
                 <% current_footwear_id = @outfit.footwear_item_id.to_i %>
@@ -123,6 +126,7 @@
                       data-bs-target="#outer-sheet">
                 Tap to Add
               </button>
+              <%= render "outfits/slot_clear", slot: "outer" %>
 
               <div class="slot-cell-meta">
                 <% current_outer_id = @outfit.outer_item_id.to_i %>
