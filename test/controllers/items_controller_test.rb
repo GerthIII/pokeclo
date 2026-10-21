@@ -145,6 +145,50 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Closet full: delete an item to add a new one."
   end
 
+  test "owner deletes an item and it leaves its outfits but the outfit and photo stay" do
+    sign_in users(:alice)
+    outfit = outfits(:alice_outfit)
+    outfit.photo.attach(io: File.open(file_fixture("profile.png")), filename: "profile.png", content_type: "image/png")
+    outfit.add_item!(items(:alice_bottom))
+    assert_difference ["Item.count", "OutfitItem.count"], -1 do
+      delete item_path(items(:alice_top))
+    end
+    assert_redirected_to items_path
+    assert_response :see_other
+    assert_equal "Item deleted.", flash[:notice]
+    assert Outfit.exists?(outfit.id)
+    assert_equal ["bottom"], outfit.reload.filled_slots
+    assert outfit.photo.attached?
+  end
+
+  test "another user's item cannot be deleted" do
+    sign_in users(:bob)
+    assert_no_difference ["Item.count", "OutfitItem.count"] do
+      delete item_path(items(:alice_top))
+    end
+    assert_response :not_found
+  end
+
+  test "signed out delete redirects to sign in" do
+    assert_no_difference "Item.count" do
+      delete item_path(items(:alice_top))
+    end
+    assert_redirected_to new_user_session_path
+  end
+
+  test "show confirm text includes the outfit count when the item is used" do
+    sign_in users(:alice)
+    get item_path(items(:alice_top))
+    assert_includes response.body, "Delete this item? It&#39;s used in 1 outfit and will be removed from them."
+  end
+
+  test "show confirm text is plain when the item is unused" do
+    sign_in users(:alice)
+    get item_path(items(:alice_bottom))
+    assert_includes response.body, "Delete this item?"
+    assert_not_includes response.body, "used in"
+  end
+
   private
 
   def item_attrs
