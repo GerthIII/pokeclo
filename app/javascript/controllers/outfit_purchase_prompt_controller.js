@@ -16,16 +16,21 @@ export default class extends Controller {
     this.beforeVisitHandler = this.handleBeforeVisit.bind(this);
     this.turboClickHandler = this.handleTurboClick.bind(this);
     this.documentClickHandler = this.handleDocumentClick.bind(this);
+    this.submitStartHandler = this.handleSubmitStart.bind(this);
 
     document.addEventListener("turbo:before-visit", this.beforeVisitHandler);
     document.addEventListener("turbo:click", this.turboClickHandler);
     document.addEventListener("click", this.documentClickHandler, true);
+    // Deleting the outfit isn't "leaving" it, so a form marked data-skip-purchase-prompt lets the redirect through.
+    // turbo:submit-start only fires after the confirm is accepted.
+    document.addEventListener("turbo:submit-start", this.submitStartHandler);
   }
 
   disconnect() {
     document.removeEventListener("turbo:before-visit", this.beforeVisitHandler);
     document.removeEventListener("turbo:click", this.turboClickHandler);
     document.removeEventListener("click", this.documentClickHandler, true);
+    document.removeEventListener("turbo:submit-start", this.submitStartHandler);
   }
 
   leaveWithoutMarking(event) {
@@ -146,6 +151,10 @@ export default class extends Controller {
     event.stopPropagation();
     this.pendingUrl = destinationUrl;
     offcanvas.show();
+  }
+
+  handleSubmitStart(event) {
+    if (event.target?.dataset?.skipPurchasePrompt === "true") this.allowNextVisit = true;
   }
 
   handleTurboClick(event) {

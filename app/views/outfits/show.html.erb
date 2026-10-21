@@ -30,7 +30,7 @@
       <%= button_to "delete", outfit_path(@outfit),
                     method: :delete,
                     class: "btn btn-outline-danger btn-sm rounded-pill fw-bold text-lowercase",
-                    form: { data: { turbo_confirm: "Delete this outfit and its chat?" } },
+                    form: { data: { turbo_confirm: "Delete this outfit and its chat?", skip_purchase_prompt: "true" } },
                     style: "font-size: 14px; letter-spacing: 0.5px; padding: 2px 15px; line-height: 1.2;" %>
     </div>
     </div>

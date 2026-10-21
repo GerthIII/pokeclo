@@ -13,7 +13,7 @@ class OutfitsControllerTest < ActionDispatch::IntegrationTest
     assert_difference "Outfit.count", -1 do
       delete outfit_path(@outfit)
     end
-    assert_redirected_to dashboard_path
+    assert_redirected_to outfits_path
     assert_response :see_other
     assert_equal "Outfit deleted.", flash[:notice]
     assert_not OutfitItem.exists?(outfit_id: @outfit.id)

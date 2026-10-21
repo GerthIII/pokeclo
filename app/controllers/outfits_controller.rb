@@ -53,7 +53,7 @@ class OutfitsController < ApplicationController
     @outfit = policy_scope(Outfit).find(params[:id])
     authorize @outfit
     @outfit.destroy
-    redirect_to dashboard_path, status: :see_other, notice: "Outfit deleted."
+    redirect_to outfits_path, status: :see_other, notice: "Outfit deleted."
   end
 
   def try_on
