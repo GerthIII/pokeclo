@@ -1,0 +1,8 @@
+<% if @outfit.public_send("#{slot}_item_id").to_i.positive? %>
+  <%= link_to outfit_slot_path(@outfit, slot, item_id: params[:item_id]),
+      data: { turbo_method: :delete },
+      class: "slot-clear-icon",
+      aria: { label: "Clear #{slot}" } do %>
+    <i class="fa-solid fa-xmark"></i>
+  <% end %>
+<% end %>
