@@ -29,6 +29,15 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  class AskCapture < FakeChat
+    attr_reader :asked
+
+    def ask(prompt)
+      @asked = prompt
+      super
+    end
+  end
+
   setup do
     @outfit = outfits(:alice_outfit)
     @reply = [{ item_id: items(:alice_top).id, slot: "top", item_name: "Tee" }].to_json
@@ -57,6 +66,35 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to edit_outfit_path(@outfit)
     assert_equal @reply, @outfit.messages.where(role: "assistant").sole.content
+  end
+
+  test "create locks the item_id of a current outfit item" do
+    sign_in users(:alice)
+    chat = AskCapture.new(@reply)
+    RubyLLM.stub(:chat, chat) do
+      post outfit_messages_path(@outfit), params: { message: { content: "hi" }, item_id: items(:alice_top).id }
+    end
+    assert_includes chat.asked, "Never change these items:"
+    assert_includes chat.asked.split("Never change these items:").last, "\"item_id\":#{items(:alice_top).id}"
+  end
+
+  test "create with an item_id not in the outfit locks nothing" do
+    sign_in users(:alice)
+    chat = AskCapture.new(@reply)
+    RubyLLM.stub(:chat, chat) do
+      post outfit_messages_path(@outfit), params: { message: { content: "hi" }, item_id: items(:bob_top).id }
+    end
+    assert_not_includes chat.asked, "Never change"
+  end
+
+  test "change_slot sends no locked sentence" do
+    sign_in users(:alice)
+    chat = AskCapture.new(@reply)
+    RubyLLM.stub(:chat, chat) do
+      post change_slot_outfit_message_path(@outfit, messages(:alice_assistant_message), slot: "top"),
+           params: { item_id: items(:alice_top).id }
+    end
+    assert_not_includes chat.asked, "Never change"
   end
 
   test "owner can change a slot" do

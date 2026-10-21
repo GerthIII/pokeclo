@@ -100,6 +100,51 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert item.reload.owned?
   end
 
+  test "new redirects with the alert at the limit" do
+    sign_in users(:alice)
+    fill_closet(users(:alice))
+    get new_item_path
+    assert_redirected_to items_path
+    assert_equal Item.limit_message, flash[:alert]
+  end
+
+  test "create at the limit redirects without calling the background remover" do
+    sign_in users(:alice)
+    fill_closet(users(:alice))
+    BackgroundRemoverService.stub(:call, ->(_photo) { raise "paid call made" }) do
+      assert_no_difference "Item.count" do
+        post items_path, params: { item: item_attrs.merge(photo: fixture_file_upload("profile.png", "image/png")) }
+      end
+    end
+    assert_redirected_to items_path
+    assert_equal Item.limit_message, flash[:alert]
+  end
+
+  test "analyze_photo at the limit returns 422 without paid calls" do
+    sign_in users(:alice)
+    fill_closet(users(:alice))
+    BackgroundRemoverService.stub(:call, ->(_photo) { raise "paid call made" }) do
+      post analyze_photo_items_path, params: { photo: fixture_file_upload("profile.png", "image/png") }
+    end
+    assert_response :unprocessable_entity
+    assert_equal({ "error" => Item.limit_message }, response.parsed_body)
+  end
+
+  test "closet page shows the user's item count only" do
+    sign_in users(:alice)
+    get items_path
+    assert_includes response.body, "#{users(:alice).items.count} / 100 items"
+    assert_not_includes response.body, "Closet full"
+  end
+
+  test "closet page shows the full line at the limit" do
+    sign_in users(:alice)
+    fill_closet(users(:alice))
+    get items_path
+    assert_includes response.body, "100 / 100 items"
+    assert_includes response.body, "Closet full: delete an item to add a new one."
+  end
+
   private
 
   def item_attrs

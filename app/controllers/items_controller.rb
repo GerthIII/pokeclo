@@ -1,6 +1,10 @@
 class ItemsController < ApplicationController
+  # Runs before the paid photo calls. authorize comes first so Pundit's verify_authorized is satisfied on redirect.
+  before_action :redirect_if_limit_reached, only: %i[new create]
+
   def index
     @items = policy_scope(Item)
+    @items_total = @items.count
     @owned_items = @items.owned
     @not_bought_items = @items.wishlist
   end
@@ -63,6 +67,10 @@ class ItemsController < ApplicationController
   # This action analyzes the photo provided during new item creation.
   def analyze_photo
     authorize Item
+    if Item.limit_reached_for?(current_user)
+      return render json: { error: Item.limit_message }, status: :unprocessable_entity
+    end
+
     photo = BackgroundRemoverService.call(params[:photo])
     result = ItemAnalyzerService.call(photo)
     render json: result
@@ -73,6 +81,11 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def redirect_if_limit_reached
+    authorize Item
+    redirect_to items_path, alert: Item.limit_message if Item.limit_reached_for?(current_user)
+  end
 
   def attach_processed_photo
     return if params[:item][:photo].blank?
