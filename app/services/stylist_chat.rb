@@ -1,6 +1,9 @@
 # DECISION: The AI conversation lives in a service so the controller only handles HTTP.
 #   Rejected: a controller concern (passes the linter but only moves the fat).
 #   It still calls RubyLLM.chat so tests can stub one seam.
+# 決定: AIとの会話はサービスに置き、コントローラーはHTTP処理だけを担当する。
+#   却下: コントローラーのconcern(Linterは通るが、肥大化したコードを移動するだけ)。
+#   テストで1か所だけスタブすれば済むよう、引き続きRubyLLM.chatを呼び出す。
 class StylistChat
   def initialize(outfit:, message:, candidate_slots: nil, excluded_item_ids: [], locked_item_ids: [])
     @outfit = outfit
@@ -58,6 +61,8 @@ class StylistChat
 
   # currently the ai doesn't have ids for the items you selected at the start.
   # For now its ok but later we may need to add that.
+  # 現在、AIは最初に選択したアイテムのIDを持っていない。
+  # 今のところ問題ないが、将来的には追加が必要になるかもしれない。
   def item_payload(items)
     items.map do |item|
       { item_id: item.id, category: item.category, slot: item.slot, description: item.description, name: item.name }
@@ -65,6 +70,7 @@ class StylistChat
   end
 
   # Only ids still in the outfit count, so clearing a slot releases its lock (and a forged id does nothing).
+  # コーデに残っているIDだけが対象。そのためスロットを空にするとロックが解除される(偽造されたIDは何もしない)。
   def locked_sentence
     locked = @outfit.items.where(id: @locked_item_ids)
     locked.empty? ? "" : " Never change these items: #{item_payload(locked)}."
@@ -78,6 +84,9 @@ class StylistChat
   # DECISION: A full outfit offers all of the owner's items (wishlist included, to show how a planned purchase fits).
   #   Rejected: always all items (the AI may replace the starter item the user picked in the Fitting Room).
   #   Rejected: leave it (once the outfit is full the AI gets 0 candidates, so follow-up chat looks broken).
+  # 決定: スロットが埋まったコーデでは、所有者の全アイテムを候補にする(購入予定品が合うか見せるため、ウィッシュリストも含む)。
+  #   却下: 常に全アイテム(ユーザーがフィッティングルームで選んだ最初のアイテムをAIが入れ替える可能性がある)。
+  #   却下: 現状のまま(コーデが埋まるとAIへの候補が0件になり、続きのチャットが壊れて見える)。
   def base_candidates
     if @candidate_slots.present?
       Item.where(user_id: @outfit.user_id, slot: @candidate_slots)
