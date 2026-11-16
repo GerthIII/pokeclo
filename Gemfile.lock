@@ -359,7 +359,8 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.4.4)
-    rouge (4.7.0)
+    rouge (5.1.0)
+      strscan (~> 3.1)
     rubocop (1.85.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -455,6 +456,7 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.2.0)
+    strscan (3.1.8)
     thor (1.5.0)
     thruster (0.1.18)
     thruster (0.1.18-aarch64-linux)
@@ -687,7 +689,7 @@ CHECKSUMS
   responders (3.2.0) sha256=89c2d6ac0ae16f6458a11524cae4a8efdceba1a3baea164d28ee9046bd3df55a
   rest-client (2.1.0) sha256=35a6400bdb14fae28596618e312776c158f7ebbb0ccad752ff4fa142bf2747e3
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
-  rouge (4.7.0) sha256=dba5896715c0325c362e895460a6d350803dbf6427454f49a47500f3193ea739
+  rouge (5.1.0) sha256=b77c632842ab7f5147940212f0345808cccfbce864fd5b631d7d12a35ac85452
   rubocop (1.85.0) sha256=317407feb681a07d54f64d2f9e1d6b6af1ce7678e51cd658e3ad8bd66da48c01
   rubocop-ast (1.49.0) sha256=49c3676d3123a0923d333e20c6c2dbaaae2d2287b475273fddee0c61da9f71fd
   rubocop-performance (1.26.1) sha256=cd19b936ff196df85829d264b522fd4f98b6c89ad271fa52744a8c11b8f71834
@@ -712,6 +714,7 @@ CHECKSUMS
   sshkit (1.25.0) sha256=c8c6543cdb60f91f1d277306d585dd11b6a064cb44eab0972827e4311ff96744
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
+  strscan (3.1.8) sha256=aae2db611a225559f21ffbb71765c9a4e60fd262534a9ea84f4f11c7f32f679e
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   thruster (0.1.18) sha256=f025103bc7c8e6747436bb9de058c366840d2871560574ea7070a9bc8608a889
   thruster (0.1.18-aarch64-linux) sha256=16f3d49468d76a9a5de86b7bdedf535b7b80da7c16495ca8ec96cfdc256870e2
